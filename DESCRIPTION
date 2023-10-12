@@ -9,6 +9,7 @@ Authors@R: c(
           )
 Description: API wrapper that contains functions to retrieve data from the 'Pandora' databases. Web services for API: <https://pandora.earth/>. 
 Maintainer: Jan Abel <jan.abel@inwt-statistics.de>
+URL: https://github.com/Pandora-IsoMemo/pandora-data
 BugReports: https://github.com/Pandora-IsoMemo/pandora-data/issues
 License: GPL (>= 3)
 Encoding: UTF-8
