@@ -1,0 +1,17 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
+^\.github$
+^cran-comments\.md$
+^doc$
+^Meta$
+^LICENSE\.md$
+^Dockerfile$
+^Jenkinsfile$
+^\.dockerignore$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+docs
+
+^CRAN-SUBMISSION$

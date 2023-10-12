@@ -1,0 +1,24 @@
+Package: Pandora
+Title: Retrieve Data using the 'Pandora' API
+Version: 0.0.1
+Date: 2023-10-12
+Authors@R: c(
+          person("Jan", "Abel", , "jan.abel@inwt-statistics.de", "cre"),
+          person("Antonia", "Runge", , "antonia.runge@inwt-statistics.de", "aut"),
+          person("Ricardo", "Fernandes", , "fernandes@shh.mpg.de","aut")
+          )
+Description: API wrapper that contains functions to retrieve data from the 'Pandora' databases. Web services for API: <https://pandora.earth/>. 
+Maintainer: Jan Abel <jan.abel@inwt-statistics.de>
+BugReports: https://github.com/Pandora-IsoMemo/pandora-data/issues
+License: GPL (>= 3)
+Encoding: UTF-8
+Imports:
+  httr,
+  magrittr,
+  shiny,
+  stats
+Suggests:
+  testthat,
+  xml2
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3

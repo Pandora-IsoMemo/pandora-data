@@ -1,0 +1,13 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.pandora-data.Rproj
+inst/doc
+.Rdata
+.httr-oauth
+.DS_Store
+/doc/
+/Meta/
+docs
+CRAN-SUBMISSION
