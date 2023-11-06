@@ -1,3 +1,78 @@
+#' Get Repositories
+#' 
+#' Formerly getCKANResourcesChoices()
+#' 
+#' @param fileType (character) list of relevant file types, e.g. c("xls", "xlsx", "csv", "odt")
+#' @param network (character) name of Pandora network
+#' @param pattern (character) string for meta information search
+#' @param sort (logical) if TRUE sort list names alphabetically
+#' 
+#' @export
+getResourceList <- function(fileType = c(), network = "", pattern = "", sort = TRUE) {
+  res <- callAPI(action = "current_package_list_with_resources", limit = 1000)
+  
+  if (!is.null(attr(res, "error"))) {
+    resList <- c("")
+    names(resList) <- attr(res, "error")
+    return(resList)
+  }
+  
+  if (!all(c("title", "resources") %in% names(res))) {
+    return(emptyList("resource"))
+  }
+  
+  # filter network
+  if (!is.null(network) && network != "") {
+    res <- res[strMatch(res[["groups"]], pattern = network), ]
+    if (nrow(res) == 0) return(emptyList("resource"))
+  }
+  
+  # search in all meta information for pattern
+  res <- filterByMeta(res, meta = pattern)
+  if (nrow(res) == 0) return(emptyList("resource"))
+  
+  resName <- res[["title"]]
+  resList <- res[["resources"]]
+  names(resList) <- resName
+  
+  # filter fileType and select name and url
+  if (!is.null(fileType) && length(fileType) > 0 && any(fileType != "")) {
+    fileType <- fileType[fileType != ""]
+    resList <- lapply(resList, function(resource) {
+      resource <- resource %>% 
+        dplyr::filter(.data$format != "", .data$url != "")
+      
+      #if (nrow(resource) == 0) return(NULL)
+      typeFound <- sapply(fileType, function(type) {
+        strMatch(dat = resource$format, pattern = type) %>% length()
+      }) > 0
+      
+      resource %>% 
+        dplyr::filter(any(typeFound))
+    })
+    
+    resList <- resList[sapply(resList, nrow) > 0]
+    
+    if (length(resList) == 0) return(emptyList("resource"))
+  }
+  
+  # sort list
+  if (sort) {
+    resList <- resList[order(names(resList))]
+  }
+  
+  # select relevant entries
+  resList <- lapply(resList, function(x) {
+    fileURL <- x[["url"]]
+    names(fileURL) <- x[["name"]]
+    fileURL
+  })
+  
+  c("Select Pandora resource ..." = "", resList)
+}
+
+
+
 #' Get CKAN Resource Choices
 #'
 #' Select, filter and sort choices to be available in the ckanResource input
@@ -59,9 +134,7 @@ getCKANResourcesChoices <-
 #' 
 #' Formerly getCKANRecordChoices()
 #' 
-#' @param network (character) 
-#' @param pattern (character) string for filtering names and entries
-#' @param sort (logical) if TRUE sort list names alphabetically
+#' @inheritParams getResourceList
 #' 
 #' @export
 getRepositoryList <- function(network = "", pattern = "", sort = TRUE) {
@@ -74,17 +147,18 @@ getRepositoryList <- function(network = "", pattern = "", sort = TRUE) {
   }
   
   if (!all(c("name", "title") %in% names(res))) {
-    return(c("No Pandora repository available ..." = ""))
+    return(emptyList("repository"))
+  }
+  
+  # filter network
+  if (!is.null(network) && network != "") {
+    res <- res[strMatch(res[["groups"]], pattern = network), ]
+    if (nrow(res) == 0) return(emptyList("repository"))
   }
   
   # search in all meta information for pattern
   res <- filterByMeta(res, meta = pattern)
-  if (nrow(res) == 0) return(c("No Pandora repository available ..." = ""))
-  
-  # filter network
-  if (!is.null(network) && network != "") {
-    res <- res[strMatch(res[["groups"]], pattern = "Iso"), ]
-  }
+  if (nrow(res) == 0) return(emptyList("repository"))
   
   resName <- res[["title"]]
   resList <- c(res[["name"]])
@@ -102,8 +176,7 @@ getRepositoryList <- function(network = "", pattern = "", sort = TRUE) {
 #' 
 #' Formerly getCKANGroupChoices()
 #' 
-#' @param pattern (character) string for filtering names and entries
-#' @param sort (logical) if TRUE sort list names alphabetically
+#' @inheritParams getResourceList
 #' 
 #' @export
 getNetworkList <- function(pattern = "", sort = TRUE) {
@@ -116,13 +189,13 @@ getNetworkList <- function(pattern = "", sort = TRUE) {
   }
   
   if (!all(c("name", "display_name") %in% names(res))) {
-    return(c("No Pandora network available ..." = ""))
+    return(emptyList("network"))
   }
   
   
   # search in all meta information for pattern
   res <- filterByMeta(res, meta = pattern)
-  if (nrow(res) == 0) return(c("No Pandora network available ..." = ""))
+  if (nrow(res) == 0) return(emptyList("network"))
   
   
   resName <- res[["display_name"]]
@@ -135,6 +208,13 @@ getNetworkList <- function(pattern = "", sort = TRUE) {
   }
   
   resList
+}
+
+emptyList <- function(what = c("resource", "repository", "network")) {
+  what <- match.arg(what)
+  res <- c("")
+  names(res) <- sprintf("No Pandora %s available ...", what)
+  res
 }
 
 strMatch <- function(dat, pattern) {

@@ -2,6 +2,7 @@
 
 export(getNetworkList)
 export(getRepositoryList)
+export(getResourceList)
 importFrom(httr,GET)
 importFrom(httr,content)
 importFrom(httr,timeout)

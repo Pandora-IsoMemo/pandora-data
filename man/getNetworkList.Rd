@@ -7,7 +7,7 @@
 getNetworkList(pattern = "", sort = TRUE)
 }
 \arguments{
-\item{pattern}{(character) string for filtering names and entries}
+\item{pattern}{(character) string for meta information search}
 
 \item{sort}{(logical) if TRUE sort list names alphabetically}
 }
