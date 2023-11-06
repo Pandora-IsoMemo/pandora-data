@@ -119,17 +119,15 @@ getNetworkList <- function(pattern = "", sort = TRUE) {
     return(c("No Pandora network available ..." = ""))
   }
   
+  
+  # search in all meta information for pattern
+  res <- filterByMeta(res, meta = pattern)
+  if (nrow(res) == 0) return(c("No Pandora network available ..." = ""))
+  
+  
   resName <- res[["display_name"]]
   resList <- c(res[["name"]])
   names(resList) <- resName
-  
-  # filter for pattern
-  if (!is.null(pattern) && pattern != "") {
-    resList <- resList[(resList %>% strMatch(pattern = pattern) | 
-                          names(resList) %>% strMatch(pattern = pattern))]
-  }
-  
-  if (length(resList) == 0) return(c("No Pandora network available ..." = ""))
   
   # sort list
   if (sort) {
