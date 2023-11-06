@@ -4,10 +4,18 @@
 \alias{getResourceList}
 \title{Get Repositories}
 \usage{
-getResourceList(fileType = c(), network = "", pattern = "", sort = TRUE)
+getResourceList(
+  fileType = c(),
+  repository = "",
+  network = "",
+  pattern = "",
+  sort = TRUE
+)
 }
 \arguments{
 \item{fileType}{(character) list of relevant file types, e.g. c("xls", "xlsx", "csv", "odt")}
+
+\item{repository}{(character) name of Pandora repository}
 
 \item{network}{(character) name of Pandora network}
 
