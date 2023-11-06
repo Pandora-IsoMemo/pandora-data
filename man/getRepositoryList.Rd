@@ -4,9 +4,11 @@
 \alias{getRepositoryList}
 \title{Get Repositories}
 \usage{
-getRepositoryList(pattern = "", sort = TRUE)
+getRepositoryList(network = "", pattern = "", sort = TRUE)
 }
 \arguments{
+\item{network}{(character)}
+
 \item{pattern}{(character) string for filtering names and entries}
 
 \item{sort}{(logical) if TRUE sort list names alphabetically}

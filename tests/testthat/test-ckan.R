@@ -7,6 +7,14 @@ test_that("Test getRepositoryList()", {
       `AfriArch isotopic dataset` = "afriarch-isotopic-dataset"
     ) %in% getRepositoryList(sort = FALSE))
   )
+  
+  expect_equal(
+    c(
+      `Select Pandora repository ...` = "", 
+      `AustArch: A Database of 14C and Luminescence Ages from Archaeological Sites in Australia` = "austarch-a-database-of-14c-and-luminescence-ages-from-archaeological-sites-in-australia"
+    ),
+    getRepositoryList(pattern = "victor", network = "isomemo", sort = FALSE)
+  )
 })
 
 test_that("Test getCKANResourcesChoices()", {

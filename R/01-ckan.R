@@ -59,11 +59,12 @@ getCKANResourcesChoices <-
 #' 
 #' Formerly getCKANRecordChoices()
 #' 
+#' @param network (character) 
 #' @param pattern (character) string for filtering names and entries
 #' @param sort (logical) if TRUE sort list names alphabetically
 #' 
 #' @export
-getRepositoryList <- function(pattern = "", sort = TRUE) {
+getRepositoryList <- function(network = "", pattern = "", sort = TRUE) {
   res <- callAPI(action = "current_package_list_with_resources", limit = 1000)
   
   if (!is.null(attr(res, "error"))) {
@@ -76,17 +77,18 @@ getRepositoryList <- function(pattern = "", sort = TRUE) {
     return(c("No Pandora repository available ..." = ""))
   }
   
+  # search in all meta information for pattern
+  res <- filterByMeta(res, meta = pattern)
+  if (nrow(res) == 0) return(c("No Pandora repository available ..." = ""))
+  
+  # filter network
+  if (!is.null(network) && network != "") {
+    res <- res[strMatch(res[["groups"]], pattern = "Iso"), ]
+  }
+  
   resName <- res[["title"]]
   resList <- c(res[["name"]])
   names(resList) <- resName
-  
-  # filter for pattern
-  if (!is.null(pattern) && pattern != "") {
-    resList <- resList[(resList %>% strMatch(pattern = pattern) | 
-                          names(resList) %>% strMatch(pattern = pattern))]
-  }
-  
-  if (length(resList) == 0) return(c("No Pandora repository available ..." = ""))
   
   # sort list
   if (sort) {
@@ -127,7 +129,7 @@ getNetworkList <- function(pattern = "", sort = TRUE) {
                           names(resList) %>% strMatch(pattern = pattern))]
   }
   
-  if (length(resList == 0)) return(c("No Pandora network available ..." = ""))
+  if (length(resList) == 0) return(c("No Pandora network available ..." = ""))
   
   # sort list
   if (sort) {
@@ -221,12 +223,10 @@ filterByMeta <- function(datList, meta = "") {
     return(datList)
   
   errMsg <- NULL
-  filterMeta <- sapply(datList, function(record) {
-    res <- try(record %>%
+  filterMeta <- sapply(1:nrow(datList), function(n) {
+    res <- try(datList[n, ] %>%
                  unlist(use.names = FALSE) %>%
-                 tolower() %>%
-                 grepl(pattern = tolower(meta)) %>%
-                 suppressWarnings(),
+                 strMatch(pattern = meta),
                silent = TRUE)
     
     
@@ -239,7 +239,7 @@ filterByMeta <- function(datList, meta = "") {
       any()
   })
   
-  filteredList <- datList[filterMeta]
+  filteredList <- datList[filterMeta, ]
   
   if (!is.null(errMsg)) {
     attr(filteredList, "errorMeta") <-
