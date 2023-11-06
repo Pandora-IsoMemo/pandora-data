@@ -55,54 +55,93 @@ getCKANResourcesChoices <-
          selected = selected)
   }
 
-getCKANRecordChoices <- function(ckanFiles, sort = TRUE) {
-  if (!is.null(attr(ckanFiles, "error"))) {
-    noChoices <- c("")
-    names(noChoices) <- attr(ckanFiles, "error")
-    return(noChoices)
+#' Get Repositories
+#' 
+#' Formerly getCKANRecordChoices()
+#' 
+#' @param pattern (character) string for filtering names and entries
+#' @param sort (logical) if TRUE sort list names alphabetically
+#' 
+#' @export
+getRepositoryList <- function(pattern = "", sort = TRUE) {
+  res <- callAPI(action = "current_package_list_with_resources", limit = 1000)
+  
+  if (!is.null(attr(res, "error"))) {
+    resList <- c("")
+    names(resList) <- attr(res, "error")
+    return(resList)
   }
   
-  choices <- unlist(lapply(ckanFiles, `[[`, "title"))
-  
-  if (is.null(choices))
+  if (!all(c("name", "title") %in% names(res))) {
     return(c("No Pandora repository available ..." = ""))
-  
-  if (sort) {
-    choices <- choices %>% sort()
   }
   
-  c("Select Pandora repository ..." = "", choices)
+  resName <- res[["title"]]
+  resList <- c(res[["name"]])
+  names(resList) <- resName
+  
+  # filter for pattern
+  if (!is.null(pattern) && pattern != "") {
+    resList <- resList[(resList %>% strMatch(pattern = pattern) | 
+                          names(resList) %>% strMatch(pattern = pattern))]
+  }
+  
+  if (length(resList) == 0) return(c("No Pandora repository available ..." = ""))
+  
+  # sort list
+  if (sort) {
+    resList <- resList[order(names(resList))]
+  }
+  
+  c("Select Pandora repository ..." = "", resList)
 }
 
-getCKANGroupChoices <- function(ckanFiles, sort = TRUE) {
-  if (!is.null(attr(ckanFiles, "error"))) {
-    noChoices <- c("")
-    names(noChoices) <- attr(ckanFiles, "error")
-    return(noChoices)
+#' Get Networks
+#' 
+#' Formerly getCKANGroupChoices()
+#' 
+#' @param pattern (character) string for filtering names and entries
+#' @param sort (logical) if TRUE sort list names alphabetically
+#' 
+#' @export
+getNetworkList <- function(pattern = "", sort = TRUE) {
+  res <- callAPI(action = "group_list", all_fields = "true")
+  
+  if (!is.null(attr(res, "error"))) {
+    resList <- c("")
+    names(resList) <- attr(res, "error")
+    return(resList)
   }
   
-  if (is.null(ckanFiles))
+  if (!all(c("name", "display_name") %in% names(res))) {
     return(c("No Pandora network available ..." = ""))
+  }
   
-  # get all groups
-  choices <- lapply(ckanFiles, function(record) {
-    sapply(record[["groups"]], `[[`, "name")
-  })
+  resName <- res[["display_name"]]
+  resList <- c(res[["name"]])
+  names(resList) <- resName
   
-  if (is.null(choices) | length(choices) == 0)
-    return(c("No Pandora network available ..." = ""))
+  # filter for pattern
+  if (!is.null(pattern) && pattern != "") {
+    resList <- resList[(resList %>% strMatch(pattern = pattern) | 
+                          names(resList) %>% strMatch(pattern = pattern))]
+  }
   
-  # remove names of records, keep names of groups
-  names(choices) <- NULL
-  choices <- choices %>%
-    unlist()
-  choices <- choices[unique(names(choices))]
+  if (length(resList == 0)) return(c("No Pandora network available ..." = ""))
   
+  # sort list
   if (sort) {
-    choices <- choices %>% sort()
+    resList <- resList[order(names(resList))]
   }
   
-  choices
+  resList
+}
+
+strMatch <- function(dat, pattern) {
+  dat %>%
+    tolower() %>%
+    grep(pattern = tolower(pattern)) %>%
+    suppressWarnings()
 }
 
 getCKANFiles <- function(message = "Updating list of Pandora repositories ...",
@@ -170,19 +209,19 @@ filterCKANGroup <- function(ckanFiles, ckanGroup = NA) {
 
 #' Filter CKAN by Meta
 #'
-#' @param fileList (list) output from the Pandora API
+#' @param datList (list) output from the Pandora API
 #' @param meta (character) string for filtering all meta information
 #'
-#' @return (list) a fileList where the entries meta data contains the string 'meta'
-filterCKANByMeta <- function(fileList, meta = "") {
-  if (length(fileList) == 0 | is.null(meta))
-    return(fileList)
+#' @return (list) a datList where the entries meta data contains the string 'meta'
+filterByMeta <- function(datList, meta = "") {
+  if (length(datList) == 0 | is.null(meta))
+    return(datList)
   
   if (meta == "")
-    return(fileList)
+    return(datList)
   
   errMsg <- NULL
-  filterMeta <- sapply(fileList, function(record) {
+  filterMeta <- sapply(datList, function(record) {
     res <- try(record %>%
                  unlist(use.names = FALSE) %>%
                  tolower() %>%
@@ -200,7 +239,7 @@ filterCKANByMeta <- function(fileList, meta = "") {
       any()
   })
   
-  filteredList <- fileList[filterMeta]
+  filteredList <- datList[filterMeta]
   
   if (!is.null(errMsg)) {
     attr(filteredList, "errorMeta") <-
@@ -275,6 +314,47 @@ tryGET <- function(path, isInternet = has_internet()) {
   } else {
     NULL
   }
+}
+
+#' Call API
+#'
+#' @param action (character) name of the endpoint
+#'  "mapping"
+#' @param ... parameters for the endpoint, e.g. all_fields = "true"
+callAPI <- function(action = c("current_package_list_with_resources", "group_list", "package_list",
+                               "organization_list", "tag_list"), ...) {
+  action <- match.arg(action)
+  
+  params <- list(...)
+  paramString <- paste(names(params), params, sep = "=", collapse = "&")
+  
+  apiBaseURL <- "https://pandoradata.earth/api/3/action/"
+  url <- paste0(apiBaseURL, action)
+  if (paramString != "") {
+    url <- paste0(url, "?", paramString)
+  }
+  
+  data <- try({
+    fromJSON(url)
+  }, silent = TRUE)
+  
+  if (inherits(data, "try-error")) {
+    warning(data[[1]])
+    res <- list()
+    attr(res, "errorApi") <- data[[1]]
+  } else if (data$success) {
+    res <- data$result
+  } else if (!data$success) {
+    warning(data$result)
+    res <- list()
+    attr(res, "errorApi") <- data$result
+  } else {
+    warning("An error occured")
+    res <- list()
+    attr(res, "errorApi") <- "An error occured"
+  }
+  
+  res
 }
 
 has_internet <- function(timeout = 2) {
