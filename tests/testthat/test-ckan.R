@@ -1,3 +1,17 @@
+test_that("Test getResourceList()", {
+  expect_equal(
+    getResourceList(fileType = c("csv"), pattern = "victoria"),
+    list(
+      `Select Pandora resource ...` = "",
+      `AustArch: A Database of 14C and Luminescence Ages from Archaeological Sites in Australia` = c(
+        `Austarch 1-3 and IDASQ 28Nov13-1 (CSV)` = 
+          "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-1661-1/dissemination/csv/Austarch_1-3_and_IDASQ_28Nov13-1.csv", 
+        `Austarch 1-3 and IDASQ 28Nov13-1 Citation (CSV)` = 
+          "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-1661-1/dissemination/csv/Austarch_1-3_and_IDASQ_28Nov13-1_Citation.csv"
+      ))
+  )
+})
+
 test_that("Test getRepositoryList()", {
   expect_true(
     all(c(
@@ -14,84 +28,6 @@ test_that("Test getRepositoryList()", {
       `AustArch: A Database of 14C and Luminescence Ages from Archaeological Sites in Australia` = "austarch-a-database-of-14c-and-luminescence-ages-from-archaeological-sites-in-australia"
     ),
     getRepositoryList(pattern = "victor", network = "isomemo", sort = FALSE)
-  )
-})
-
-test_that("Test getCKANResourcesChoices()", {
-  # testFiles <- getCKANFiles() %>%
-  #   filterCKANFileList()
-  # testFiles[["AfriArch isotopic dataset"]]$resource %>%
-  #   dput()
-  testGetCKANResource <-
-    list(
-      `Isotopic measurements in Excel format` = list(
-        name = "Isotopic measurements in Excel format",
-        format = "XLSX",
-        url = "https://pandoradata.earth/dataset/06fc7dfa-4f6e-495b-91f5-185022be895a/resource/739029f6-3a3e-4365-8007-ead779bbfce0/download/isotopic-measurements-in-excel-format.xlsx"
-      ),
-      `Isotopic measurements in CSV format` = list(
-        name = "Isotopic measurements in CSV format",
-        format = "CSV",
-        url = "https://pandoradata.earth/dataset/06fc7dfa-4f6e-495b-91f5-185022be895a/resource/1d0b3553-a967-443e-9453-e9e5c13e4d4e/download/isotopic-measurements-in-csv-format.csv"
-      ),
-      `Metadata description Excel` = list(
-        name = "Metadata description Excel",
-        format = "XLSX",
-        url = "https://pandoradata.earth/dataset/06fc7dfa-4f6e-495b-91f5-185022be895a/resource/6ba01d10-c044-4373-8918-a57699fb7809/download/metadata-description-excel.xlsx"
-      ),
-      `Metadata description CSV` = list(
-        name = "Metadata description CSV",
-        format = "CSV",
-        url = "https://pandoradata.earth/dataset/06fc7dfa-4f6e-495b-91f5-185022be895a/resource/4aa15a42-61b6-4f3d-9351-8f412b0383f4/download/metadata-description-csv.csv"
-      ),
-      `AfriArch ReSources model` = list(
-        name = "AfriArch ReSources model",
-        format = "ZIP",
-        url = "https://pandoradata.earth/dataset/06fc7dfa-4f6e-495b-91f5-185022be895a/resource/26d349f1-0475-4181-9036-c1b3471610fe/download/afriarch-resources-model.zip"
-      )
-    )
-  
-  testChoicesList <-
-    getCKANResourcesChoices(
-      testGetCKANResource,
-      types = c("xls", "xlsx", "csv", "zip"),
-      sort = FALSE
-    )
-  expect_equal(
-    testChoicesList$choices,
-    c(
-      `Isotopic measurements in Excel format  ( XLSX )` = "Isotopic measurements in Excel format",
-      `Isotopic measurements in CSV format  ( CSV )` = "Isotopic measurements in CSV format",
-      `Metadata description Excel  ( XLSX )` = "Metadata description Excel",
-      `Metadata description CSV  ( CSV )` = "Metadata description CSV",
-      `AfriArch ReSources model  ( ZIP )` = "AfriArch ReSources model"
-    )
-  )
-  expect_equal(
-    testChoicesList$selected,
-    c(`Isotopic measurements in Excel format  ( XLSX )` = "Isotopic measurements in Excel format")
-  )
-  
-  testFiles <- getCKANFiles() %>%
-    filterCKANFileList()
-  testChoicesList <-
-    getCKANResourcesChoices(
-      testFiles[["AfriArch isotopic dataset"]]$resource,
-      types = c("xls", "xlsx", "csv"),
-      sort = TRUE
-    )
-  expect_equal(
-    testChoicesList$choices,
-    c(
-      `Isotopic measurements in CSV format  ( CSV )` = "Isotopic measurements in CSV format",
-      `Isotopic measurements in Excel format  ( XLSX )` = "Isotopic measurements in Excel format",
-      `Metadata description CSV  ( CSV )` = "Metadata description CSV",
-      `Metadata description Excel  ( XLSX )` = "Metadata description Excel"
-    )
-  )
-  expect_equal(
-    testChoicesList$selected,
-    c(`Isotopic measurements in Excel format  ( XLSX )` = "Isotopic measurements in Excel format")
   )
 })
 

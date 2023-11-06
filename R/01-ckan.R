@@ -42,7 +42,6 @@ getResourceList <- function(fileType = c(), network = "", pattern = "", sort = T
       resource <- resource %>% 
         dplyr::filter(.data$format != "", .data$url != "")
       
-      #if (nrow(resource) == 0) return(NULL)
       typeFound <- sapply(fileType, function(type) {
         strMatch(dat = resource$format, pattern = type) %>% length()
       }) > 0
@@ -64,71 +63,14 @@ getResourceList <- function(fileType = c(), network = "", pattern = "", sort = T
   # select relevant entries
   resList <- lapply(resList, function(x) {
     fileURL <- x[["url"]]
-    names(fileURL) <- x[["name"]]
+    names(fileURL) <- sprintf("%s (%s)", x[["name"]], x[["format"]]) %>%
+      gsub(pattern = "^ *|(?<= ) | *$", replacement = "", perl = TRUE) %>%
+      gsub(pattern = "\t", replacement = "", perl = TRUE)
     fileURL
   })
   
   c("Select Pandora resource ..." = "", resList)
 }
-
-
-
-#' Get CKAN Resource Choices
-#'
-#' Select, filter and sort choices to be available in the ckanResource input
-#'
-#' @param ckanResources (list) output of filterCKANFileList(getCKANFiles()) for a specific record
-#' @param types (character) user selected types to show
-#' @param sort (logical) if TRUE sort choices alphabetically
-getCKANResourcesChoices <-
-  function(ckanResources, types, sort = TRUE) {
-    if (is.null(ckanResources) || length(types) == 0) {
-      return(list(
-        choices = c("No resource available ..." = ""),
-        selected = c("No resource available ..." = "")
-      ))
-    }
-    # choices values
-    resources <- names(ckanResources)
-    # choices names to be displayed
-    labels <-
-      unlist(lapply(ckanResources, function(x) {
-        paste(x$name, " (", x$format, ")")
-      }))
-    
-    # available types
-    ckanTypes <- unlist(lapply(ckanResources, function(x) {
-      tolower(x$format)
-    }), use.names = FALSE)
-    # user filter for type
-    typesFilter <- ckanTypes %in% types
-    
-    if (all(!typesFilter)) {
-      return(list(
-        choices = c("Selected type(s) not available ..." = ""),
-        selected = c("Selected type(s) not available ..." = "")
-      ))
-    }
-    
-    # set choices
-    choices <- setNames(resources[typesFilter], labels[typesFilter])
-    
-    # set selected before sorting !
-    default <- sapply(types, function(type) {
-      match(type, ckanTypes)
-    })
-    default <- default[which(!is.na(default))[1]]
-    selected <- choices[default]
-    
-    # sort choices
-    if (sort) {
-      choices <- choices %>% sort()
-    }
-    
-    # return
-    list(choices = choices,
-         selected = selected)
-  }
 
 #' Get Repositories
 #' 
