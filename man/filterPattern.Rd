@@ -15,5 +15,5 @@ filterPattern(datAPI, pattern = "")
 (list) a data.frame with rows that contain the pattern
 }
 \description{
-Filter Pattern
+Search for pattern in all columns of datAPI and filter respective rows
 }

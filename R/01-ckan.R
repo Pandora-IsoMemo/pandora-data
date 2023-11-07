@@ -285,6 +285,8 @@ filterCKANGroup <- function(ckanFiles, ckanGroup = NA) {
 }
 
 #' Filter Pattern
+#' 
+#' Search for pattern in all columns of datAPI and filter respective rows
 #'
 #' @param datAPI (list) output from the Pandora API
 #' @param pattern (character) string for filtering all meta information
@@ -301,7 +303,6 @@ filterPattern <- function(datAPI, pattern = "") {
                  strMatch(pattern = pattern),
                silent = TRUE)
     
-    
     if (inherits(res, "try-error")) {
       errMsg <<- res[[1]]
       return(FALSE)
@@ -311,14 +312,14 @@ filterPattern <- function(datAPI, pattern = "") {
       any()
   })
   
-  filteredList <- datAPI[filterMeta, ]
+  filteredDat <- datAPI[filterMeta, ]
   
   if (!is.null(errMsg)) {
-    attr(filteredList, "errorMeta") <-
+    attr(filteredDat, "errorMeta") <-
       "Error in filter for Meta data ..."
   }
   
-  filteredList
+  filteredDat
 }
 
 filterCKANFileList <- function(fileList) {
