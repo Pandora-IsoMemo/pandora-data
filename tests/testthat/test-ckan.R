@@ -38,13 +38,13 @@ test_that("Test getNetworkList()", {
   )
 })
 
-test_that("Test filterByMeta()", {
+test_that("Test filterPattern()", {
   testFiles <- getCKANFiles()
   
-  expect_true(length(filterByMeta(testFiles, meta = "Roman")) < length(testFiles))
-  expect_equal(filterByMeta(testFiles, meta = "Roman"),
-               filterByMeta(testFiles, meta = "rOmAn"))
-  expect_length(filterByMeta(testFiles, meta = "cjyvfljdosijvckjnlsfnsdkfnak"), 0)
+  expect_true(length(filterPattern(testFiles, pattern = "Roman")) < length(testFiles))
+  expect_equal(filterPattern(testFiles, pattern = "Roman"),
+               filterPattern(testFiles, pattern = "rOmAn"))
+  expect_length(filterPattern(testFiles, pattern = "cjyvfljdosijvckjnlsfnsdkfnak"), 0)
 })
 
 test_that("Test filterCKANGroup()", {
