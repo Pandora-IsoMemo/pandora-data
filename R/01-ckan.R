@@ -37,7 +37,7 @@ getResources <- function(fileType = character(),
   # select not empty files
   resResources <- lapply(resResources, function(resource) {
     resource <- resource %>% 
-      dplyr::filter(.data$format != "", .data$url != "")
+      filter(.data$format != "", .data$url != "")
   })
   
   resResources <- resResources[sapply(resResources, nrow) > 0]
@@ -107,7 +107,7 @@ getFileTypes <- function(repository = "", network = "", pattern = "", order = TR
  # select not empty files
   resResources <- lapply(resResources, function(resource) {
       resource <- resource %>% 
-        dplyr::filter(.data$format != "", .data$url != "")
+        filter(.data$format != "", .data$url != "")
     })
     
   resResources <- resResources[sapply(resResources, nrow) > 0]
