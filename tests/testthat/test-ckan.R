@@ -1,14 +1,15 @@
-test_that("Test getResourceList()", {
+test_that("Test getResources()", {
   expect_equal(
-    getResourceList(fileType = c("csv"), pattern = "victoria"),
-    list(
-      `Select Pandora resource ...` = "",
-      `AustArch: A Database of 14C and Luminescence Ages from Archaeological Sites in Australia` = c(
-        `Austarch 1-3 and IDASQ 28Nov13-1 (CSV)` = 
-          "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-1661-1/dissemination/csv/Austarch_1-3_and_IDASQ_28Nov13-1.csv", 
-        `Austarch 1-3 and IDASQ 28Nov13-1 Citation (CSV)` = 
-          "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-1661-1/dissemination/csv/Austarch_1-3_and_IDASQ_28Nov13-1_Citation.csv"
-      ))
+    getResources(fileType = c("csv"), pattern = "victoria"),
+    structure(list(repository = c(
+      "austarch-a-database-of-14c-and-luminescence-ages-from-archaeological-sites-in-australia", 
+      "austarch-a-database-of-14c-and-luminescence-ages-from-archaeological-sites-in-australia"),
+      name = c("Austarch 1-3 and IDASQ 28Nov13-1", "Austarch 1-3 and IDASQ 28Nov13-1 Citation\t"), 
+      format = c("csv", "csv"), 
+      url = c(
+        "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-1661-1/dissemination/csv/Austarch_1-3_and_IDASQ_28Nov13-1.csv", 
+        "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-1661-1/dissemination/csv/Austarch_1-3_and_IDASQ_28Nov13-1_Citation.csv")
+    ), class = "data.frame", row.names = c(NA, -2L))
   )
 })
 

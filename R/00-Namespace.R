@@ -1,4 +1,4 @@
-#' @importFrom dplyr bind_rows distinct
+#' @importFrom dplyr arrange bind_rows distinct
 #' @importFrom httr content GET timeout
 #' @importFrom jsonlite fromJSON
 #' @importFrom magrittr %>% 

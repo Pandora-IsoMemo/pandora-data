@@ -10,6 +10,8 @@ getRepositories(network = "", pattern = "", order = TRUE)
 \item{network}{(character) name of Pandora network}
 
 \item{pattern}{(character) string for meta information search}
+
+\item{order}{(logical) if TRUE order dataframe alphabetically by name}
 }
 \description{
 Formerly getCKANRecordChoices()

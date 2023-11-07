@@ -8,6 +8,8 @@ getNetworks(pattern = "", order = TRUE)
 }
 \arguments{
 \item{pattern}{(character) string for meta information search}
+
+\item{order}{(logical) if TRUE order dataframe alphabetically by name}
 }
 \value{
 a data.frame giving the "name" and "display_name" of available Pandora networks

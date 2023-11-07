@@ -6,68 +6,69 @@
 #' @param repository (character) name of Pandora repository
 #' @param network (character) name of Pandora network
 #' @param pattern (character) string for meta information search
-#' @param sort (logical) if TRUE sort list names alphabetically
+#' @param order (logical) if TRUE order dataframe alphabetically by name
 #' 
 #' @export
-getResourceList <- function(fileType = c(), repository = "", network = "", pattern = "", sort = TRUE) {
+getResources <- function(fileType = character(),
+                         repository = "", network = "", pattern = "", order = TRUE) {
   res <- callAPI(action = "current_package_list_with_resources", limit = 1000)
   
+  emptyOut <- data.frame(name = character(),
+                         title = character(),
+                         resources = character())
+  
   if (!is.null(attr(res, "error"))) {
-    resList <- c("")
-    names(resList) <- attr(res, "error")
-    return(resList)
+    attr(emptyOut, "error") <- attr(res, "error")
+    return(emptyOut)
   }
   
-  if (!all(c("title", "resources") %in% names(res))) {
-    return(emptyList("Pandora resource"))
+  if (!all(c("name", "title", "resources") %in% names(res))) {
+    return(emptyOut)
   }
   
   res <- res %>%
     filterNetwork(network = network) %>%
-    filterPattern(pattern = pattern) %>%
-    filterRepository(repository = repository)
-  
-  if (nrow(res) == 0) return(emptyList("Pandora resource"))
-  
-  resName <- res[["title"]]
-  resList <- res[["resources"]]
-  names(resList) <- resName
-  
-  # filter fileType and select name and url
-  if (!is.null(fileType) && length(fileType) > 0 && any(fileType != "")) {
-    fileType <- fileType[fileType != ""]
-    resList <- lapply(resList, function(resource) {
-      resource <- resource %>% 
-        dplyr::filter(.data$format != "", .data$url != "")
-      
-      typeFound <- sapply(fileType, function(type) {
-        strMatch(dat = resource$format, pattern = type) %>% length()
-      }) > 0
-      
-      resource %>% 
-        dplyr::filter(any(typeFound))
-    })
+    filterRepository(repository = repository) %>%
+    filterPattern(pattern = pattern)
     
-    resList <- resList[sapply(resList, nrow) > 0]
-    
-    if (length(resList) == 0) return(emptyList("Pandora resource"))
-  }
+  resResources <- res[["resources"]]
+  names(resResources) <- res[["name"]]
   
-  # sort list
-  if (sort) {
-    resList <- resList[order(names(resList))]
-  }
-  
-  # select relevant entries
-  resList <- lapply(resList, function(x) {
-    fileURL <- x[["url"]]
-    names(fileURL) <- sprintf("%s (%s)", x[["name"]], x[["format"]]) %>%
-      gsub(pattern = "^ *|(?<= ) | *$", replacement = "", perl = TRUE) %>%
-      gsub(pattern = "\t", replacement = "", perl = TRUE)
-    fileURL
+  # select not empty files
+  resResources <- lapply(resResources, function(resource) {
+    resource <- resource %>% 
+      dplyr::filter(.data$format != "", .data$url != "")
   })
   
-  c("Select Pandora resource ..." = "", resList)
+  resResources <- resResources[sapply(resResources, nrow) > 0]
+  
+  if (length(resResources) == 0) return(emptyOut)
+  # select relevant entries
+  resourcesDF <- lapply(seq_along(resResources), function(i) {
+    # set up df
+    df <- resResources[[i]][c("name", "format", "url")] 
+    df$format <- df$format %>%
+      gsub(pattern = "\\.", replacement = "") %>%
+      tolower()
+    df$repository <- names(resResources[i])
+    
+    if (length(fileType) > 0) {
+      # filter selected file types
+      df <- df[df$format %in% tolower(fileType), , drop = FALSE]
+    }
+    
+    # arrange df
+    df[, c("repository", "name", "format", "url")]
+  }) %>%
+    bind_rows() %>%
+    distinct()
+  
+  if (order) {
+    resourcesDF <- resourcesDF %>%
+      arrange(.data$repository, .data$name)
+  }
+  
+  resourcesDF
 }
 
 #' Get File Types
@@ -103,7 +104,7 @@ getFileTypes <- function(repository = "", network = "", pattern = "", order = TR
   resResources <- res[["resources"]]
   names(resResources) <- res[["name"]]
   
- # select file types
+ # select not empty files
   resResources <- lapply(resResources, function(resource) {
       resource <- resource %>% 
         dplyr::filter(.data$format != "", .data$url != "")
@@ -115,11 +116,13 @@ getFileTypes <- function(repository = "", network = "", pattern = "", order = TR
 
   # select relevant entries
   resourcesDF <- lapply(seq_along(resResources), function(i) {
+    # set up df
     df <- resResources[[i]]["format"] 
     df$format <- df$format %>%
       gsub(pattern = "\\.", replacement = "") %>%
       tolower()
     df$name <- names(resResources[i])
+    # arrange df
     df[, c("name", "format")]
   }) %>%
     bind_rows() %>%
@@ -133,7 +136,7 @@ getFileTypes <- function(repository = "", network = "", pattern = "", order = TR
 #' 
 #' Formerly getCKANRecordChoices()
 #' 
-#' @inheritParams getResourceList
+#' @inheritParams getResources
 #' 
 #' @export
 getRepositories <- function(network = "", pattern = "", order = TRUE) {
@@ -163,7 +166,7 @@ getRepositories <- function(network = "", pattern = "", order = TRUE) {
 #' 
 #' Formerly getCKANGroupChoices()
 #' 
-#' @inheritParams getResourceList
+#' @inheritParams getResources
 #' 
 #' @return a data.frame giving the "name" and "display_name" of available Pandora networks
 #' 
