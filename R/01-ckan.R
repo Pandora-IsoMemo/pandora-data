@@ -75,52 +75,58 @@ getResourceList <- function(fileType = c(), repository = "", network = "", patte
 #' @param repository (character) list of relevant file types, e.g. c("xls", "xlsx", "csv", "odt")
 #' @param network (character) name of Pandora network
 #' @param pattern (character) string for meta information search
-#' @param sort (logical) if TRUE sort list names alphabetically
+#' @param order (logical) if TRUE sort list names alphabetically
 #' 
 #' @export
-getTypeList <- function(repository = "", network = "", pattern = "", sort = TRUE) {
+getFileTypes <- function(repository = "", network = "", pattern = "", order = TRUE) {
   res <- callAPI(action = "current_package_list_with_resources", limit = 1000)
   
+  emptyOut <- data.frame(name = character(),
+                         title = character(),
+                         resources = character(),
+                         format = character())
+  
   if (!is.null(attr(res, "error"))) {
-    resList <- c("")
-    names(resList) <- attr(res, "error")
-    return(resList)
+    attr(emptyOut, "error") <- attr(res, "error")
+    return(emptyOut)
   }
   
-  if (!all(c("title", "resources") %in% names(res))) {
-    return(emptyList("file types"))
+  if (!all(c("name", "title", "resources") %in% names(res))) {
+    return(emptyOut)
   }
   
   res <- res %>%
     filterNetwork(network = network) %>%
-    filterPattern(pattern = pattern) %>%
-    filterRepository(repository = repository)
-  
-  if (nrow(res) == 0) return(emptyList("file types"))
-  
-  resList <- res[["resources"]]
+    filterRepository(repository = repository) %>%
+    filterPattern(pattern = pattern)
+    
+  resResources <- res[["resources"]]
+  names(resResources) <- res[["name"]]
   
  # select file types
-  resList <- lapply(resList, function(resource) {
+  resResources <- lapply(resResources, function(resource) {
       resource <- resource %>% 
         dplyr::filter(.data$format != "", .data$url != "")
     })
     
-  resList <- resList[sapply(resList, nrow) > 0]
+  resResources <- resResources[sapply(resResources, nrow) > 0]
     
-  if (length(resList) == 0) return(emptyList("file types"))
+  if (length(resResources) == 0) return(emptyOut)
 
   # select relevant entries
-  resList <- lapply(resList, `[[`, "format") %>%
-    unlist() %>%
-    unique()
+  resourcesDF <- lapply(seq_along(resResources), function(i) {
+    df <- resResources[[i]]["format"] 
+    df$format <- df$format %>%
+      gsub(pattern = "\\.", replacement = "") %>%
+      tolower()
+    df$name <- names(resResources[i])
+    df[, c("name", "format")]
+  }) %>%
+    bind_rows() %>%
+    distinct()
   
-  # sort list
-  if (sort) {
-    resList <- resList[order(resList)]
-  }
-  
-  resList
+  resourcesDF %>%
+    orderDatAPI(column = "name", order = order)
 }
 
 #' Get Repositories
@@ -135,7 +141,7 @@ getRepositories <- function(network = "", pattern = "", order = TRUE) {
   
   emptyOut <- data.frame(name = character(),
                          title = character(),
-                         title = character())
+                         notes = character())
   
   if (!is.null(attr(res, "error"))) {
     attr(emptyOut, "error") <- attr(res, "error")
