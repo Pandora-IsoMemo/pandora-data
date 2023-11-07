@@ -22,21 +22,12 @@ getResourceList <- function(fileType = c(), repository = "", network = "", patte
     return(emptyList("Pandora resource"))
   }
   
-  # filter network
-  if (!is.null(network) && network != "") {
-    res <- res[strMatch(res[["groups"]], pattern = network), ]
-    if (nrow(res) == 0) return(emptyList("Pandora resource"))
-  }
+  res <- res %>%
+    filterNetwork(network = network) %>%
+    filterPattern(pattern = pattern) %>%
+    filterRepository(repository = repository)
   
-  # search in all meta information for pattern
-  res <- filterByMeta(res, meta = pattern)
   if (nrow(res) == 0) return(emptyList("Pandora resource"))
-  
-  # filter repository
-  if (!is.null(repository) && repository != "") {
-    res <- res[strMatch(res[["name"]], pattern = repository), ]
-    if (nrow(res) == 0) return(emptyList("file types"))
-  }
   
   resName <- res[["title"]]
   resList <- res[["resources"]]
@@ -100,21 +91,12 @@ getTypeList <- function(repository = "", network = "", pattern = "", sort = TRUE
     return(emptyList("file types"))
   }
   
-  # filter network
-  if (!is.null(network) && network != "") {
-    res <- res[strMatch(res[["groups"]], pattern = network), ]
-    if (nrow(res) == 0) return(emptyList("file types"))
-  }
+  res <- res %>%
+    filterNetwork(network = network) %>%
+    filterPattern(pattern = pattern) %>%
+    filterRepository(repository = repository)
   
-  # search in all meta information for pattern
-  res <- filterByMeta(res, meta = pattern)
   if (nrow(res) == 0) return(emptyList("file types"))
-  
-  # filter repository
-  if (!is.null(repository) && repository != "") {
-    res <- res[strMatch(res[["name"]], pattern = repository), ]
-    if (nrow(res) == 0) return(emptyList("file types"))
-  }
   
   resList <- res[["resources"]]
   
@@ -161,14 +143,10 @@ getRepositoryList <- function(network = "", pattern = "", sort = TRUE) {
     return(emptyList("Pandora repository"))
   }
   
-  # filter network
-  if (!is.null(network) && network != "") {
-    res <- res[strMatch(res[["groups"]], pattern = network), ]
-    if (nrow(res) == 0) return(emptyList("Pandora repository"))
-  }
+  res <- res %>%
+    filterNetwork(network = network) %>%
+    filterPattern(pattern = pattern)
   
-  # search in all meta information for pattern
-  res <- filterByMeta(res, meta = pattern)
   if (nrow(res) == 0) return(emptyList("Pandora repository"))
   
   resName <- res[["title"]]
@@ -203,9 +181,9 @@ getNetworkList <- function(pattern = "", sort = TRUE) {
     return(emptyList("Pandora network"))
   }
   
+  res <- res %>%
+    filterPattern(pattern = pattern)
   
-  # search in all meta information for pattern
-  res <- filterByMeta(res, meta = pattern)
   if (nrow(res) == 0) return(emptyList("Pandora network"))
   
   
@@ -219,6 +197,17 @@ getNetworkList <- function(pattern = "", sort = TRUE) {
   }
   
   resList
+}
+
+filterNetwork <- function(datAPI, network) {
+  if (length(datAPI) == 0 || nrow(datAPI) || is.null(network) || network == "") return(datAPI)
+  
+  datAPI[strMatch(datAPI[["groups"]], pattern = network), ]
+}
+
+filterRepository <- function(datAPI, repository) {
+  if (length(datAPI) == 0 || nrow(datAPI) || is.null(repository) || repository == "") return(datAPI)
+  datAPI[strMatch(datAPI[["name"]], pattern = repository), ]
 }
 
 emptyList <- function(what = c("Pandora resource", "Pandora repository", "Pandora network", 
@@ -299,24 +288,21 @@ filterCKANGroup <- function(ckanFiles, ckanGroup = NA) {
   ckanFiles[filterGroup]
 }
 
-#' Filter CKAN by Meta
+#' Filter Pattern
 #'
-#' @param datList (list) output from the Pandora API
-#' @param meta (character) string for filtering all meta information
+#' @param datAPI (list) output from the Pandora API
+#' @param pattern (character) string for filtering all meta information
 #'
-#' @return (list) a datList where the entries meta data contains the string 'meta'
-filterByMeta <- function(datList, meta = "") {
-  if (length(datList) == 0 | is.null(meta))
-    return(datList)
-  
-  if (meta == "")
-    return(datList)
+#' @return (list) a data.frame with rows that contain the pattern
+filterPattern <- function(datAPI, pattern = "") {
+  if (length(datAPI) == 0 || nrow(datAPI) == 0 || is.null(pattern) || pattern == "")
+    return(datAPI)
   
   errMsg <- NULL
-  filterMeta <- sapply(1:nrow(datList), function(n) {
-    res <- try(datList[n, ] %>%
+  filterMeta <- sapply(1:nrow(datAPI), function(n) {
+    res <- try(datAPI[n, ] %>%
                  unlist(use.names = FALSE) %>%
-                 strMatch(pattern = meta),
+                 strMatch(pattern = pattern),
                silent = TRUE)
     
     
@@ -329,7 +315,7 @@ filterByMeta <- function(datList, meta = "") {
       any()
   })
   
-  filteredList <- datList[filterMeta, ]
+  filteredList <- datAPI[filterMeta, ]
   
   if (!is.null(errMsg)) {
     attr(filteredList, "errorMeta") <-

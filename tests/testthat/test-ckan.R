@@ -23,9 +23,12 @@ test_that("Test getRepositoryList()", {
   )
   
   expect_equal(
-    c(
-      `Select Pandora repository ...` = "", 
-      `AustArch: A Database of 14C and Luminescence Ages from Archaeological Sites in Australia` = "austarch-a-database-of-14c-and-luminescence-ages-from-archaeological-sites-in-australia"
+    c(`Select Pandora repository ...` = "", 
+      Zanadamu = "zanadamu", 
+      `AfriArch isotopic dataset` = "afriarch-isotopic-dataset", 
+      `MeosRAD v1.4: Lowland Maya Radiocarbon Dates` = "lowland-maya-radiocarbon-dates", 
+      `AustArch: A Database of 14C and Luminescence Ages from Archaeological Sites in Australia` = 
+        "austarch-a-database-of-14c-and-luminescence-ages-from-archaeological-sites-in-australia"
     ),
     getRepositoryList(pattern = "victor", network = "isomemo", sort = FALSE)
   )
@@ -39,12 +42,12 @@ test_that("Test getNetworkList()", {
 })
 
 test_that("Test filterPattern()", {
-  testFiles <- getCKANFiles()
+  testRes <- callAPI(action = "current_package_list_with_resources", limit = 1000)
   
-  expect_true(length(filterPattern(testFiles, pattern = "Roman")) < length(testFiles))
-  expect_equal(filterPattern(testFiles, pattern = "Roman"),
-               filterPattern(testFiles, pattern = "rOmAn"))
-  expect_length(filterPattern(testFiles, pattern = "cjyvfljdosijvckjnlsfnsdkfnak"), 0)
+  expect_true(nrow(filterPattern(testRes, pattern = "Roman")) < nrow(testRes))
+  expect_equal(filterPattern(testRes, pattern = "Roman"),
+               filterPattern(testRes, pattern = "rOmAn"))
+  expect_true(nrow(filterPattern(testRes, pattern = "cjyvfljdosijvckjnlsfnsdkfnak")) == 0)
 })
 
 test_that("Test filterCKANGroup()", {
