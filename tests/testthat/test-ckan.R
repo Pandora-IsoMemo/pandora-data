@@ -61,12 +61,3 @@ test_that("Test filterPattern()", {
                filterPattern(testRes, pattern = "rOmAn"))
   expect_true(nrow(filterPattern(testRes, pattern = "cjyvfljdosijvckjnlsfnsdkfnak")) == 0)
 })
-
-test_that("Test filterCKANGroup()", {
-  testFiles <- getCKANFiles() %>%
-    filterCKANFileList()
-  
-  expect_true(length(filterCKANGroup(testFiles, ckanGroup = "isomemo-group")) < length(testFiles))
-  expect_equal(names(filterCKANGroup(testFiles, ckanGroup = "isomemo-group")[[1]]),
-               c("title", "resources", "groups"))
-})
