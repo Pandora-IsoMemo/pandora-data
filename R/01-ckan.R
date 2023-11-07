@@ -265,8 +265,12 @@ strMatch <- function(dat, pattern) {
 #' @param action (character) name of the endpoint
 #'  "mapping"
 #' @param ... parameters for the endpoint, e.g. all_fields = "true"
-callAPI <- function(action = c("current_package_list_with_resources", "group_list", "package_list",
-                               "organization_list", "tag_list"), ...) {
+callAPI <- function(action = c("current_package_list_with_resources",
+                               "group_list",
+                               "package_list",
+                               "organization_list",
+                               "tag_list"), 
+                    ...) {
   action <- match.arg(action)
   
   params <- list(...)
