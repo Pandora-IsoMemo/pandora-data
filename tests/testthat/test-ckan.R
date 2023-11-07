@@ -34,10 +34,12 @@ test_that("Test getRepositoryList()", {
   )
 })
 
-test_that("Test getNetworkList()", {
+test_that("Test getNetworks()", {
   expect_equal(
-    getNetworkList(sort = TRUE),
-    c(`IsoMemo Network` = "isomemo-group")
+    getNetworks(),
+    structure(list(display_name = "IsoMemo Network", name = "isomemo-group"), 
+              class = "data.frame", 
+              row.names = 1L)
   )
 })
 

@@ -167,36 +167,28 @@ getRepositoryList <- function(network = "", pattern = "", sort = TRUE) {
 #' 
 #' @inheritParams getResourceList
 #' 
+#' @return a data.frame giving the "name" and "display_name" of available Pandora networks
+#' 
 #' @export
-getNetworkList <- function(pattern = "", sort = TRUE) {
+getNetworks <- function(pattern = "", order = TRUE) {
   res <- callAPI(action = "group_list", all_fields = "true")
   
+  emptyOut <- data.frame(display_name = c(),
+                         name = c())
+  
   if (!is.null(attr(res, "error"))) {
-    resList <- c("")
-    names(resList) <- attr(res, "error")
-    return(resList)
+    attr(emptyOut, "error") <- attr(res, "error")
+    return(emptyOut)
   }
   
   if (!all(c("name", "display_name") %in% names(res))) {
-    return(emptyList("Pandora network"))
+    return(emptyOut)
   }
   
-  res <- res %>%
-    filterPattern(pattern = pattern)
-  
-  if (nrow(res) == 0) return(emptyList("Pandora network"))
-  
-  
-  resName <- res[["display_name"]]
-  resList <- c(res[["name"]])
-  names(resList) <- resName
-  
-  # sort list
-  if (sort) {
-    resList <- resList[order(names(resList))]
-  }
-  
-  resList
+  res %>%
+    filterPattern(pattern = pattern) %>%
+    orderDatAPI(column = "display_name", order = order) %>%
+    selectDatAPI(columns = c("display_name", "name"))
 }
 
 filterNetwork <- function(datAPI, network) {
@@ -208,6 +200,18 @@ filterNetwork <- function(datAPI, network) {
 filterRepository <- function(datAPI, repository) {
   if (length(datAPI) == 0 || nrow(datAPI) || is.null(repository) || repository == "") return(datAPI)
   datAPI[strMatch(datAPI[["name"]], pattern = repository), ]
+}
+
+orderDatAPI <- function(datAPI, column = "", order = FALSE) {
+  if (length(datAPI) == 0 || nrow(datAPI) || column == "" || !order) return (datAPI)
+  
+  datAPI[order(datAPI[[column]])]
+}
+
+selectDatAPI <- function(datAPI, columns = c()) {
+  if (length(datAPI) == 0 || nrow(datAPI) == 0 || length(columns) == 0) return (datAPI)
+  
+  datAPI[, columns]
 }
 
 emptyList <- function(what = c("Pandora resource", "Pandora repository", "Pandora network", 
