@@ -12,34 +12,43 @@ test_that("Test getResourceList()", {
   )
 })
 
-test_that("Test getRepositoryList()", {
+test_that("Test getRepositories()", {
+  testRepos <- getRepositories(order = FALSE)
   expect_true(
-    all(c(
-      `Select Pandora repository ...` = "",
-      `Vitis vinifera seeds in Eastern Mediterranean (up to the 7th c. CE)` = "vitis-vinifera-seeds-in-eastern-mediterranean-up-to-the-7th-c-ce",
-      Zanadamu = "zanadamu",
-      `AfriArch isotopic dataset` = "afriarch-isotopic-dataset"
-    ) %in% getRepositoryList(sort = FALSE))
+    all(c("isomedita-a-stable-isotope-database-for-medieval-italy", 
+          "northern-hemisphere-modern-leaf-wax-ddn-alkane-dataset", 
+          "base-de-datos-iber-crono") %in% testRepos$name)
+  )
+  expect_true(
+    all(c("Equine Biometry from Medieval and Modern sites in the Czech Republic", 
+          "Tooth Formation Age Dataset for Early Childhood Bioarchaeological and Medical Studies", 
+          "Database of equine osteological remains from Greece and Cyprus"
+    ) %in% testRepos$title)
   )
   
-  expect_equal(
-    c(`Select Pandora repository ...` = "", 
-      Zanadamu = "zanadamu", 
-      `AfriArch isotopic dataset` = "afriarch-isotopic-dataset", 
-      `MeosRAD v1.4: Lowland Maya Radiocarbon Dates` = "lowland-maya-radiocarbon-dates", 
-      `AustArch: A Database of 14C and Luminescence Ages from Archaeological Sites in Australia` = 
-        "austarch-a-database-of-14c-and-luminescence-ages-from-archaeological-sites-in-australia"
-    ),
-    getRepositoryList(pattern = "victor", network = "isomemo", sort = FALSE)
+  testRepos <- getRepositories(pattern = "victor", network = "isomemo", order = FALSE)
+  expect_true(
+    all(c("zanadamu", 
+          "afriarch-isotopic-dataset", 
+          "lowland-maya-radiocarbon-dates", 
+          "austarch-a-database-of-14c-and-luminescence-ages-from-archaeological-sites-in-australia"
+    ) %in% testRepos$name)
+  )
+  
+  expect_true(
+    all(c("Zanadamu", "AfriArch isotopic dataset", "MeosRAD v1.4: Lowland Maya Radiocarbon Dates", 
+          "AustArch: A Database of 14C and Luminescence Ages from Archaeological Sites in Australia"
+    ) %in% testRepos$title)
   )
 })
 
 test_that("Test getNetworks()", {
   expect_equal(
     getNetworks(),
-    structure(list(display_name = "IsoMemo Network", name = "isomemo-group"), 
-              class = "data.frame", 
-              row.names = 1L)
+    structure(list(name = "isomemo-group", 
+                   display_name = "IsoMemo Network", 
+                   description = "IsoMemo is a network of autonomous isotopic databases."), 
+              class = "data.frame", row.names = 1L)
   )
 })
 

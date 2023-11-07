@@ -130,35 +130,27 @@ getTypeList <- function(repository = "", network = "", pattern = "", sort = TRUE
 #' @inheritParams getResourceList
 #' 
 #' @export
-getRepositoryList <- function(network = "", pattern = "", sort = TRUE) {
+getRepositories <- function(network = "", pattern = "", order = TRUE) {
   res <- callAPI(action = "current_package_list_with_resources", limit = 1000)
   
+  emptyOut <- data.frame(name = character(),
+                         title = character(),
+                         title = character())
+  
   if (!is.null(attr(res, "error"))) {
-    resList <- c("")
-    names(resList) <- attr(res, "error")
-    return(resList)
+    attr(emptyOut, "error") <- attr(res, "error")
+    return(emptyOut)
   }
   
-  if (!all(c("name", "title") %in% names(res))) {
-    return(emptyList("Pandora repository"))
+  if (!all(c("name", "title", "notes") %in% names(res))) {
+    return(emptyOut)
   }
   
-  res <- res %>%
+  res %>%
     filterNetwork(network = network) %>%
-    filterPattern(pattern = pattern)
-  
-  if (nrow(res) == 0) return(emptyList("Pandora repository"))
-  
-  resName <- res[["title"]]
-  resList <- c(res[["name"]])
-  names(resList) <- resName
-  
-  # sort list
-  if (sort) {
-    resList <- resList[order(names(resList))]
-  }
-  
-  c("Select Pandora repository ..." = "", resList)
+    filterPattern(pattern = pattern) %>%
+    orderDatAPI(column = "title", order = order) %>%
+    selectDatAPI(columns = c("name", "title", "notes"))
 }
 
 #' Get Networks
@@ -173,22 +165,22 @@ getRepositoryList <- function(network = "", pattern = "", sort = TRUE) {
 getNetworks <- function(pattern = "", order = TRUE) {
   res <- callAPI(action = "group_list", all_fields = "true")
   
-  emptyOut <- data.frame(display_name = c(),
-                         name = c())
+  emptyOut <- data.frame(name = character(),
+                         display_name = character())
   
   if (!is.null(attr(res, "error"))) {
     attr(emptyOut, "error") <- attr(res, "error")
     return(emptyOut)
   }
   
-  if (!all(c("name", "display_name") %in% names(res))) {
+  if (!all(c("name", "display_name", "description") %in% names(res))) {
     return(emptyOut)
   }
   
   res %>%
     filterPattern(pattern = pattern) %>%
     orderDatAPI(column = "display_name", order = order) %>%
-    selectDatAPI(columns = c("display_name", "name"))
+    selectDatAPI(columns = c("name", "display_name", "description"))
 }
 
 filterNetwork <- function(datAPI, network) {
