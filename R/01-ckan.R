@@ -1,5 +1,9 @@
-#' Get Repositories
+#' Get Resources
 #' 
+#' Get all available resources within a repository or filtered
+#' by file type or those within a specific network or within a specific repository
+#' optional filtering of meta information for a given string
+#'
 #' Formerly getCKANResourcesChoices()
 #' 
 #' @param fileType (character) list of relevant file types, e.g. c("xls", "xlsx", "csv", "odt")
