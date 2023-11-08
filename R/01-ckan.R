@@ -73,7 +73,11 @@ getResources <- function(fileType = character(),
 }
 
 #' Get File Types
-#' 
+#'
+#' Get all available file types of a repository or those within a 
+#' specific network or within a specific repository
+#' optional filtering of meta information for a given string
+#'
 #' @param repository (character) list of relevant file types, e.g. c("xls", "xlsx", "csv", "odt")
 #' @param network (character) name of Pandora network
 #' @param pattern (character) string for meta information search
