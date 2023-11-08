@@ -16,5 +16,7 @@ getNetworks(pattern = "", order = TRUE)
 networks (groups in CKAN terminology)
 }
 \description{
+Get all available networks (groups in CKAN terminology)
+optional filtering of names for a given string
 Formerly getCKANGroupChoices()
 }

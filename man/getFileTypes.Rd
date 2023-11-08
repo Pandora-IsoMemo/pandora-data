@@ -19,5 +19,7 @@ getFileTypes(repository = "", network = "", pattern = "", order = TRUE)
 (data.frame) containing available file types within a repository
 }
 \description{
-Get File Types
+Get all available file types of a repository or those within a
+specific network or within a specific repository
+optional filtering of meta information for a given string
 }

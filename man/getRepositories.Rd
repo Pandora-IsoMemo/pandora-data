@@ -17,5 +17,10 @@ getRepositories(network = "", pattern = "", order = TRUE)
 (data.frame) containing available repositories
 }
 \description{
+Get all vailable repositories or those within
+a specific network
+optional filtering of meta information for a given string
+}
+\details{
 Formerly getCKANRecordChoices()
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/01-ckan.R
 \name{getResources}
 \alias{getResources}
-\title{Get Repositories}
+\title{Get Resources}
 \usage{
 getResources(
   fileType = character(),
@@ -27,5 +27,10 @@ getResources(
 (data.frame) containing available resources within a repository
 }
 \description{
+Get all available resources within a repository or filtered
+by file type or those within a specific network or within a specific repository
+optional filtering of meta information for a given string
+}
+\details{
 Formerly getCKANResourcesChoices()
 }
