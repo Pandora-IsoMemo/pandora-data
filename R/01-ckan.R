@@ -18,9 +18,10 @@ getResources <- function(fileType = character(),
                          repository = "", network = "", pattern = "", order = TRUE) {
   res <- callAPI(action = "current_package_list_with_resources", limit = 1000)
   
-  emptyOut <- data.frame(name = character(),
-                         title = character(),
-                         resources = character())
+  emptyOut <- data.frame(repository = character(),
+                         name = character(),
+                         format = character(),
+                         url = character())
   
   if (!is.null(attr(res, "error"))) {
     attr(emptyOut, "error") <- attr(res, "error")
@@ -172,7 +173,7 @@ getRepositories <- function(network = "", pattern = "", order = TRUE) {
   
   res %>%
     filterColumn(pattern = network, column = "groups") %>%
-    filterColumn(pattern = repository, column = "name") %>%
+    filterPattern(pattern = pattern) %>%
     orderDatAPI(column = "title", order = order) %>%
     selectDatAPI(columns = c("name", "title", "notes"))
 }
