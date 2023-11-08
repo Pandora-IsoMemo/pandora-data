@@ -8,6 +8,7 @@
 #' @param pattern (character) string for meta information search
 #' @param order (logical) if TRUE order dataframe alphabetically by name
 #' 
+#' @return (data.frame) containing available resources within a repository
 #' @export
 getResources <- function(fileType = character(),
                          repository = "", network = "", pattern = "", order = TRUE) {
@@ -78,6 +79,7 @@ getResources <- function(fileType = character(),
 #' @param pattern (character) string for meta information search
 #' @param order (logical) if TRUE sort list names alphabetically
 #' 
+#' @return (data.frame) containing available file types within a repository
 #' @export
 getFileTypes <- function(repository = "", network = "", pattern = "", order = TRUE) {
   res <- callAPI(action = "current_package_list_with_resources", limit = 1000)
@@ -138,6 +140,7 @@ getFileTypes <- function(repository = "", network = "", pattern = "", order = TR
 #' 
 #' @inheritParams getResources
 #' 
+#' @return (data.frame) containing available repositories
 #' @export
 getRepositories <- function(network = "", pattern = "", order = TRUE) {
   res <- callAPI(action = "current_package_list_with_resources", limit = 1000)
@@ -168,8 +171,8 @@ getRepositories <- function(network = "", pattern = "", order = TRUE) {
 #' 
 #' @inheritParams getResources
 #' 
-#' @return a data.frame giving the "name" and "display_name" of available Pandora networks
-#' 
+#' @return (data.frame) giving the "name" and "display_name" of available Pandora
+#' networks (groups in CKAN terminology)
 #' @export
 getNetworks <- function(pattern = "", order = TRUE) {
   res <- callAPI(action = "group_list", all_fields = "true")
