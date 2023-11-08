@@ -1,4 +1,6 @@
 test_that("Test getResources()", {
+  expect_true(nrow(getResources(repository = "aghfjdhfjgkhj")) == 0)
+  
   expect_equal(
     getResources(fileType = c("csv"), pattern = "victoria"),
     structure(list(repository = c(
@@ -13,7 +15,21 @@ test_that("Test getResources()", {
   )
 })
 
+test_that("Test getFileTypes()", {
+  expect_true(nrow(getFileTypes(repository = "aghfjdhfjgkhj")) == 0)
+  
+  expect_equal(
+    getFileTypes(pattern = "victoria"),
+    structure(list(
+      name = "austarch-a-database-of-14c-and-luminescence-ages-from-archaeological-sites-in-australia", 
+      format = "csv"), 
+      row.names = 1L, class = "data.frame")
+  )
+})
+
 test_that("Test getRepositories()", {
+  expect_true(nrow(getRepositories(network = "aghfjdhfjgkhj")) == 0)
+  
   testRepos <- getRepositories(order = FALSE)
   expect_true(
     all(c("isomedita-a-stable-isotope-database-for-medieval-italy", 
@@ -40,6 +56,8 @@ test_that("Test getRepositories()", {
 })
 
 test_that("Test getNetworks()", {
+  expect_true(nrow(getNetworks(pattern = "aghfjdhfjgkhj")) == 0)
+  
   expect_equal(
     getNetworks(),
     structure(list(name = "isomemo-group", 
