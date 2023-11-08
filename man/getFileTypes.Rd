@@ -15,6 +15,9 @@ getFileTypes(repository = "", network = "", pattern = "", order = TRUE)
 
 \item{order}{(logical) if TRUE sort list names alphabetically}
 }
+\value{
+(data.frame) containing available file types within a repository
+}
 \description{
 Get File Types
 }

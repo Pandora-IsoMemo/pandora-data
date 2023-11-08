@@ -13,6 +13,9 @@ getRepositories(network = "", pattern = "", order = TRUE)
 
 \item{order}{(logical) if TRUE order dataframe alphabetically by name}
 }
+\value{
+(data.frame) containing available repositories
+}
 \description{
 Formerly getCKANRecordChoices()
 }

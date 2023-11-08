@@ -23,6 +23,9 @@ getResources(
 
 \item{order}{(logical) if TRUE order dataframe alphabetically by name}
 }
+\value{
+(data.frame) containing available resources within a repository
+}
 \description{
 Formerly getCKANResourcesChoices()
 }

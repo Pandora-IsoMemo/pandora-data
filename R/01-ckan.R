@@ -28,8 +28,8 @@ getResources <- function(fileType = character(),
   }
   
   res <- res %>%
-    filterNetwork(network = network) %>%
-    filterRepository(repository = repository) %>%
+    filterColumn(pattern = network, column = "groups") %>%
+    filterColumn(pattern = repository, column = "name") %>%
     filterPattern(pattern = pattern)
     
   resResources <- res[["resources"]]
@@ -99,8 +99,8 @@ getFileTypes <- function(repository = "", network = "", pattern = "", order = TR
   }
   
   res <- res %>%
-    filterNetwork(network = network) %>%
-    filterRepository(repository = repository) %>%
+    filterColumn(pattern = network, column = "groups") %>%
+    filterColumn(pattern = repository, column = "name") %>%
     filterPattern(pattern = pattern)
     
   resResources <- res[["resources"]]
@@ -159,8 +159,8 @@ getRepositories <- function(network = "", pattern = "", order = TRUE) {
   }
   
   res %>%
-    filterNetwork(network = network) %>%
-    filterPattern(pattern = pattern) %>%
+    filterColumn(pattern = network, column = "groups") %>%
+    filterColumn(pattern = repository, column = "name") %>%
     orderDatAPI(column = "title", order = order) %>%
     selectDatAPI(columns = c("name", "title", "notes"))
 }
@@ -195,27 +195,22 @@ getNetworks <- function(pattern = "", order = TRUE) {
     selectDatAPI(columns = c("name", "display_name", "description"))
 }
 
-filterNetwork <- function(datAPI, network) {
-  if (length(datAPI) == 0 || nrow(datAPI) || is.null(network) || network == "") return(datAPI)
+filterColumn <- function(datAPI, pattern, column) {
+  if (length(datAPI) == 0 || nrow(datAPI) == 0 || is.null(pattern) || pattern == "") return(datAPI)
   
-  datAPI[strMatch(datAPI[["groups"]], pattern = network), ]
-}
-
-filterRepository <- function(datAPI, repository) {
-  if (length(datAPI) == 0 || nrow(datAPI) || is.null(repository) || repository == "") return(datAPI)
-  datAPI[strMatch(datAPI[["name"]], pattern = repository), ]
+  datAPI[strMatch(datAPI[[column]], pattern = pattern), , drop = FALSE]
 }
 
 orderDatAPI <- function(datAPI, column = "", order = FALSE) {
-  if (length(datAPI) == 0 || nrow(datAPI) || column == "" || !order) return (datAPI)
+  if (length(datAPI) == 0 || nrow(datAPI) == 0 || column == "" || !order) return (datAPI)
   
-  datAPI[order(datAPI[[column]])]
+  datAPI[order(datAPI[[column]]), ]
 }
 
 selectDatAPI <- function(datAPI, columns = c()) {
   if (length(datAPI) == 0 || nrow(datAPI) == 0 || length(columns) == 0) return (datAPI)
   
-  datAPI[, columns]
+  datAPI[, columns, drop = FALSE]
 }
 
 #' Filter Pattern

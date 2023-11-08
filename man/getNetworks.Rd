@@ -12,7 +12,8 @@ getNetworks(pattern = "", order = TRUE)
 \item{order}{(logical) if TRUE order dataframe alphabetically by name}
 }
 \value{
-a data.frame giving the "name" and "display_name" of available Pandora networks
+(data.frame) giving the "name" and "display_name" of available Pandora
+networks (groups in CKAN terminology)
 }
 \description{
 Formerly getCKANGroupChoices()

@@ -28,18 +28,14 @@ test_that("Test getRepositories()", {
   )
   
   testRepos <- getRepositories(pattern = "victor", network = "isomemo", order = FALSE)
-  expect_true(
-    all(c("zanadamu", 
-          "afriarch-isotopic-dataset", 
-          "lowland-maya-radiocarbon-dates", 
-          "austarch-a-database-of-14c-and-luminescence-ages-from-archaeological-sites-in-australia"
-    ) %in% testRepos$name)
+  expect_equal(
+    "austarch-a-database-of-14c-and-luminescence-ages-from-archaeological-sites-in-australia",
+    testRepos$name
   )
   
-  expect_true(
-    all(c("Zanadamu", "AfriArch isotopic dataset", "MeosRAD v1.4: Lowland Maya Radiocarbon Dates", 
-          "AustArch: A Database of 14C and Luminescence Ages from Archaeological Sites in Australia"
-    ) %in% testRepos$title)
+  expect_equal(
+    "AustArch: A Database of 14C and Luminescence Ages from Archaeological Sites in Australia",
+    testRepos$title
   )
 })
 
