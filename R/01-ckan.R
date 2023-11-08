@@ -136,6 +136,10 @@ getFileTypes <- function(repository = "", network = "", pattern = "", order = TR
 
 #' Get Repositories
 #' 
+#' Get all vailable repositories or those within
+#' a specific network
+#' optional filtering of meta information for a given string 
+#'
 #' Formerly getCKANRecordChoices()
 #' 
 #' @inheritParams getResources
