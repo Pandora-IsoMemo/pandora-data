@@ -167,6 +167,8 @@ getRepositories <- function(network = "", pattern = "", order = TRUE) {
 
 #' Get Networks
 #' 
+#' Get all available networks (groups in CKAN terminology)
+#' optional filtering of names for a given string
 #' Formerly getCKANGroupChoices()
 #' 
 #' @inheritParams getResources
