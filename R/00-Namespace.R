@@ -1,5 +1,6 @@
-#' @importFrom httr content GET timeout
+#' @import curl
+#' @importFrom dplyr arrange bind_rows distinct filter
+#' @importFrom jsonlite fromJSON
 #' @importFrom magrittr %>% 
-#' @importFrom shiny isRunning withProgress
-#' @importFrom stats setNames
+#' @importFrom rlang .data
 NULL

@@ -1,190 +1,77 @@
-test_that("Test getCKANRecordChoices()", {
-  # testFiles <- getCKANFiles() %>%
-  #   filterCKANFileList()
-  # testFiles()[1:3] %>%
-  #   dput()
-  testGetCKANFiles <-
-    list(
-      `Vitis vinifera seeds in Eastern Mediterranean (up to the 7th c. CE)` = list(
-        title = "Vitis vinifera seeds in Eastern Mediterranean (up to the 7th c. CE)",
-        resources = list(
-          `December 2021` = list(
-            name = "December 2021",
-            format = "XLSX",
-            url = "https://pandoradata.earth/dataset/bf25882c-414e-434b-9957-06ac98c8a268/resource/3900f023-a96e-4bf6-bb4f-96ba3bb6dd33/download/vino-databaze-graf-ptakova_04.xlsx"
-          )
-        )
-      ),
-      Zanadamu = list(
-        title = "Zanadamu",
-        resources = list(
-          `Zanadamu EXCEL format` = list(
-            name = "Zanadamu EXCEL format",
-            format = "XLS",
-            url = "https://pandoradata.earth/dataset/d6b30126-13e4-4324-98b2-b0e24a1a2f56/resource/291c4d4a-29a7-461b-8d56-8657535739ab/download/zanadamu-march-2023-excel.xlsx"
-          ),
-          `Zanadamu CSV format` = list(
-            name = "Zanadamu CSV format",
-            format = "CSV",
-            url = "https://pandoradata.earth/dataset/d6b30126-13e4-4324-98b2-b0e24a1a2f56/resource/9dd89668-12ca-4a1a-bcc7-21f33a9cba6d/download/zanadamu-march-2023-csv.csv"
-          )
-        )
-      ),
-      `AfriArch isotopic dataset` = list(
-        title = "AfriArch isotopic dataset",
-        resources = list(
-          `Isotopic measurements in Excel format` = list(
-            name = "Isotopic measurements in Excel format",
-            format = "XLSX",
-            url = "https://pandoradata.earth/dataset/06fc7dfa-4f6e-495b-91f5-185022be895a/resource/739029f6-3a3e-4365-8007-ead779bbfce0/download/isotopic-measurements-in-excel-format.xlsx"
-          ),
-          `Isotopic measurements in CSV format` = list(
-            name = "Isotopic measurements in CSV format",
-            format = "CSV",
-            url = "https://pandoradata.earth/dataset/06fc7dfa-4f6e-495b-91f5-185022be895a/resource/1d0b3553-a967-443e-9453-e9e5c13e4d4e/download/isotopic-measurements-in-csv-format.csv"
-          ),
-          `Metadata description Excel` = list(
-            name = "Metadata description Excel",
-            format = "XLSX",
-            url = "https://pandoradata.earth/dataset/06fc7dfa-4f6e-495b-91f5-185022be895a/resource/6ba01d10-c044-4373-8918-a57699fb7809/download/metadata-description-excel.xlsx"
-          ),
-          `Metadata description CSV` = list(
-            name = "Metadata description CSV",
-            format = "CSV",
-            url = "https://pandoradata.earth/dataset/06fc7dfa-4f6e-495b-91f5-185022be895a/resource/4aa15a42-61b6-4f3d-9351-8f412b0383f4/download/metadata-description-csv.csv"
-          ),
-          `AfriArch ReSources model` = list(
-            name = "AfriArch ReSources model",
-            format = "ZIP",
-            url = "https://pandoradata.earth/dataset/06fc7dfa-4f6e-495b-91f5-185022be895a/resource/26d349f1-0475-4181-9036-c1b3471610fe/download/afriarch-resources-model.zip"
-          )
-        )
-      )
-    )
+test_that("Test getResources()", {
+  expect_true(nrow(getResources(repository = "aghfjdhfjgkhj")) == 0)
   
   expect_equal(
-    getCKANRecordChoices(testGetCKANFiles, sort = FALSE),
-    c(
-      `Select Pandora repository ...` = "",
-      `Vitis vinifera seeds in Eastern Mediterranean (up to the 7th c. CE)` = "Vitis vinifera seeds in Eastern Mediterranean (up to the 7th c. CE)",
-      Zanadamu = "Zanadamu",
-      `AfriArch isotopic dataset` = "AfriArch isotopic dataset"
-    )
-  )
-  
-  expect_equal(
-    getCKANRecordChoices(testGetCKANFiles, sort = TRUE),
-    c(
-      `Select Pandora repository ...` = "",
-      `AfriArch isotopic dataset` = "AfriArch isotopic dataset",
-      `Vitis vinifera seeds in Eastern Mediterranean (up to the 7th c. CE)` = "Vitis vinifera seeds in Eastern Mediterranean (up to the 7th c. CE)",
-      Zanadamu = "Zanadamu"
-    )
+    getResources(fileType = c("csv"), pattern = "victoria"),
+    structure(list(repository = c(
+      "austarch-a-database-of-14c-and-luminescence-ages-from-archaeological-sites-in-australia", 
+      "austarch-a-database-of-14c-and-luminescence-ages-from-archaeological-sites-in-australia"),
+      name = c("Austarch 1-3 and IDASQ 28Nov13-1", "Austarch 1-3 and IDASQ 28Nov13-1 Citation\t"), 
+      format = c("csv", "csv"), 
+      url = c(
+        "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-1661-1/dissemination/csv/Austarch_1-3_and_IDASQ_28Nov13-1.csv", 
+        "https://archaeologydataservice.ac.uk/catalogue/adsdata/arch-1661-1/dissemination/csv/Austarch_1-3_and_IDASQ_28Nov13-1_Citation.csv")
+    ), class = "data.frame", row.names = c(NA, -2L))
   )
 })
 
-test_that("Test getCKANResourcesChoices()", {
-  # testFiles <- getCKANFiles() %>%
-  #   filterCKANFileList()
-  # testFiles[["AfriArch isotopic dataset"]]$resource %>%
-  #   dput()
-  testGetCKANResource <-
-    list(
-      `Isotopic measurements in Excel format` = list(
-        name = "Isotopic measurements in Excel format",
-        format = "XLSX",
-        url = "https://pandoradata.earth/dataset/06fc7dfa-4f6e-495b-91f5-185022be895a/resource/739029f6-3a3e-4365-8007-ead779bbfce0/download/isotopic-measurements-in-excel-format.xlsx"
-      ),
-      `Isotopic measurements in CSV format` = list(
-        name = "Isotopic measurements in CSV format",
-        format = "CSV",
-        url = "https://pandoradata.earth/dataset/06fc7dfa-4f6e-495b-91f5-185022be895a/resource/1d0b3553-a967-443e-9453-e9e5c13e4d4e/download/isotopic-measurements-in-csv-format.csv"
-      ),
-      `Metadata description Excel` = list(
-        name = "Metadata description Excel",
-        format = "XLSX",
-        url = "https://pandoradata.earth/dataset/06fc7dfa-4f6e-495b-91f5-185022be895a/resource/6ba01d10-c044-4373-8918-a57699fb7809/download/metadata-description-excel.xlsx"
-      ),
-      `Metadata description CSV` = list(
-        name = "Metadata description CSV",
-        format = "CSV",
-        url = "https://pandoradata.earth/dataset/06fc7dfa-4f6e-495b-91f5-185022be895a/resource/4aa15a42-61b6-4f3d-9351-8f412b0383f4/download/metadata-description-csv.csv"
-      ),
-      `AfriArch ReSources model` = list(
-        name = "AfriArch ReSources model",
-        format = "ZIP",
-        url = "https://pandoradata.earth/dataset/06fc7dfa-4f6e-495b-91f5-185022be895a/resource/26d349f1-0475-4181-9036-c1b3471610fe/download/afriarch-resources-model.zip"
-      )
-    )
+test_that("Test getFileTypes()", {
+  expect_true(nrow(getFileTypes(repository = "aghfjdhfjgkhj")) == 0)
   
-  testChoicesList <-
-    getCKANResourcesChoices(
-      testGetCKANResource,
-      types = c("xls", "xlsx", "csv", "zip"),
-      sort = FALSE
-    )
   expect_equal(
-    testChoicesList$choices,
-    c(
-      `Isotopic measurements in Excel format  ( XLSX )` = "Isotopic measurements in Excel format",
-      `Isotopic measurements in CSV format  ( CSV )` = "Isotopic measurements in CSV format",
-      `Metadata description Excel  ( XLSX )` = "Metadata description Excel",
-      `Metadata description CSV  ( CSV )` = "Metadata description CSV",
-      `AfriArch ReSources model  ( ZIP )` = "AfriArch ReSources model"
-    )
-  )
-  expect_equal(
-    testChoicesList$selected,
-    c(`Isotopic measurements in Excel format  ( XLSX )` = "Isotopic measurements in Excel format")
-  )
-  
-  testFiles <- getCKANFiles() %>%
-    filterCKANFileList()
-  testChoicesList <-
-    getCKANResourcesChoices(
-      testFiles[["AfriArch isotopic dataset"]]$resource,
-      types = c("xls", "xlsx", "csv"),
-      sort = TRUE
-    )
-  expect_equal(
-    testChoicesList$choices,
-    c(
-      `Isotopic measurements in CSV format  ( CSV )` = "Isotopic measurements in CSV format",
-      `Isotopic measurements in Excel format  ( XLSX )` = "Isotopic measurements in Excel format",
-      `Metadata description CSV  ( CSV )` = "Metadata description CSV",
-      `Metadata description Excel  ( XLSX )` = "Metadata description Excel"
-    )
-  )
-  expect_equal(
-    testChoicesList$selected,
-    c(`Isotopic measurements in Excel format  ( XLSX )` = "Isotopic measurements in Excel format")
+    getFileTypes(pattern = "victoria"),
+    structure(list(
+      name = "austarch-a-database-of-14c-and-luminescence-ages-from-archaeological-sites-in-australia", 
+      format = "csv"), 
+      row.names = 1L, class = "data.frame")
   )
 })
 
-test_that("Test getCKANGroupChoices()", {
-  # always test on live data -> test will fail if groups are changing
-  testFiles <- getCKANFiles() %>%
-    filterCKANFileList()
+test_that("Test getRepositories()", {
+  expect_true(nrow(getRepositories(network = "aghfjdhfjgkhj")) == 0)
+  
+  testRepos <- getRepositories(order = FALSE)
+  expect_true(
+    all(c("isomedita-a-stable-isotope-database-for-medieval-italy", 
+          "northern-hemisphere-modern-leaf-wax-ddn-alkane-dataset", 
+          "base-de-datos-iber-crono") %in% testRepos$name)
+  )
+  expect_true(
+    all(c("Equine Biometry from Medieval and Modern sites in the Czech Republic", 
+          "Tooth Formation Age Dataset for Early Childhood Bioarchaeological and Medical Studies", 
+          "Database of equine osteological remains from Greece and Cyprus"
+    ) %in% testRepos$title)
+  )
+  
+  testRepos <- getRepositories(pattern = "victor", network = "isomemo", order = FALSE)
   expect_equal(
-    getCKANGroupChoices(testFiles, sort = TRUE),
-    c(`IsoMemo Network` = "isomemo-group")
+    "austarch-a-database-of-14c-and-luminescence-ages-from-archaeological-sites-in-australia",
+    testRepos$name
+  )
+  
+  expect_equal(
+    "AustArch: A Database of 14C and Luminescence Ages from Archaeological Sites in Australia",
+    testRepos$title
   )
 })
 
-test_that("Test filterCKANByMeta()", {
-  testFiles <- getCKANFiles()
+test_that("Test getNetworks()", {
+  expect_true(nrow(getNetworks(pattern = "aghfjdhfjgkhj")) == 0)
   
-  expect_true(length(filterCKANByMeta(testFiles, meta = "Roman")) < length(testFiles))
-  expect_equal(filterCKANByMeta(testFiles, meta = "Roman"),
-               filterCKANByMeta(testFiles, meta = "rOmAn"))
-  expect_length(filterCKANByMeta(testFiles, meta = "cjyvfljdosijvckjnlsfnsdkfnak"), 0)
+  expect_equal(
+    getNetworks(),
+    structure(list(name = "isomemo-group", 
+                   display_name = "IsoMemo Network", 
+                   description = "IsoMemo is a network of autonomous isotopic databases."), 
+              class = "data.frame", row.names = 1L)
+  )
 })
 
-test_that("Test filterCKANGroup()", {
-  testFiles <- getCKANFiles() %>%
-    filterCKANFileList()
+test_that("Test filterPattern()", {
+  testRes <- callAPI(action = "current_package_list_with_resources", limit = 1000)
   
-  expect_true(length(filterCKANGroup(testFiles, ckanGroup = "isomemo-group")) < length(testFiles))
-  expect_equal(names(filterCKANGroup(testFiles, ckanGroup = "isomemo-group")[[1]]),
-               c("title", "resources", "groups"))
+  expect_true(nrow(filterPattern(testRes, pattern = "Roman")) < nrow(testRes))
+  expect_equal(filterPattern(testRes, pattern = "Roman"),
+               filterPattern(testRes, pattern = "rOmAn"))
+  expect_true(nrow(filterPattern(testRes, pattern = "cjyvfljdosijvckjnlsfnsdkfnak")) == 0)
 })
