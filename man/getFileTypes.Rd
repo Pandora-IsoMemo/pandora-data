@@ -4,16 +4,25 @@
 \alias{getFileTypes}
 \title{Get File Types}
 \usage{
-getFileTypes(repository = "", network = "", pattern = "", order = TRUE)
+getFileTypes(
+  repository = "",
+  network = "",
+  pattern = "",
+  order = TRUE,
+  packageList = data.frame()
+)
 }
 \arguments{
-\item{repository}{(character) list of relevant file types, e.g. c("xls", "xlsx", "csv", "odt")}
+\item{repository}{(character) name of Pandora repository}
 
 \item{network}{(character) name of Pandora network}
 
 \item{pattern}{(character) string for meta information search}
 
-\item{order}{(logical) if TRUE sort list names alphabetically}
+\item{order}{(logical) if TRUE order dataframe alphabetically by name}
+
+\item{packageList}{(data.frame) optional, output of callAPI() from a previous call to the
+Pandora API.}
 }
 \value{
 (data.frame) containing available file types within a repository

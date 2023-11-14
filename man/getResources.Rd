@@ -9,7 +9,8 @@ getResources(
   repository = "",
   network = "",
   pattern = "",
-  order = TRUE
+  order = TRUE,
+  packageList = data.frame()
 )
 }
 \arguments{
@@ -22,6 +23,9 @@ getResources(
 \item{pattern}{(character) string for meta information search}
 
 \item{order}{(logical) if TRUE order dataframe alphabetically by name}
+
+\item{packageList}{(data.frame) optional, output of callAPI() from a previous call to the
+Pandora API.}
 }
 \value{
 (data.frame) containing available resources within a repository

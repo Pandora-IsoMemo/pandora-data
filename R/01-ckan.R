@@ -11,32 +11,36 @@
 #' @param network (character) name of Pandora network
 #' @param pattern (character) string for meta information search
 #' @param order (logical) if TRUE order dataframe alphabetically by name
+#' @param packageList (data.frame) optional, output of callAPI() from a previous call to the
+#'  Pandora API.
 #' 
 #' @return (data.frame) containing available resources within a repository
 #' @export
 getResources <- function(fileType = character(),
-                         repository = "", network = "", pattern = "", order = TRUE) {
-  res <- callAPI(action = "current_package_list_with_resources", limit = 1000)
+                         repository = "", 
+                         network = "", 
+                         pattern = "", 
+                         order = TRUE,
+                         packageList = data.frame()) {
   
   emptyOut <- data.frame(repository = character(),
                          name = character(),
                          format = character(),
                          url = character())
   
-  if (!is.null(attr(res, "error"))) {
-    attr(emptyOut, "error") <- attr(res, "error")
-    return(emptyOut)
+  if (is.null(packageList) || nrow(packageList) == 0) {
+    packageList <- callAPI(action = "current_package_list_with_resources", limit = 1000)
   }
   
-  if (!all(c("name", "title", "resources") %in% names(res))) {
-    return(emptyOut)
-  }
-  
-  res <- res %>%
+  res <- packageList %>%
+    validateDatAPI(emptyOut = emptyOut,
+                   reqCols = c("groups", "name", "resources")) %>%
     filterColumn(pattern = network, column = "groups") %>%
     filterColumn(pattern = repository, column = "name") %>%
     filterPattern(pattern = pattern)
     
+  if (nrow(res) == 0) return(res)
+  
   resResources <- res[["resources"]]
   names(resResources) <- res[["name"]]
   
@@ -83,35 +87,34 @@ getResources <- function(fileType = character(),
 #' specific network or within a specific repository
 #' optional filtering of meta information for a given string
 #'
-#' @param repository (character) list of relevant file types, e.g. c("xls", "xlsx", "csv", "odt")
-#' @param network (character) name of Pandora network
-#' @param pattern (character) string for meta information search
-#' @param order (logical) if TRUE sort list names alphabetically
+#' @inheritParams getResources
 #' 
 #' @return (data.frame) containing available file types within a repository
 #' @export
-getFileTypes <- function(repository = "", network = "", pattern = "", order = TRUE) {
-  res <- callAPI(action = "current_package_list_with_resources", limit = 1000)
+getFileTypes <- function(repository = "",
+                         network = "",
+                         pattern = "",
+                         order = TRUE,
+                         packageList = data.frame()) {
   
   emptyOut <- data.frame(name = character(),
                          title = character(),
                          resources = character(),
                          format = character())
   
-  if (!is.null(attr(res, "error"))) {
-    attr(emptyOut, "error") <- attr(res, "error")
-    return(emptyOut)
+  if (is.null(packageList) || nrow(packageList) == 0) {
+    packageList <- callAPI(action = "current_package_list_with_resources", limit = 1000)
   }
   
-  if (!all(c("name", "title", "resources") %in% names(res))) {
-    return(emptyOut)
-  }
-  
-  res <- res %>%
+  res <- packageList %>%
+    validateDatAPI(emptyOut = emptyOut,
+                   reqCols = c("name", "title", "resources")) %>%
     filterColumn(pattern = network, column = "groups") %>%
     filterColumn(pattern = repository, column = "name") %>%
     filterPattern(pattern = pattern)
     
+  if (nrow(res) == 0) return(res)
+  
   resResources <- res[["resources"]]
   names(resResources) <- res[["name"]]
   
@@ -155,23 +158,20 @@ getFileTypes <- function(repository = "", network = "", pattern = "", order = TR
 #' 
 #' @return (data.frame) containing available repositories
 #' @export
-getRepositories <- function(network = "", pattern = "", order = TRUE) {
-  res <- callAPI(action = "current_package_list_with_resources", limit = 1000)
+getRepositories <- function(network = "",
+                            pattern = "",
+                            order = TRUE,
+                            packageList = data.frame()) {
   
-  emptyOut <- data.frame(name = character(),
-                         title = character(),
-                         notes = character())
-  
-  if (!is.null(attr(res, "error"))) {
-    attr(emptyOut, "error") <- attr(res, "error")
-    return(emptyOut)
+  if (is.null(packageList) || nrow(packageList) == 0) {
+    packageList <- callAPI(action = "current_package_list_with_resources", limit = 1000)
   }
   
-  if (!all(c("name", "title", "notes") %in% names(res))) {
-    return(emptyOut)
-  }
-  
-  res %>%
+  packageList %>%
+    validateDatAPI(emptyOut = data.frame(name = character(),
+                                         title = character(),
+                                         notes = character()),
+                   reqCols = c("name", "title", "notes")) %>%
     filterColumn(pattern = network, column = "groups") %>%
     filterPattern(pattern = pattern) %>%
     orderDatAPI(column = "title", order = order) %>%
@@ -185,29 +185,37 @@ getRepositories <- function(network = "", pattern = "", order = TRUE) {
 #' Formerly getCKANGroupChoices()
 #' 
 #' @inheritParams getResources
+#' @param groupList (data.frame) optional, output of callAPI() from a previous call to the
+#'  Pandora API.
 #' 
 #' @return (data.frame) giving the "name" and "display_name" of available Pandora
 #' networks (groups in CKAN terminology)
 #' @export
-getNetworks <- function(pattern = "", order = TRUE) {
-  res <- callAPI(action = "group_list", all_fields = "true")
-  
-  emptyOut <- data.frame(name = character(),
-                         display_name = character())
-  
-  if (!is.null(attr(res, "error"))) {
-    attr(emptyOut, "error") <- attr(res, "error")
-    return(emptyOut)
+getNetworks <- function(pattern = "", order = TRUE, groupList = data.frame()) {
+  if (is.null(groupList) || nrow(groupList) == 0) {
+    groupList <- callAPI(action = "group_list", all_fields = "true")
   }
   
-  if (!all(c("name", "display_name", "description") %in% names(res))) {
-    return(emptyOut)
-  }
-  
-  res %>%
+  groupList %>%
+    validateDatAPI(emptyOut = data.frame(name = character(),
+                                         display_name = character()),
+                   reqCols = c("name", "display_name", "description")) %>%
     filterPattern(pattern = pattern) %>%
     orderDatAPI(column = "display_name", order = order) %>%
     selectDatAPI(columns = c("name", "display_name", "description"))
+}
+
+validateDatAPI <- function(datAPI, emptyOut = data.frame(), reqCols = character(0)) {
+  if (!is.null(attr(datAPI, "error"))) {
+    attr(emptyOut, "error") <- attr(datAPI, "error")
+    return(emptyOut)
+  }
+  
+  if (!all(reqCols %in% names(datAPI))) {
+    return(emptyOut)
+  }
+  
+  datAPI
 }
 
 filterColumn <- function(datAPI, pattern, column) {
@@ -278,6 +286,8 @@ strMatch <- function(dat, pattern) {
 #' @param action (character) name of the endpoint
 #'  "mapping"
 #' @param ... parameters for the endpoint, e.g. all_fields = "true"
+#' 
+#' @export
 callAPI <- function(action = c("current_package_list_with_resources",
                                "group_list",
                                "package_list",
