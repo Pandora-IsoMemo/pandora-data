@@ -4,12 +4,15 @@
 \alias{getNetworks}
 \title{Get Networks}
 \usage{
-getNetworks(pattern = "", order = TRUE)
+getNetworks(pattern = "", order = TRUE, groupList = data.frame())
 }
 \arguments{
 \item{pattern}{(character) string for meta information search}
 
 \item{order}{(logical) if TRUE order dataframe alphabetically by name}
+
+\item{groupList}{(data.frame) optional, output of callAPI() from a previous call to the
+Pandora API.}
 }
 \value{
 (data.frame) giving the "name" and "display_name" of available Pandora

@@ -4,7 +4,12 @@
 \alias{getRepositories}
 \title{Get Repositories}
 \usage{
-getRepositories(network = "", pattern = "", order = TRUE)
+getRepositories(
+  network = "",
+  pattern = "",
+  order = TRUE,
+  packageList = data.frame()
+)
 }
 \arguments{
 \item{network}{(character) name of Pandora network}
@@ -12,6 +17,9 @@ getRepositories(network = "", pattern = "", order = TRUE)
 \item{pattern}{(character) string for meta information search}
 
 \item{order}{(logical) if TRUE order dataframe alphabetically by name}
+
+\item{packageList}{(data.frame) optional, output of callAPI() from a previous call to the
+Pandora API.}
 }
 \value{
 (data.frame) containing available repositories

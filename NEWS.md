@@ -1,9 +1,14 @@
+# Pandora 23.11.1
+
+## Updates
+- export of `callAPI()` function, update of documentation
+
 # Pandora 23.11.0
 
 ## Features
 The main function that facilitate the data retrieval and aggregation from the API is:
 
- - `getData()`
+ - `getData()` (_under development_)
 
 The following are its sub-functions contained in this package: 
 
