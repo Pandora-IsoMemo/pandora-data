@@ -2,19 +2,15 @@
 #' 
 #' @param name (character) name of a resource, e.g. an entry of the output from
 #'  \code{getResources()$name}
-#' @param textOptions (list) a list of extra options for \code{read.csv()}
-#' @param xlsxOptions (list) a list of extra options for \code{openxlsx::read.xlsx()} and
+#' @param dataOptions (list) a list of extra options for \code{read.csv()} or \code{openxlsx::read.xlsx()} and
 #'  \code{readxl::read_excel}
 #' @inheritParams getResources
-#' @inheritParams openxlsx::read.xlsx
 #' 
 #' @return (data.frame) return data from the Pandora API
 #' @export
 getData <- function(name,
                     repository = "",
-                    textOptions = textOptions(), 
-                    xlsxOptions = xlsxOptions(),
-                    colNames = TRUE) {
+                    options = dataOptions()) {
   # empty result if an error occurs
   res <- list()
   
@@ -42,10 +38,10 @@ getData <- function(name,
     data <- try({
       loadData(file = resource[["url"]], 
                type = resource[["format"]],
-               sep = textOptions$sep,
-               dec = textOptions$dec,
-               sheetId = xlsxOptions$sheet,
-               withColnames = colNames)
+               sep = options$text$sep,
+               dec = options$text$dec,
+               sheetId = options$xlsx$sheet,
+               withColnames = options$colNames)
     }, silent = TRUE)
     
     if (inherits(data, "try-error")) {
@@ -64,24 +60,21 @@ getData <- function(name,
   res
 }
 
-#' Text Options
+#' Data Options
 #' 
 #' @inheritParams utils::read.csv
-#' 
-#' @return a list of extra options for \code{utils::read.csv()}
-textOptions <- function(sep = ",",
-                        dec = ".") {
-  list(sep = sep,
-       dec = dec)
-}
-
-#' XLSX Options
-#' 
 #' @inheritParams openxlsx::read.xlsx
 #' 
-#' @return a list of extra options for \code{openxlsx::read.xlsx()} and \code{readxl::read_excel}
-xlsxOptions <- function(sheet = 1) {
-  list(sheet = sheet)
+#' @return a list of extra options for \code{utils::read.csv()}
+dataOptions <- function(sep = ",",
+                        dec = ".",
+                        sheet = 1,
+                        colNames = TRUE) {
+  list(text = list(sep = sep,
+                   dec = dec),
+       xlsx = list(sheet = sheet),
+       colNames = colNames
+  )
 }
 
 loadData <-

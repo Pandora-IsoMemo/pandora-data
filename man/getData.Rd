@@ -4,13 +4,7 @@
 \alias{getData}
 \title{Get Data}
 \usage{
-getData(
-  name,
-  repository = "",
-  textOptions = textOptions(),
-  xlsxOptions = xlsxOptions(),
-  colNames = TRUE
-)
+getData(name, repository = "", options = dataOptions())
 }
 \arguments{
 \item{name}{(character) name of a resource, e.g. an entry of the output from
@@ -19,12 +13,8 @@ getData(
 \item{repository}{(character) name of a Pandora repository, e.g. an entry of the output from
 \code{getRepositories()$name}}
 
-\item{textOptions}{(list) a list of extra options for \code{read.csv()}}
-
-\item{xlsxOptions}{(list) a list of extra options for \code{openxlsx::read.xlsx()} and
+\item{dataOptions}{(list) a list of extra options for \code{read.csv()} or \code{openxlsx::read.xlsx()} and
 \code{readxl::read_excel}}
-
-\item{colNames}{If \code{TRUE}, the first row of data will be used as column names.}
 }
 \value{
 (data.frame) return data from the Pandora API
