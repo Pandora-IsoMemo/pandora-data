@@ -1,6 +1,8 @@
+# file types that can be read with the loadData function
+# the order specifies preference of types
 fileTypes:
-  - "xls"
   - "xlsx"
-  - "csv"
+  - "xls"
   - "odt"
-  - "txt"                       # file types that can be read with the loadData function
+  - "csv"
+  - "txt"                       

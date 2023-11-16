@@ -18,44 +18,60 @@ getData <- function(name,
   resourcesForRepo <- getResources(repository = repository)
   if (nrow(resourcesForRepo) == 0) {
     attr(res, "error") <- sprintf("No resource found for repository '%s'", repository)
+    return(res)
   }
   
   # filter name
-  resource <- resourcesForRepo[resourcesForRepo[["name"]] == name,]
+  resource <- resourcesForRepo[resourcesForRepo[["name"]] == name, ]
   if (nrow(resource) == 0) {
     attr(res, "error") <- sprintf("No resource found with name '%s'", name)
+    return(res)
   }
   
-  # check file type
-  if (!(resource[["format"]] %in% config()$fileTypes)) {
-    attr(res, "error") <- sprintf("'%s' cannot be read, only following file types are allowed: '%s'",
-                                  resource[["format"]],
+  # filter valid file types
+  resource <- resource[resource[["format"]] %in% config()$fileTypes, ]
+  if (nrow(resource) == 0) {
+    attr(res, "error") <- sprintf("No resource found with name '%s' and with valid file type (%s)",
+                                  name,
                                   paste(config()$fileTypes, collapse = ", "))
+    return(res)
   }
   
-  if (is.null(attr(res, "error"))) {
-    # if we have no error load the data
-    data <- try({
-      loadData(file = resource[["url"]], 
-               type = resource[["format"]],
-               sep = options$text$sep,
-               dec = options$text$dec,
-               sheetId = options$xlsx$sheet,
-               withColnames = options$colNames)
-    }, silent = TRUE)
-    
-    if (inherits(data, "try-error")) {
-      warning(data[[1]])
-      attr(res, "error") <- data[[1]]
-    } else if (!is.null(data) && nrow(data) > 0) {
-      res <- data
-    } else {
-      warning("An error occured")
-      attr(res, "error") <- "An error occured"
-    }
+  # select single file
+  if (nrow(resource) > 1) {
+    # if more than one file for one name, order by config()$fileTypes
+    orderVec <- na.omit(match(config()$fileTypes, resource[["format"]]))
+    resource <- resource[orderVec, ]
+    # take only first file
+    resource <- resource[1, ]
   }
   
+  data <- try({
+    loadData(file = resource[["url"]], 
+             type = resource[["format"]],
+             sep = options$text$sep,
+             dec = options$text$dec,
+             sheetId = options$xlsx$sheet,
+             withColnames = options$colNames)
+  }, silent = TRUE)
   
+  if (inherits(data, "try-error")) {
+    msg <- ""
+    if (resource[["format"]] == "csv") msg <- "Please check dataOptions()."
+    msg <- sprintf("%s for resource with name '%s', %s", data[[1]], name, msg)
+    warning(msg)
+    attr(res, "error") <- msg
+  } else if (!is.null(data) && length(data) > 0 && nrow(data) > 0) {
+    # data loading SUCCESS
+    res <- data
+  } else if (length(data) == 0 && !is.null(attr(data, "error"))) {
+    msg <- sprintf("%s for resource with name '%s'", attr(data, "error"), name)
+    attr(res, "error") <- msg
+  } else {
+    msg <- sprintf("An error occured for resource with name '%s'", name)
+    warning(msg)
+    attr(res, "error") <- msg
+  }
   
   res
 }
@@ -85,6 +101,9 @@ loadData <-
            withColnames = TRUE,
            sheetId = 1,
            headOnly = FALSE) {
+    # empty result if an error occurs
+    res <- list()
+    
     # if(type == "csv" | type == "txt"){
     #   codepages <- setNames(iconvlist(), iconvlist())
     #   x <- lapply(codepages, function(enc) try(suppressWarnings({read.csv(file,
@@ -163,18 +182,22 @@ loadData <-
       return(NULL)
     
     if (is.null(dim(data))) {
-      stop("Could not determine dimensions of data")
-      return(NULL)
+      msg <- "Could not determine dimensions of data"
+      attr(res, "error") <- msg
+      warning(msg)
     }
     
     if (any(dim(data) == 1)) {
-      warning("Number of rows or columns equal to 1")
-      return(NULL)
+      msg <- "Number of rows or columns equal to 1. Please check dataOptions()."
+      attr(res, "error") <- msg
+      warning(msg)
+      return(res)
     }
     
     if (any(dim(data) == 0)) {
-      stop("Number of rows or columns equal to 0")
-      return(NULL)
+      msg <- "Number of rows or columns equal to 0"
+      attr(res, "error") <- msg
+      warning(msg)
     }
     
     return(data)
