@@ -1,3 +1,8 @@
+# Pandora 23.11.2
+
+## Features
+- new function `getData()` was added, which enables data retrieval
+
 # Pandora 23.11.1
 
 ## Updates

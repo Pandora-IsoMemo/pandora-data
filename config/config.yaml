@@ -1,0 +1,6 @@
+fileTypes:
+  - "xls"
+  - "xlsx"
+  - "csv"
+  - "odt"
+  - "txt"                       # file types that can be read with the loadData function

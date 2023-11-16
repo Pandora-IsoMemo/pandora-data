@@ -7,8 +7,10 @@
 #' Formerly getCKANResourcesChoices()
 #' 
 #' @param fileType (character) list of relevant file types, e.g. c("xls", "xlsx", "csv", "odt")
-#' @param repository (character) name of Pandora repository
-#' @param network (character) name of Pandora network
+#' @param repository (character) name of a Pandora repository, e.g. an entry of the output from
+#'  \code{getRepositories()$name}
+#' @param network (character) name of a Pandora network, e.g. an entry of the output from
+#'  \code{getNetworks()$name}
 #' @param pattern (character) string for meta information search
 #' @param order (logical) if TRUE order dataframe alphabetically by name
 #' @param packageList (data.frame) optional, output of callAPI() from a previous call to the

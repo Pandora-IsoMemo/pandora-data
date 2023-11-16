@@ -13,9 +13,11 @@ getFileTypes(
 )
 }
 \arguments{
-\item{repository}{(character) name of Pandora repository}
+\item{repository}{(character) name of a Pandora repository, e.g. an entry of the output from
+\code{getRepositories()$name}}
 
-\item{network}{(character) name of Pandora network}
+\item{network}{(character) name of a Pandora network, e.g. an entry of the output from
+\code{getNetworks()$name}}
 
 \item{pattern}{(character) string for meta information search}
 
