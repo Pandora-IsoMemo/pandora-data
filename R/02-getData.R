@@ -49,13 +49,11 @@ getData <- function(name,
     }, silent = TRUE)
     
     if (inherits(data, "try-error")) {
-      browser()
       warning(data[[1]])
       attr(res, "error") <- data[[1]]
     } else if (!is.null(data) && nrow(data) > 0) {
       res <- data
     } else {
-      browser()
       warning("An error occured")
       attr(res, "error") <- "An error occured"
     }
