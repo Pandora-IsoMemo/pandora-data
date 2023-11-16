@@ -19,6 +19,10 @@ Imports:
   curl,
   jsonlite,
   magrittr,
+  openxlsx,
+  readODS,
+  readr,
+  readxl,
   rlang,
   yaml
 Suggests:

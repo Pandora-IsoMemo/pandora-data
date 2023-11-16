@@ -13,7 +13,7 @@ getData(name, repository = "", options = dataOptions())
 \item{repository}{(character) name of a Pandora repository, e.g. an entry of the output from
 \code{getRepositories()$name}}
 
-\item{dataOptions}{(list) a list of extra options for \code{read.csv()} or \code{openxlsx::read.xlsx()} and
+\item{options}{(list) a list of extra options for \code{read.csv()} or \code{openxlsx::read.xlsx()} and
 \code{readxl::read_excel}}
 }
 \value{

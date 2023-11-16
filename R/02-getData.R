@@ -2,7 +2,7 @@
 #' 
 #' @param name (character) name of a resource, e.g. an entry of the output from
 #'  \code{getResources()$name}
-#' @param dataOptions (list) a list of extra options for \code{read.csv()} or \code{openxlsx::read.xlsx()} and
+#' @param options (list) a list of extra options for \code{read.csv()} or \code{openxlsx::read.xlsx()} and
 #'  \code{readxl::read_excel}
 #' @inheritParams getResources
 #' 
