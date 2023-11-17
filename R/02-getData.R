@@ -206,27 +206,19 @@ loadData <-
       )
     )
     
-    if (is.null(data))
+    if (is.null(data) && is.null(attr(data, "error")))
       return(NULL)
     
     if (is.null(dim(data))) {
-      msg <- "Could not determine dimensions of data"
-      attr(res, "error") <- msg
-      warning(msg)
+      stop("Could not determine dimensions of data")
     }
     
     if (any(dim(data) == 1)) {
-      msg <-
-        "Number of rows or columns equal to 1. Please check dataOptions()."
-      attr(res, "error") <- msg
-      warning(msg)
-      return(res)
+      stop("Number of rows or columns equal to 1.")
     }
     
     if (any(dim(data) == 0)) {
-      msg <- "Number of rows or columns equal to 0"
-      attr(res, "error") <- msg
-      warning(msg)
+      stop("Number of rows or columns equal to 0")
     }
     
     return(data)
