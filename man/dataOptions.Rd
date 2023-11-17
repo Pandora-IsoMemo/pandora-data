@@ -30,6 +30,7 @@ dataOptions(
 \value{
 a list of extra options for \code{read.csv()} or \code{openxlsx::read.xlsx()} or
 \code{readxl::read_excel}, respectively
+@export
 }
 \description{
 Data Options
