@@ -94,7 +94,7 @@ getData <- function(name,
 #' @inheritParams utils::read.csv
 #' @inheritParams openxlsx::read.xlsx
 #'
-#' @return a list of extra options for \code{read.csv()} or \code{openxlsx::read.xlsx()} or
+#' @return a list of extra options for \code{utils::read.csv()} or \code{openxlsx::read.xlsx()} or
 #'  \code{readxl::read_excel}, respectively
 #' @export
 dataOptions <- function(nrows = NA_integer_,

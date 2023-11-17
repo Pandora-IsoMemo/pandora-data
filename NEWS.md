@@ -2,6 +2,8 @@
 
 ## Features
 - new function `getData()` was added, which enables data retrieval
+- the function `dataOption()` returns a list of options for `utils::read.csv()` or 
+  `openxlsx::read.xlsx()` or `readxl::read_excel`, respectively, that can be passed to `getData()`
 
 # Pandora 23.11.1
 

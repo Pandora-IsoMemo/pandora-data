@@ -28,7 +28,7 @@ dataOptions(
 \item{colNames}{If \code{TRUE}, the first row of data will be used as column names.}
 }
 \value{
-a list of extra options for \code{read.csv()} or \code{openxlsx::read.xlsx()} or
+a list of extra options for \code{utils::read.csv()} or \code{openxlsx::read.xlsx()} or
 \code{readxl::read_excel}, respectively
 }
 \description{
