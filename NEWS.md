@@ -1,3 +1,9 @@
+# Pandora 23.11.3
+
+## Features
+- new function `renameRepoColumns()` to optionally rename the columns of the result
+  of `getRepositories()`
+
 # Pandora 23.11.2
 
 ## Features
