@@ -4,14 +4,13 @@
 \alias{getNrow}
 \title{get nRow}
 \usage{
-getNrow(headOnly, type, n = 3)
+getNrow(type, nrows = NA_integer_)
 }
 \arguments{
-\item{headOnly}{(logical) if TRUE, set maximal number of rows to n}
-
 \item{type}{(character) file type}
 
-\item{n}{(numeric) maximal number of rows if headOnly}
+\item{nrows}{integer: the maximum number of rows to read in.  Negative
+    and other invalid values are ignored.}
 }
 \description{
 get nRow

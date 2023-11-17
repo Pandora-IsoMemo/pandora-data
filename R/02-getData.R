@@ -49,10 +49,11 @@ getData <- function(name,
   data <- try({
     loadData(file = resource[["url"]], 
              type = resource[["format"]],
+             nrows = options$nrows,
              sep = options$text$sep,
              dec = options$text$dec,
-             sheetId = options$xlsx$sheet,
-             withColnames = options$colNames)
+             colNames = options$colNames,
+             sheet = options$xlsx$sheet)
   }, silent = TRUE)
   
   if (inherits(data, "try-error")) {
@@ -81,14 +82,17 @@ getData <- function(name,
 #' @inheritParams utils::read.csv
 #' @inheritParams openxlsx::read.xlsx
 #' 
-#' @return a list of extra options for \code{utils::read.csv()}
-dataOptions <- function(sep = ",",
+#' @return a list of extra options for \code{read.csv()} or \code{openxlsx::read.xlsx()} or
+#'  \code{readxl::read_excel}, respectively
+dataOptions <- function(nrows = NA_integer_,
+                        sep = ",",
                         dec = ".",
                         sheet = 1,
                         colNames = TRUE) {
   list(text = list(sep = sep,
                    dec = dec),
        xlsx = list(sheet = sheet),
+       nrows = nrows,
        colNames = colNames
   )
 }
@@ -96,11 +100,11 @@ dataOptions <- function(sep = ",",
 loadData <-
   function(file,
            type,
+           nrows = NA_integer_,
            sep = ",",
            dec = ".",
-           withColnames = TRUE,
-           sheetId = 1,
-           headOnly = FALSE) {
+           colNames = TRUE,
+           sheet = 1) {
     # empty result if an error occurs
     res <- list()
     
@@ -135,46 +139,46 @@ loadData <-
       csv = suppressWarnings({
         read.csv(
           file,
-          header = withColnames,
+          header = colNames,
           sep = sep,
           dec = dec,
           stringsAsFactors = FALSE,
           row.names = NULL,
           fileEncoding = encTry,
-          nrows = getNrow(headOnly, type)
+          nrows = getNrow(type = type, nrows = nrows)
         )
       }),
       txt = suppressWarnings({
         read.csv(
           file,
-          header = withColnames,
+          header = colNames,
           sep = sep,
           dec = dec,
           stringsAsFactors = FALSE,
           row.names = NULL,
           fileEncoding = encTry,
-          nrows = getNrow(headOnly, type)
+          nrows = getNrow(type = type, nrows = nrows)
         )
       }),
       xlsx = read.xlsx(
         file,
-        sheet = sheetId,
-        colNames = withColnames,
-        rows = getNrow(headOnly, type)
+        sheet = sheet,
+        colNames = colNames,
+        rows = getNrow(type = type, nrows = nrows)
       ),
       xls = suppressWarnings({
         readxl::read_excel(
           file,
-          sheet = sheetId,
-          col_names = withColnames,
-          n_max = getNrow(headOnly, type)
+          sheet = sheet,
+          col_names = colNames,
+          n_max = getNrow(type = type, nrows = nrows)
         )
       }),
       ods = readODS::read_ods(
         file,
-        sheet = sheetId,
-        col_names = withColnames,
-        range = getNrow(headOnly, type)
+        sheet = sheet,
+        col_names = colNames,
+        range = getNrow(type = type, nrows = nrows)
       )
     )
     
@@ -205,18 +209,18 @@ loadData <-
 
 #' get nRow
 #'
-#' @param headOnly (logical) if TRUE, set maximal number of rows to n
 #' @param type (character) file type
-#' @param n (numeric) maximal number of rows if headOnly
-getNrow <- function(headOnly, type, n = 3) {
-  if (headOnly) {
+#' @inheritParams utils::read.csv
+getNrow <- function(type, nrows = NA_integer_) {
+  if (!is.null(nrows) && !is.na(nrows) && 
+      is.numeric(nrows) && (nrows > 0) && nrows == round(nrows)) {
     if (type == "xlsx")
-      return(1:n)
+      return(1:nrows)
     else
       if (type == "ods")
-        return(paste0("A1:C", n))
+        return(paste0("A1:C", nrows))
     else
-      return(n)
+      return(nrows)
   } else {
     if (type %in% c("xlsx", "ods"))
       return(NULL)

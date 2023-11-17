@@ -4,9 +4,18 @@
 \alias{dataOptions}
 \title{Data Options}
 \usage{
-dataOptions(sep = ",", dec = ".", sheet = 1, colNames = TRUE)
+dataOptions(
+  nrows = NA_integer_,
+  sep = ",",
+  dec = ".",
+  sheet = 1,
+  colNames = TRUE
+)
 }
 \arguments{
+\item{nrows}{integer: the maximum number of rows to read in.  Negative
+    and other invalid values are ignored.}
+
 \item{sep}{the field separator character.  Values on each line of the
     file are separated by this character.  If \code{sep = ""} (the
     default for \code{read.table}) the separator is \sQuote{white space},
@@ -19,7 +28,8 @@ dataOptions(sep = ",", dec = ".", sheet = 1, colNames = TRUE)
 \item{colNames}{If \code{TRUE}, the first row of data will be used as column names.}
 }
 \value{
-a list of extra options for \code{utils::read.csv()}
+a list of extra options for \code{read.csv()} or \code{openxlsx::read.xlsx()} or
+\code{readxl::read_excel}, respectively
 }
 \description{
 Data Options
