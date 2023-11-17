@@ -7,5 +7,6 @@
 #' @importFrom readr guess_encoding 
 #' @importFrom readxl read_excel
 #' @importFrom rlang .data
+#' @importFrom stats na.omit
 #' @importFrom utils read.csv
 NULL

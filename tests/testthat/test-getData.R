@@ -32,7 +32,7 @@ test_that("Test loadData()", {
                  network = "IsoMemo",
                  pattern = "14carhu")
   testLoaded <-
-    loadData(file = testResource[1, "url"], type = testResource[1, "format"])
+    loadData(path = testResource[1, "url"], type = testResource[1, "format"])
   expect_true(nrow(testLoaded) > 2000)
   expect_true(all(
     c(

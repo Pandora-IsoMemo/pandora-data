@@ -55,7 +55,7 @@ getData <- function(name,
   
   data <- try({
     loadData(
-      file = resource[["url"]],
+      path = resource[["url"]],
       type = resource[["format"]],
       nrows = options$nrows,
       sep = options$text$sep,
@@ -111,20 +111,30 @@ dataOptions <- function(nrows = NA_integer_,
   )
 }
 
+#' Load Data
+#'
+#' @param path path to the file
+#' @param type (character) type of file, one of \code{c("xlsx", "xls", "odt", "csv", "txt")}
+#' @inheritParams utils::read.csv
+#' @inheritParams openxlsx::read.xlsx
+#'
+#' @return (data.frame) data loaded from the file at path
+#' @export
 loadData <-
-  function(file,
-           type,
+  function(path,
+           type = c("xlsx", "xls", "odt", "csv", "txt"),
            nrows = NA_integer_,
            sep = ",",
            dec = ".",
            colNames = TRUE,
            sheet = 1) {
+    type <- match.arg(type)
     # empty result if an error occurs
     res <- list()
     
     # if(type == "csv" | type == "txt"){
     #   codepages <- setNames(iconvlist(), iconvlist())
-    #   x <- lapply(codepages, function(enc) try(suppressWarnings({read.csv(file,
+    #   x <- lapply(codepages, function(enc) try(suppressWarnings({read.csv(path,
     #                                                     fileEncoding=enc,
     #                                                     sep = sep, dec = dec,
     #                                                     stringsAsFactors = FALSE,
@@ -140,9 +150,9 @@ loadData <-
     #   }
     # }
     
-    encTry <- as.character(guess_encoding(file)[1, 1])
+    encTry <- as.character(guess_encoding(path)[1, 1])
     if (type == "xlsx") {
-      xlsSplit <- strsplit(file, split = "\\.")[[1]]
+      xlsSplit <- strsplit(path, split = "\\.")[[1]]
       if (xlsSplit[length(xlsSplit)] == "xls") {
         type <- "xls"
       }
@@ -152,7 +162,7 @@ loadData <-
       type,
       csv = suppressWarnings({
         read.csv(
-          file,
+          path,
           header = colNames,
           sep = sep,
           dec = dec,
@@ -164,7 +174,7 @@ loadData <-
       }),
       txt = suppressWarnings({
         read.csv(
-          file,
+          path,
           header = colNames,
           sep = sep,
           dec = dec,
@@ -175,21 +185,21 @@ loadData <-
         )
       }),
       xlsx = read.xlsx(
-        file,
+        path,
         sheet = sheet,
         colNames = colNames,
         rows = getNrow(type = type, nrows = nrows)
       ),
       xls = suppressWarnings({
         readxl::read_excel(
-          file,
+          path,
           sheet = sheet,
           col_names = colNames,
           n_max = getNrow(type = type, nrows = nrows)
         )
       }),
       ods = readODS::read_ods(
-        file,
+        path,
         sheet = sheet,
         col_names = colNames,
         range = getNrow(type = type, nrows = nrows)
