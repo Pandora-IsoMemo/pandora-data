@@ -157,12 +157,15 @@ getFileTypes <- function(repository = "",
 #' Formerly getCKANRecordChoices()
 #' 
 #' @inheritParams getResources
+#' @param mapColnames (logical) apply names from the 'Additional Info' box from
+#'  'https://pandoradata.earth/dataset/' to the columns of returned data
 #' 
 #' @return (data.frame) containing available repositories
 #' @export
 getRepositories <- function(network = "",
                             pattern = "",
                             order = TRUE,
+                            mapColnames = FALSE,
                             packageList = data.frame()) {
   
   if (is.null(packageList) || nrow(packageList) == 0) {
@@ -177,7 +180,35 @@ getRepositories <- function(network = "",
     filterColumn(pattern = network, column = "groups") %>%
     filterPattern(pattern = pattern) %>%
     orderDatAPI(column = "title", order = order) %>%
-    selectDatAPI(columns = c("name", "title", "notes"))
+    selectDatAPI(columns = c("name", "title", "notes")) %>%
+    renameRepoColumns(mapColnames = mapColnames)
+}
+
+#' Rename Repository Meta Columns
+#' 
+#' Apply names from the 'Additional Info' box from 'https://pandoradata.earth/dataset/' to the
+#'  columns of returned data
+#' 
+#' @inheritParams getResources
+#' @inheritParams getRepositories
+#' 
+#' @return (data.frame) containing available repositories
+#' @export
+renameRepoColumns <- function(packageList, mapColnames = FALSE) {
+  if (!mapColnames) return(packageList)
+  
+  columns <- colnames(packageList)
+  names(columns) <- columns
+  
+  # match colnames and mapping
+  colNameMapping <- config()$repositoryMetaFields
+  mapMatch <- match(columns, colNameMapping)
+  names(columns)[!is.na(mapMatch)] <- names(colNameMapping)[na.omit(mapMatch)]
+    
+  # rename
+  colnames(packageList) <- names(columns)
+  
+  packageList
 }
 
 #' Get Networks

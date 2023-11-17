@@ -31,6 +31,7 @@ test_that("Test getRepositories()", {
   expect_true(nrow(getRepositories(network = "aghfjdhfjgkhj")) == 0)
   
   testRepos <- getRepositories(order = FALSE)
+  expect_equal(colnames(testRepos), c("name", "title", "notes"))
   expect_true(
     all(c("isomedita-a-stable-isotope-database-for-medieval-italy", 
           "northern-hemisphere-modern-leaf-wax-ddn-alkane-dataset", 
@@ -53,6 +54,9 @@ test_that("Test getRepositories()", {
     "AustArch: A Database of 14C and Luminescence Ages from Archaeological Sites in Australia",
     testRepos$title
   )
+  
+  testRepos <- getRepositories(order = FALSE, mapColnames = TRUE)
+  expect_equal(colnames(testRepos), c("Name", "Repository", "Description"))
 })
 
 test_that("Test getNetworks()", {

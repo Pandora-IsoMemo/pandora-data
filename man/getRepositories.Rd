@@ -8,6 +8,7 @@ getRepositories(
   network = "",
   pattern = "",
   order = TRUE,
+  mapColnames = FALSE,
   packageList = data.frame()
 )
 }
@@ -18,6 +19,9 @@ getRepositories(
 \item{pattern}{(character) string for meta information search}
 
 \item{order}{(logical) if TRUE order dataframe alphabetically by name}
+
+\item{mapColnames}{(logical) apply names from the 'Additional Info' box from
+'https://pandoradata.earth/dataset/' to the columns of returned data}
 
 \item{packageList}{(data.frame) optional, output of callAPI() from a previous call to the
 Pandora API.}
