@@ -9,4 +9,5 @@
 #' @importFrom rlang .data
 #' @importFrom stats na.omit
 #' @importFrom utils read.csv
+#' @importFrom yaml yaml.load_file
 NULL
