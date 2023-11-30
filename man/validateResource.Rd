@@ -4,10 +4,13 @@
 \alias{validateResource}
 \title{Validate Resource}
 \usage{
-validateResource(resource)
+validateResource(resource, repository)
 }
 \arguments{
-\item{resources}{(data.frame) resources data frame}
+\item{resource}{(data.frame) resources data frame}
+
+\item{repository}{(character) name of a Pandora repository, e.g. an entry of the output from
+\code{getRepositories()$name}}
 }
 \value{
 (data.frame) resource, or error if empty

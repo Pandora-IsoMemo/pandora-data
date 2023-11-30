@@ -14,7 +14,7 @@ getData <- function(name,
   
   resource <- try({
     getResources(repository = repository) %>%
-      validateResource() %>%
+      validateResource(repository = repository) %>%
       filterResourceByName(name = name) %>%
       filterValidFileType(name = name) %>%
       selectSingleFile()
@@ -86,10 +86,11 @@ dataOptions <- function(nrows = NA_integer_,
 
 #' Validate Resource
 #'
-#' @param resources (data.frame) resources data frame
+#' @param resource (data.frame) resources data frame
+#' @inheritParams getResources
 #'
 #' @return (data.frame) resource, or error if empty
-validateResource <- function(resource) {
+validateResource <- function(resource, repository) {
   if (nrow(resource) == 0) {
     stop(sprintf("No resource found for repository '%s'", repository))
   }
