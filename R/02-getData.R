@@ -11,70 +11,15 @@
 getData <- function(name,
                     repository = "",
                     options = dataOptions()) {
-  # empty result if an error occurs
-  res <- list()
   
-  # filter repository
-  resourcesForRepo <- getResources(repository = repository)
-  if (nrow(resourcesForRepo) == 0) {
-    attr(res, "error") <-
-      sprintf("No resource found for repository '%s'", repository)
-    return(res)
-  }
+  resource <- try({
+    getResources(repository = repository) %>%
+      validateResource() %>%
+      filterResourceByName(name = name) %>%
+      filterValidFileType(name = name) %>%
+      selectSingleFile()
+  }, silent = TRUE)
   
-#' Filter Resource by Name
-#'
-#' @param name (character) name of a resource
-#' @param resources (data.frame) resources data frame
-#'
-#' @return (data.frame) filtered resource
-filterResourceByName <- function(name, resources) {
-  resource <- resources[resources[["name"]] == name, ]
-  if (nrow(resource) == 0) {
-    stop(sprintf("No resource found with name '%s'", name))
-  }
-  return(resource)
-}
-  
-#' Filter Resource by Valid File Type
-#'
-#' @param resource (data.frame) resource data frame
-#'
-#' @return (data.frame) filtered resource
-filterValidFileType <- function(resource) {
-  validFileTypes <- config()$fileTypes
-  resource <- resource[resource[["format"]] %in% validFileTypes, ]
-  if (nrow(resource) == 0) {
-    stop(sprintf(
-      "No resource found with name '%s' and with valid file type (%s)",
-      name,
-      paste(validFileTypes, collapse = ", ")
-    ))
-  }
-  return(resource)
-}
-  
-#' Select Single File from Resources
-#'
-#' @param resource (data.frame) resource data frame
-#'
-#' @return (data.frame) selected resource
-selectSingleFile <- function(resource) {
-  if (nrow(resource) > 1) {
-    orderVec <- na.omit(match(config()$fileTypes, resource[["format"]]))
-    resource <- resource[orderVec, ]
-    resource <- resource[1, ]
-  }
-  return(resource)
-}
-  
-#' Load Data from Resource
-#'
-#' @param resource (data.frame) resource data frame
-#' @param options (list) data loading options
-#'
-#' @return (data.frame) data loaded from the resource
-loadDataFromResource <- function(resource, options) {
   data <- try({
     loadData(
       path = resource[["url"]],
@@ -86,17 +31,15 @@ loadDataFromResource <- function(resource, options) {
       sheet = options$xlsx$sheet
     )
   }, silent = TRUE)
-  handleDataLoadResult(data, resource)
-}
   
-#' Handle Data Load Result
-#'
-#' @param data result of data loading
-#' @param resource (data.frame) resource data frame
-#'
-#' @return (data.frame) loaded data or modified result list
-handleDataLoadResult <- function(data, resource) {
+  # catch possible errors directly inside this function
   res <- list()
+  
+  if (inherits(resource, "try-error")) {
+    stop(resource[[1]])
+  } else if (length(resource) == 0 && nrow(resource) == 0) {
+    stop(sprintf("An error occurred for resource with name '%s'", name))
+  }
   
   if (inherits(data, "try-error")) {
     msg <- if (resource[["format"]] == "csv") {
@@ -105,46 +48,18 @@ handleDataLoadResult <- function(data, resource) {
       ""
     }
     msg <- sprintf("%s for resource with name '%s', %s", data[[1]], name, msg)
-    warning(msg)
     stop(msg)
-  } else if (!is.null(data) && length(data) > 0 && nrow(data) > 0) {
-    res <- data
   } else if (length(data) == 0 && !is.null(attr(data, "error"))) {
     msg <- sprintf("%s for resource with name '%s'", attr(data, "error"), name)
     stop(msg)
+  } else if (length(data) > 0 && nrow(data) > 0) {
+    res <- data
   } else {
     msg <- sprintf("An error occurred for resource with name '%s'", name)
-    warning(msg)
     stop(msg)
   }
   
   return(res)
-}
-  
- #' Get Data
-#'
-#' @param name (character) name of a resource, e.g. an entry of the output from
-#'  \code{getResources()$name}
-#' @param options (list) a list of extra options for \code{read.csv()} or \code{openxlsx::read.xlsx()} and
-#'  \code{readxl::read_excel}
-#' @inheritParams getResources
-#'
-#' @return (data.frame) return data from the Pandora API
-#' @export
-getData <- function(name,
-                    repository = "",
-                    options = dataOptions()) {
-                    
-  resourcesForRepo <- getResources(repository = repository)
-  
-  filterResourceByRepo(...) # i did not give the `first function` a name - (first review comment)
-  filterResourceByName(name, resourcesForRepo)
- 
-  resource <- filterValidFileType(resourcesForRepo)
-  resource <- selectSingleFile(resource)
-  
-  loadDataFromResource(resource, options)
-}
 }
 
 #' Data Options
@@ -168,6 +83,66 @@ dataOptions <- function(nrows = NA_integer_,
     colNames = colNames
   )
 }
+
+#' Validate Resource
+#'
+#' @param resources (data.frame) resources data frame
+#'
+#' @return (data.frame) resource, or error if empty
+validateResource <- function(resource) {
+  if (nrow(resource) == 0) {
+    stop(sprintf("No resource found for repository '%s'", repository))
+  }
+  return(resource)
+}
+
+#' Filter Resource by Name
+#'
+#' @param resource (data.frame) resources data frame
+#' @param name (character) name of a resource
+#'
+#' @return (data.frame) filtered resource
+filterResourceByName <- function(resource, name) {
+  resource <- resource[resource[["name"]] == name, ]
+  if (nrow(resource) == 0) {
+    stop(sprintf("No resource found with name '%s'", name))
+  }
+  return(resource)
+}
+  
+#' Filter Resource by Valid File Type
+#'
+#' @inheritParams filterResourceByName
+#'
+#' @return (data.frame) filtered resource
+filterValidFileType <- function(resource, name) {
+  validFileTypes <- config()$fileTypes
+  resource <- resource[resource[["format"]] %in% validFileTypes, ]
+  if (nrow(resource) == 0) {
+    stop(sprintf(
+      "No resource found with name '%s' and with valid file type (%s)",
+      name,
+      paste(validFileTypes, collapse = ", ")
+    ))
+  }
+  return(resource)
+}
+  
+#' Select Single File from Resources
+#'
+#' @inheritParams filterResourceByName
+#'
+#' @return (data.frame) selected resource
+selectSingleFile <- function(resource) {
+  if (nrow(resource) > 1) {
+    orderVec <- na.omit(match(config()$fileTypes, resource[["format"]]))
+    resource <- resource[orderVec, ]
+    resource <- resource[1, ]
+  }
+  return(resource)
+}
+
+
 
 #' Load Data
 #'
