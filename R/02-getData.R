@@ -22,13 +22,19 @@ getData <- function(name,
     return(res)
   }
   
-  # filter name
-  resource <- resourcesForRepo[resourcesForRepo[["name"]] == name, ]
+#' Filter Resource by Name
+#'
+#' @param name (character) name of a resource
+#' @param resources (data.frame) resources data frame
+#'
+#' @return (data.frame) filtered resource
+filterResourceByName <- function(name, resources) {
+  resource <- resources[resources[["name"]] == name, ]
   if (nrow(resource) == 0) {
-    attr(res, "error") <-
-      sprintf("No resource found with name '%s'", name)
-    return(res)
+    stop(sprintf("No resource found with name '%s'", name))
   }
+  return(resource)
+}
   
   # filter valid file types
   resource <-
