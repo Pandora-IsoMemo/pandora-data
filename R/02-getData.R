@@ -85,26 +85,37 @@ loadDataFromResource <- function(resource, options) {
   handleDataLoadResult(data, resource)
 }
   
+#' Handle Data Load Result
+#'
+#' @param data result of data loading
+#' @param resource (data.frame) resource data frame
+#'
+#' @return (data.frame) loaded data or modified result list
+handleDataLoadResult <- function(data, resource) {
+  res <- list()
+  
   if (inherits(data, "try-error")) {
-    msg <- ""
-    if (resource[["format"]] == "csv")
-      msg <- "Please check dataOptions()."
-    msg <-
-      sprintf("%s for resource with name '%s', %s", data[[1]], name, msg)
+    msg <- if (resource[["format"]] == "csv") {
+      "Please check dataOptions()."
+    } else {
+      ""
+    }
+    msg <- sprintf("%s for resource with name '%s', %s", data[[1]], name, msg)
     warning(msg)
-    attr(res, "error") <- msg
+    stop(msg)
   } else if (!is.null(data) && length(data) > 0 && nrow(data) > 0) {
-    # data loading SUCCESS
     res <- data
   } else if (length(data) == 0 && !is.null(attr(data, "error"))) {
-    msg <-
-      sprintf("%s for resource with name '%s'", attr(data, "error"), name)
-    attr(res, "error") <- msg
+    msg <- sprintf("%s for resource with name '%s'", attr(data, "error"), name)
+    stop(msg)
   } else {
-    msg <- sprintf("An error occured for resource with name '%s'", name)
+    msg <- sprintf("An error occurred for resource with name '%s'", name)
     warning(msg)
-    attr(res, "error") <- msg
+    stop(msg)
   }
+  
+  return(res)
+}
   
   res
 }
