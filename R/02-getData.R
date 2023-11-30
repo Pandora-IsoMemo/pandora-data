@@ -64,6 +64,13 @@ filterValidFileType <- function(resource) {
     resource <- resource[1, ]
   }
   
+#' Load Data from Resource
+#'
+#' @param resource (data.frame) resource data frame
+#' @param options (list) data loading options
+#'
+#' @return (data.frame) data loaded from the resource
+loadDataFromResource <- function(resource, options) {
   data <- try({
     loadData(
       path = resource[["url"]],
@@ -75,6 +82,8 @@ filterValidFileType <- function(resource) {
       sheet = options$xlsx$sheet
     )
   }, silent = TRUE)
+  handleDataLoadResult(data, resource)
+}
   
   if (inherits(data, "try-error")) {
     msg <- ""
