@@ -121,7 +121,30 @@ handleDataLoadResult <- function(data, resource) {
   return(res)
 }
   
-  res
+ #' Get Data
+#'
+#' @param name (character) name of a resource, e.g. an entry of the output from
+#'  \code{getResources()$name}
+#' @param options (list) a list of extra options for \code{read.csv()} or \code{openxlsx::read.xlsx()} and
+#'  \code{readxl::read_excel}
+#' @inheritParams getResources
+#'
+#' @return (data.frame) return data from the Pandora API
+#' @export
+getData <- function(name,
+                    repository = "",
+                    options = dataOptions()) {
+                    
+  resourcesForRepo <- getResources(repository = repository)
+  
+  filterResourceByRepo(...) # i did not give the `first function` a name - (first review comment)
+  filterResourceByName(name, resourcesForRepo)
+ 
+  resource <- filterValidFileType(resourcesForRepo)
+  resource <- selectSingleFile(resource)
+  
+  loadDataFromResource(resource, options)
+}
 }
 
 #' Data Options
