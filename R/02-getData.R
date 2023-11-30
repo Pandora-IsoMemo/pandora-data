@@ -36,18 +36,23 @@ filterResourceByName <- function(name, resources) {
   return(resource)
 }
   
-  # filter valid file types
-  resource <-
-    resource[resource[["format"]] %in% config()$fileTypes, ]
+#' Filter Resource by Valid File Type
+#'
+#' @param resource (data.frame) resource data frame
+#'
+#' @return (data.frame) filtered resource
+filterValidFileType <- function(resource) {
+  validFileTypes <- config()$fileTypes
+  resource <- resource[resource[["format"]] %in% validFileTypes, ]
   if (nrow(resource) == 0) {
-    attr(res, "error") <-
-      sprintf(
-        "No resource found with name '%s' and with valid file type (%s)",
-        name,
-        paste(config()$fileTypes, collapse = ", ")
-      )
-    return(res)
+    stop(sprintf(
+      "No resource found with name '%s' and with valid file type (%s)",
+      name,
+      paste(validFileTypes, collapse = ", ")
+    ))
   }
+  return(resource)
+}
   
   # select single file
   if (nrow(resource) > 1) {
