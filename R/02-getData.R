@@ -43,7 +43,7 @@ getData <- function(name,
   
   if (inherits(data, "try-error")) {
     msg <- if (resource[["format"]] == "csv") {
-      "Please check dataOptions()."
+      "Please check dataOptions() for this resource."
     } else {
       ""
     }
