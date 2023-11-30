@@ -54,15 +54,19 @@ filterValidFileType <- function(resource) {
   return(resource)
 }
   
-  # select single file
+#' Select Single File from Resources
+#'
+#' @param resource (data.frame) resource data frame
+#'
+#' @return (data.frame) selected resource
+selectSingleFile <- function(resource) {
   if (nrow(resource) > 1) {
-    # if more than one file for one name, order by config()$fileTypes
-    orderVec <-
-      na.omit(match(config()$fileTypes, resource[["format"]]))
+    orderVec <- na.omit(match(config()$fileTypes, resource[["format"]]))
     resource <- resource[orderVec, ]
-    # take only first file
     resource <- resource[1, ]
   }
+  return(resource)
+}
   
 #' Load Data from Resource
 #'
