@@ -1,6 +1,6 @@
 Package: Pandora
 Title: Retrieve Data using the 'Pandora' API
-Version: 23.11.1
+Version: 23.11.2
 Date: 2023-10-12
 Authors@R: c(
           person("Jan", "Abel", , "jan.abel@inwt-statistics.de", "cre"),
@@ -19,7 +19,13 @@ Imports:
   curl,
   jsonlite,
   magrittr,
-  rlang
+  openxlsx,
+  readODS,
+  readr,
+  readxl,
+  rlang,
+  stats,
+  yaml
 Suggests:
   testthat
 Roxygen: list(markdown = TRUE)
