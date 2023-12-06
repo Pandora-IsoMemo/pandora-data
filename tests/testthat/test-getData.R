@@ -13,17 +13,17 @@ test_that("Test getData()", {
     )
     %in% colnames(testLoaded)
   ))
-  
-  # test random file
-  allResources <- getResources()
-  for (i in 1:10) {
-    testResource <- allResources[sample(nrow(allResources), 1), ]
     
-    testLoaded <- getData(name = testResource[["name"]])
-    expect_true(xor(is.null(attr(
-      testLoaded, "error"
-    )), length(testLoaded) == 0))
-  }
+  # run only for TDD:
+  # test random files to check if errors are caught
+  # allResources <- getResources()
+  # for (i in 1:10) {
+  #   testResource <- allResources[sample(nrow(allResources), 1), ]
+  #   getData(name = testResource[["name"]])
+  # }
+  
+  expect_error(getData(name = "Amalthea Bibliography 05.03.2021"))
+  expect_error(getData(name = "Isotòpia Humans csv (19.09.2023)"))
 })
 
 test_that("Test loadData()", {
