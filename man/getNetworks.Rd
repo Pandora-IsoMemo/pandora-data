@@ -9,7 +9,7 @@ getNetworks(pattern = "", order = TRUE, groupList = data.frame())
 \arguments{
 \item{pattern}{(character) string for meta information search}
 
-\item{order}{(logical) if TRUE order dataframe alphabetically by name}
+\item{order}{(logical) if TRUE, order dataframe alphabetically by 'repository' and 'name'}
 
 \item{groupList}{(data.frame) optional, output of callAPI() from a previous call to the
 Pandora API.}
@@ -21,5 +21,4 @@ networks (groups in CKAN terminology)
 \description{
 Get all available networks (groups in CKAN terminology)
 optional filtering of names for a given string
-Formerly getCKANGroupChoices()
 }

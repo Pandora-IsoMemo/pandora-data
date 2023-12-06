@@ -8,8 +8,8 @@ fileTypes:
   - "txt"                       
 
 repositoryMetaFields:
-  Name: "name"
   Repository: "title"
+  Name: "name"
   Description: "notes"
   Existing DOI: "ext_doi"
   Assigned DOI: "doi"

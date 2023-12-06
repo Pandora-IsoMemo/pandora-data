@@ -8,7 +8,8 @@ getRepositories(
   network = "",
   pattern = "",
   order = TRUE,
-  mapColnames = FALSE,
+  columns = getDatasetFields(),
+  renameColumns = TRUE,
   packageList = data.frame()
 )
 }
@@ -18,12 +19,14 @@ getRepositories(
 
 \item{pattern}{(character) string for meta information search}
 
-\item{order}{(logical) if TRUE order dataframe alphabetically by name}
+\item{order}{(logical) if TRUE, order dataframe alphabetically by 'repository' and 'name'}
 
-\item{mapColnames}{(logical) apply names from the 'Additional Info' box from
+\item{columns}{(character) names of columns that should be returned}
+
+\item{renameColumns}{(logical) apply names from the 'Additional Info' box from
 'https://pandoradata.earth/dataset/' to the columns of returned data}
 
-\item{packageList}{(data.frame) optional, output of callAPI() from a previous call to the
+\item{packageList}{(data.frame) optional, output of callAPI() e.g. from a previous call to the
 Pandora API.}
 }
 \value{
@@ -33,7 +36,4 @@ Pandora API.}
 Get all vailable repositories or those within
 a specific network
 optional filtering of meta information for a given string
-}
-\details{
-Formerly getCKANRecordChoices()
 }
