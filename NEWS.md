@@ -1,4 +1,4 @@
-# Pandora 23.11.3
+# Pandora 23.12.0
 
 ## Features
 - new parameters for the function `getRepositories()` to select and rename the columns of the result
