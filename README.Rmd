@@ -19,21 +19,35 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/Pandora-IsoMemo/pandora-data/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Pandora-IsoMemo/pandora-data/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of Pandora is to ...
+Pandora seeks a better understanding of the human story by offering technological 
+solutions to make historical and archaeological data more accessible and easily 
+findable. It is a grassroots initiative where research communities from across 
+various academic disciplines self-curate datasets and self-manage community 
+membership and roles. These datasets may be deposited externally or within the 
+Pandora data platform itself. Datasets can be assigned DOIs and are indexed so 
+that they are findable using scientific search engines.
+
+The Pandora initiative is also developing computational methods to improve data 
+usage and integration. Artificial intelligence techniques are employed to 
+investigate the dynamics of past human societies. This generates useful 
+knowledge that can be employed by policymakers and risk analysts to address 
+present and future societal challenges.
+
+Pandora promotes data communities and networking. It offers new tools to handle 
+and model data plus AI methods to investigate historical causation.
 
 ## Installation
 
 You can install the released version of Pandora from [CRAN](https://CRAN.R-project.org) with:
 
-```{r install-cran}
+```{r install-cran, eval=FALSE}
 install.packages("Pandora")
 ```
 
 
 You can install the development version of Pandora from [GitHub](https://github.com/) with:
 
-```{r install-dev}
-# install.packages("devtools")
+```{r install-dev, eval=FALSE}
 devtools::install_github("Pandora-IsoMemo/pandora-data")
 ```
 
@@ -42,12 +56,10 @@ devtools::install_github("Pandora-IsoMemo/pandora-data")
 This is a basic example of Pandora ...
 
 ```{r example}
-install.packages("Pandora")
-
 library(Pandora)
-## basic example code
 
+## basic example code
 df <- getRepositories()
 
-
+head(df)
 ```
