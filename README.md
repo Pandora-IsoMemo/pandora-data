@@ -8,14 +8,18 @@
 [![R-CMD-check](https://github.com/Pandora-IsoMemo/pandora-data/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Pandora-IsoMemo/pandora-data/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-Pandora seeks a better understanding of the human story by offering
-technological solutions to make historical and archaeological data more
-accessible and easily findable. It is a grassroots initiative where
-research communities from across various academic disciplines
-self-curate datasets and self-manage community membership and roles.
-These datasets may be deposited externally or within the Pandora data
-platform itself. Datasets can be assigned DOIs and are indexed so that
-they are findable using scientific search engines.
+This R-Package in a Wrapper for the [ckan
+API](https://docs.ckan.org/en/2.9/api/) of the Pandora data platform.
+
+[Pandora](https://pandora.earth/) seeks a better understanding of the
+human story by offering technological solutions to make historical and
+archaeological data more accessible and easily findable. It is a
+grassroots initiative where research communities from across various
+academic disciplines self-curate datasets and self-manage community
+membership and roles. These datasets may be deposited externally or
+within the Pandora data platform itself. Datasets can be assigned DOIs
+and are indexed so that they are findable using scientific search
+engines.
 
 The Pandora initiative is also developing computational methods to
 improve data usage and integration. Artificial intelligence techniques
