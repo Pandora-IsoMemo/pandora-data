@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-![R-CMD-check](https://github.com/Pandora-IsoMemo/pandora-data/actions/workflows/R-CMD-check.yaml/badge.svg)\](<https://github.com/Pandora-IsoMemo/pandora-data/actions/workflows/R-CMD-check.yaml>
+\[![R-CMD-check](https://github.com/Pandora-IsoMemo/pandora-data/actions/workflows/R-CMD-check.yaml/badge.svg)\](<https://github.com/Pandora-IsoMemo/pandora-data/actions/workflows/R-CMD-check.yaml>
 <!-- badges: end -->
 
 The goal of Pandora is to …
@@ -17,7 +17,7 @@ You can install the released version of Pandora from
 
 ``` r
 install.packages("Pandora")
-#> Installiere Paket nach '/tmp/RtmpGqgRQN/temp_libpath286b6bef4e55'
+#> Installiere Paket nach '/tmp/RtmpGqgRQN/temp_libpath286b5cf5fa23'
 #> (da 'lib' nicht spezifiziert)
 #> Warning: package 'Pandora' is not available for this version of R
 #> 
@@ -35,17 +35,17 @@ devtools::install_github("Pandora-IsoMemo/pandora-data")
 #> Downloading GitHub repo Pandora-IsoMemo/pandora-data@HEAD
 #> readODS (1.8.0 -> 2.1.0) [CRAN]
 #> Installing 1 packages: readODS
-#> Installiere Paket nach '/tmp/RtmpGqgRQN/temp_libpath286b6bef4e55'
+#> Installiere Paket nach '/tmp/RtmpGqgRQN/temp_libpath286b5cf5fa23'
 #> (da 'lib' nicht spezifiziert)
 #> ── R CMD build ─────────────────────────────────────────────────────────────────
-#> * checking for file ‘/tmp/Rtmpi0b2PB/remotes3aaa74af132e/Pandora-IsoMemo-pandora-data-e3a0600/DESCRIPTION’ ... OK
+#> * checking for file ‘/tmp/RtmpHo2Yc0/remotes3ddf59929eda/Pandora-IsoMemo-pandora-data-e3a0600/DESCRIPTION’ ... OK
 #> * preparing ‘Pandora’:
 #> * checking DESCRIPTION meta-information ... OK
 #> * checking for LF line-endings in source and make files and shell scripts
 #> * checking for empty or unneeded directories
 #> Omitted ‘LazyData’ from DESCRIPTION
 #> * building ‘Pandora_23.11.2.tar.gz’
-#> Installiere Paket nach '/tmp/RtmpGqgRQN/temp_libpath286b6bef4e55'
+#> Installiere Paket nach '/tmp/RtmpGqgRQN/temp_libpath286b5cf5fa23'
 #> (da 'lib' nicht spezifiziert)
 ```
 
@@ -55,7 +55,7 @@ This is a basic example of Pandora …
 
 ``` r
 install.packages("Pandora")
-#> Installiere Paket nach '/tmp/RtmpGqgRQN/temp_libpath286b6bef4e55'
+#> Installiere Paket nach '/tmp/RtmpGqgRQN/temp_libpath286b5cf5fa23'
 #> (da 'lib' nicht spezifiziert)
 #> Warning: package 'Pandora' is not available for this version of R
 #> 
