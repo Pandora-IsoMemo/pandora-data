@@ -16,20 +16,38 @@ knitr::opts_chunk$set(
 # Pandora
 
 <!-- badges: start -->
+![R-CMD-check](https://github.com/Pandora-IsoMemo/pandora-data/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Pandora-IsoMemo/pandora-data/actions/workflows/R-CMD-check.yaml
 <!-- badges: end -->
 
 The goal of Pandora is to ...
 
 ## Installation
 
+You can install the released version of Pandora from [CRAN](https://CRAN.R-project.org) with:
+
+```{r install-cran}
+install.packages("Pandora")
+```
+
+
 You can install the development version of Pandora from [GitHub](https://github.com/) with:
 
-``` r
+```{r install-dev}
 # install.packages("devtools")
 devtools::install_github("Pandora-IsoMemo/pandora-data")
 ```
 
-## Example
+## Example of how to use the package
 
-This is a basic example which shows you how to solve a common problem...
+This is a basic example of Pandora ...
 
+```{r example}
+install.packages("Pandora")
+
+library(Pandora)
+## basic example code
+
+df <- getRepositories()
+
+
+```
