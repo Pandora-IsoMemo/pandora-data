@@ -8,7 +8,7 @@
 [![R-CMD-check](https://github.com/Pandora-IsoMemo/pandora-data/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Pandora-IsoMemo/pandora-data/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-This R-Package in a Wrapper for the [ckan
+This R-Package is a wrapper for the [CKAN
 API](https://docs.ckan.org/en/2.9/api/) of the Pandora data platform.
 
 [Pandora](https://pandora.earth/) seeks a better understanding of the
