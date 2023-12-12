@@ -1,8 +1,8 @@
 ---
-title: "How to use the Pandora Data"
+title: "How to use the Pandora Data Package"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{How to use the Pandora Data}
+  %\VignetteIndexEntry{How to use the Pandora Package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
