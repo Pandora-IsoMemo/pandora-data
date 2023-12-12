@@ -1,8 +1,8 @@
 ---
-title: "How to use the CKAN-API Wrapper for Pandora Data"
+title: "How to use the Pandora Data"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{how-to-use-pandora-data}
+  %\VignetteIndexEntry{How to use the Pandora Data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,12 +18,98 @@ knitr::opts_chunk$set(
 library(Pandora)
 ```
 
+# Introduction
+This vignette provides an overview of the basic functions within the Pandora 
+Data package, allowing users to explore and retrieve information about networks, 
+repositories, file types, and resources.
 
-To list all available repositories use the `getRepositories()` function. You can
-filter the output by the arguments `network` and `pattern`. For example if you
-want to list all repositories and their corresponding author from the network 
-`IsoMemo` you can use:
 
-```{r}
-getRepositories(network = "IsoMemo")[c("Repository", "Author")]
+# Show all Networks
+
+To show all available networks use the `getNetworks()` function:
+
+```{r networks}
+networks <- getNetworks()
+networks |> 
+  knitr::kable()
 ```
+
+# List Repositories
+
+To list all available repositories use the `getRepositories()` function. You can 
+filter the output using the `network` and `pattern` arguments. For instance, to 
+list all repositories in the `IsoMemo` network:
+
+```{r repositories}
+reposIsomemo <- getRepositories(
+  network = "IsoMemo"
+  )
+
+reposIsomemo[c("Repository")] |> 
+  knitr::kable()
+```
+
+# List Available File Types
+
+Use the `getFileTypes()` function to list all available file types. The 
+following example showcases file types available in the 'IsoMemo' network:
+
+```{r filetypes}
+fileTypesIsomemo <- getFileTypes(network = "isomemo")
+fileTypesIsomemo |> 
+  knitr::kable()
+```
+
+# Filter Resources by pattern or File Type
+
+To list all available resources, employ the `getResources()` function. Filter 
+the output using the `network`, `repository`, `fileType`, and `pattern` 
+arguments. Forinstance, to list all CSV files with the string `plants`:
+
+
+```{r resources}
+resourcesPlants <- getResources(
+  fileType = c("csv"),
+  pattern = "plant"
+  )
+
+resourcesPlants[c("name", "format")] |>
+  knitr::kable()
+```
+
+# Get the data of a Specific Resource
+
+To retrieve data from a specific resource, use the `getData()` function. The 
+example below demonstrates fetching data from the 
+`Isotopic measurements in CSV format` resource:
+
+
+```{r getdata}
+isotopicData <- getData(
+  name = "Isotopic measurements in CSV format") 
+isotopicData |>
+  head(5) |>
+  knitr::kable()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

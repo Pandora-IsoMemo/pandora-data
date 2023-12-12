@@ -6,6 +6,9 @@
 \usage{
 getDatasetFields()
 }
+\value{
+(character vector) names of meta fields
+}
 \description{
 Names of particular meta fields from the 'Additional Info' box from 'https://pandoradata.earth/dataset/'
 }

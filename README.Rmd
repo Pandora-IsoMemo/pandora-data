@@ -55,15 +55,8 @@ You can install the development version of Pandora from [GitHub](https://github.
 devtools::install_github("Pandora-IsoMemo/pandora-data")
 ```
 
-## Example of how to use the package
+## How to use this Package
 
-This is a basic example of Pandora ...
+Refer to the vignette [how-to-use-pandora-data](https://pandora-isomemo.github.io/pandora-data/articles/index.html) 
+for a description of the basics function of the pandora data package.
 
-```{r example}
-library(Pandora)
-
-## basic example code
-df <- getRepositories()
-
-head(df)
-```
