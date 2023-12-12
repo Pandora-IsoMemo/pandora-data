@@ -214,7 +214,6 @@ formatRepositoryList <- function(packageList, columns = getDatasetFields(), rena
 #' Names of particular meta fields from the 'Additional Info' box from 'https://pandoradata.earth/dataset/'
 #'
 #' @return (character vector) names of meta fields
-#' @export
 getDatasetFields <- function() {
   config()$repositoryMetaFields %>% 
     unlist()

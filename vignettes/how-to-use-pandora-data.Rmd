@@ -1,0 +1,29 @@
+---
+title: "How to use the CKAN-API Wrapper for Pandora Data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{how-to-use-pandora-data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(Pandora)
+```
+
+
+To list all available repositories use the `getRepositories()` function. You can
+filter the output by the arguments `network` and `pattern`. For example if you
+want to list all repositories and their corresponding author from the network 
+`IsoMemo` you can use:
+
+```{r}
+getRepositories(network = "IsoMemo")[c("Repository", "Author")]
+```

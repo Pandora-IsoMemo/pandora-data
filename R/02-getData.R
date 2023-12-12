@@ -64,6 +64,10 @@ getData <- function(name,
 
 #' Data Options
 #'
+#' Set options for \code{utils::read.csv()}, \code{openxlsx::read.xlsx()} or 
+#' \code{readxl::read_excel}. Choose delimiter and decimal separator as well
+#' as sheetnumbner and number of rows to read.
+#'
 #' @inheritParams utils::read.csv
 #' @inheritParams openxlsx::read.xlsx
 #'
