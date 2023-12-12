@@ -57,6 +57,6 @@ devtools::install_github("Pandora-IsoMemo/pandora-data")
 
 ## How to use this Package
 
-Refer to the vignette [how-to-use-pandora-data](https://pandora-isomemo.github.io/pandora-data/articles/index.html) 
+Refer to the vignette [how-to-use-pandora-data](https://pandora-isomemo.github.io/pandora-data/articles/how-to-use-pandora-data.html) 
 for a description of the basics function of the pandora data package.
 
