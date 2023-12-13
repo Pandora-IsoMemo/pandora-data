@@ -16,9 +16,11 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(Pandora)
+library(magrittr)
 ```
 
 # Introduction
+
 This vignette provides an overview of the basic functions within the Pandora 
 Data package, allowing users to explore and retrieve information about networks, 
 repositories, file types, and resources.
@@ -30,7 +32,7 @@ To show all available networks use the `getNetworks()` function:
 
 ```{r networks}
 networks <- getNetworks()
-networks |> 
+networks %>% 
   knitr::kable()
 ```
 
@@ -45,7 +47,7 @@ reposIsomemo <- getRepositories(
   network = "IsoMemo"
   )
 
-reposIsomemo[c("Repository")] |> 
+reposIsomemo[c("Repository")]  %>% 
   knitr::kable()
 ```
 
@@ -56,7 +58,7 @@ following example showcases file types available in the 'IsoMemo' network:
 
 ```{r filetypes}
 fileTypesIsomemo <- getFileTypes(network = "isomemo")
-fileTypesIsomemo |> 
+fileTypesIsomemo  %>% 
   knitr::kable()
 ```
 
@@ -73,7 +75,7 @@ resourcesPlants <- getResources(
   pattern = "plant"
   )
 
-resourcesPlants[c("name", "format")] |>
+resourcesPlants[c("name", "format")]  %>% 
   knitr::kable()
 ```
 
@@ -87,8 +89,8 @@ example below demonstrates fetching data from the
 ```{r getdata}
 isotopicData <- getData(
   name = "Isotopic measurements in CSV format") 
-isotopicData |>
-  head(5) |>
+isotopicData  %>% 
+  head(5)  %>% 
   knitr::kable()
 ```
 
