@@ -12,6 +12,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+os_linux <- Sys.info()["sysname"] == "Linux"
 ```
 
 ```{r setup}
@@ -86,7 +88,7 @@ example below demonstrates fetching data from the
 `Isotopic measurements in CSV format` resource:
 
 
-```{r getdata}
+```{r getdata, eval = os_linux}
 isotopicData <- getData(
   name = "Isotopic measurements in CSV format") 
 isotopicData  %>% 
