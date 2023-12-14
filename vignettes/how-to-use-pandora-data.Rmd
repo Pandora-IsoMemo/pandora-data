@@ -68,7 +68,7 @@ fileTypesIsomemo  %>%
 
 To list all available resources, employ the `getResources()` function. Filter 
 the output using the `network`, `repository`, `fileType`, and `pattern` 
-arguments. Forinstance, to list all CSV files with the string `plants`:
+arguments. For instance, to list all CSV files whose meta information contains the string `plants`:
 
 
 ```{r resources}
