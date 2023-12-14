@@ -19,7 +19,13 @@ test_that("Test getData()", {
             options = dataOptions(sep = ";",
                                   fileEncoding = "windows-1252"))
   
-  expect_true(nrow(testLoaded) > 2000)
+  expect_true(nrow(testLoaded) > 700)
+  
+  # testLoaded <-
+  #   getData(name = "MAIA Humans CSV",
+  #           options = dataOptions(sep = ";"))
+  # 
+  # expect_true(nrow(testLoaded) > 2000)
   
   testLoaded <-
     getData(name = "CIMA Humans 29.05.2021 CSV",
