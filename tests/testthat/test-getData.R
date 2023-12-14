@@ -39,12 +39,19 @@ test_that("Test getData()", {
   expect_true(nrow(testLoaded) > 2000)
   
   testLoaded <-
-    getData(name = "Zanadamu CSV format")
+    getData(name = "Zanadamu CSV format",
+            options = dataOptions(fileEncoding = "ISO-8859-1"))
   
   expect_true(nrow(testLoaded) > 200)
   
   testLoaded <-
     getData(name = "Isotopic measurements in CSV format")
+  
+  expect_true(nrow(testLoaded) > 2000)
+  
+  testLoaded <-
+    getData(name = "IsoMedIta Humans 21-12-22 - CSV",
+            options = dataOptions(sep = ";"))
   
   expect_true(nrow(testLoaded) > 2000)
   

@@ -95,18 +95,11 @@ isotopicData  %>%
   head(5)  %>% 
   knitr::kable()
 ```
-One can specify the separator using the helper function `dataOptions()`:
+For text files one can specify the separator using the helper function `dataOptions()`:
 
 ```{r getdataWithOptions, eval = os_linux}
 isotopicData <- getData(
-  name = "MAIA Humans CSV",
-  options = dataOptions(sep = ";")) 
-isotopicData  %>% 
-  head(5)  %>% 
-  knitr::kable()
-
-isotopicData <- getData(
-  name = "CIMA Humans 29.05.2021 CSV",
+  name = "IsoMedIta Humans 21-12-22 - CSV",
   options = dataOptions(sep = ";")) 
 isotopicData  %>% 
   head(5)  %>% 
