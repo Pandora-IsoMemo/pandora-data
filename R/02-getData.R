@@ -11,7 +11,6 @@
 getData <- function(name,
                     repository = "",
                     options = dataOptions()) {
-  
   resource <- try({
     getResources(repository = repository) %>%
       validateResource(repository = repository) %>%
@@ -187,6 +186,9 @@ loadData <-
     # }
     
     encTry <- as.character(guess_encoding(path)[1, 1])
+    
+    cat(sprintf("Detected encoding %s of %s", encTry, path))
+    
     if (type == "xlsx") {
       xlsSplit <- strsplit(path, split = "\\.")[[1]]
       if (xlsSplit[length(xlsSplit)] == "xls") {
