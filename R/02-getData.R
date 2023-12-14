@@ -193,8 +193,10 @@ loadData <-
       fileEncoding <- as.character(guess_encoding(path)[1, 1])
     }
     
-    if (type %in% c("csv", "txt"))
+    if (type %in% c("csv", "txt")) {
       cat(sprintf("Encoding: '%s'.", fileEncoding))
+      isOldWindows()
+    }
     
     if (type == "xlsx") {
       xlsSplit <- strsplit(path, split = "\\.")[[1]]
@@ -295,5 +297,22 @@ getNrow <- function(type, nrows = NA_integer_) {
         return(Inf)
     else
       return(-999)
+  }
+}
+
+#' Is old windows
+#' 
+#' Checks if package is used with an older R version which possibly leads to encryption errors on Windows.
+#' Gives a warning in that case.
+#' 
+#' @return (logical) TRUE if system is Windows and R version is < 4.2.0
+isOldWindows <- function() {
+  if (Sys.info()["sysname"] == "Windows" && 
+      ((as.numeric(R.Version()$major) < 4) ||
+       (as.numeric(R.Version()$major) == 4 && as.numeric(R.Version()$minor) < 2))) {
+    warning("Please upgrade to R version >= 4.2.0 in order to prevent encryption issues with text files.")
+    return(TRUE)
+  } else {
+    return(FALSE)
   }
 }

@@ -20,40 +20,32 @@ test_that("Test getData()", {
                                   fileEncoding = "windows-1252"))
   
   expect_true(nrow(testLoaded) > 700)
+  expect_true(nrow(testLoaded) < 900)
   
-  # testLoaded <-
-  #   getData(name = "MAIA Humans CSV",
-  #           options = dataOptions(sep = ";"))
-  # 
-  # expect_true(nrow(testLoaded) > 2000)
+  if (isOldWindows()) {
+    expect_error(getData(name = "MAIA Humans CSV",
+                         options = dataOptions(sep = ";")))
+  } else {
+    expect_true(nrow(getData(name = "MAIA Humans CSV",
+                             options = dataOptions(sep = ";"))) > 2000)
+  }
   
-  testLoaded <-
-    getData(name = "CIMA Humans 29.05.2021 CSV",
-            options = dataOptions(sep = ";"))
+  expect_true(nrow(getData(name = "CIMA Humans 29.05.2021 CSV",
+                           options = dataOptions(sep = ";"))) > 2000)
   
-  expect_true(nrow(testLoaded) > 2000)
+  expect_true(nrow(getData(name = "SAAID_V.2.0_2023 Animals (CSV)")) > 2000)
   
-  testLoaded <-
-    getData(name = "SAAID_V.2.0_2023 Animals (CSV)")
+  expect_true(nrow(getData(name = "Zanadamu CSV format",
+                           options = dataOptions(fileEncoding = "ISO-8859-1"))) > 200)
   
-  expect_true(nrow(testLoaded) > 2000)
+  if (isOldWindows()) {
+    expect_error(getData(name = "Isotopic measurements in CSV format"))
+  } else {
+    expect_true(nrow(getData(name = "Isotopic measurements in CSV format")) > 2000)
+  }
   
-  testLoaded <-
-    getData(name = "Zanadamu CSV format",
-            options = dataOptions(fileEncoding = "ISO-8859-1"))
-  
-  expect_true(nrow(testLoaded) > 200)
-  
-  testLoaded <-
-    getData(name = "Isotopic measurements in CSV format")
-  
-  expect_true(nrow(testLoaded) > 2000)
-  
-  testLoaded <-
-    getData(name = "IsoMedIta Humans 21-12-22 - CSV",
-            options = dataOptions(sep = ";"))
-  
-  expect_true(nrow(testLoaded) > 2000)
+  expect_true(nrow(getData(name = "IsoMedIta Humans 21-12-22 - CSV",
+                           options = dataOptions(sep = ";"))) > 2000)
   
   # run only for TDD:
   # test random files to check if errors are caught
