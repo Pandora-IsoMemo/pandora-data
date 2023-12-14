@@ -187,7 +187,7 @@ loadData <-
     
     encTry <- as.character(guess_encoding(path)[1, 1])
     
-    cat(sprintf("Detected encoding %s of %s", encTry, path))
+    cat(sprintf("Guessed encoding used: '%s'.", encTry))
     
     if (type == "xlsx") {
       xlsSplit <- strsplit(path, split = "\\.")[[1]]
@@ -244,19 +244,22 @@ loadData <-
       )
     )
     
+    errorInfo <- sprintf("Guessed encoding: '%s', seperator: '%s', dec character: '%s'.", 
+                         encTry, sep, dec)
+    
     if (is.null(data) && is.null(attr(data, "error")))
       return(NULL)
     
     if (is.null(dim(data))) {
-      stop("Could not determine dimensions of data")
+      stop(paste("Could not determine dimensions of data", errorInfo))
     }
     
     if (any(dim(data) == 1)) {
-      stop("Number of rows or columns equal to 1.")
+      stop(paste("Number of rows or columns equal to 1.", errorInfo))
     }
     
     if (any(dim(data) == 0)) {
-      stop("Number of rows or columns equal to 0")
+      stop(paste("Number of rows or columns equal to 0", errorInfo))
     }
     
     return(data)
