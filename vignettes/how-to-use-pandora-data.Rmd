@@ -88,7 +88,7 @@ example below demonstrates fetching data from the
 `Isotopic measurements in CSV format` resource:
 
 
-```{r getdata, eval = os_linux}
+```{r getdata}
 isotopicData <- getData(
   name = "Isotopic measurements in CSV format") 
 isotopicData  %>% 
