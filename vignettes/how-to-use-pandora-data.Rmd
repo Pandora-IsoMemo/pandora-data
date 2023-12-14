@@ -97,7 +97,7 @@ isotopicData  %>%
 ```
 One can specify the separator using the helper function `dataOptions()`:
 
-```{r getdataWithOptions, eval = os_linux}}
+```{r getdataWithOptions, eval = os_linux}
 isotopicData <- getData(
   name = "MAIA Humans CSV",
   options = dataOptions(sep = ";")) 
