@@ -252,9 +252,6 @@ loadData <-
       errorInfo <- ""
     }
     
-    if (is.null(data) && is.null(attr(data, "error")))
-      return(NULL)
-    
     if (is.null(dim(data))) {
       stop(paste("Could not determine dimensions of data", errorInfo))
     }
