@@ -8,6 +8,7 @@ dataOptions(
   nrows = NA_integer_,
   sep = ",",
   dec = ".",
+  fileEncoding = "",
   sheet = 1,
   colNames = TRUE
 )
@@ -22,6 +23,13 @@ dataOptions(
     that is one or more spaces, tabs, newlines or carriage returns.}
 
 \item{dec}{the character used in the file for decimal points.}
+
+\item{fileEncoding}{character string: if non-empty declares the
+    encoding used on a file (not a connection) so the character data can
+    be re-encoded.  See the \sQuote{Encoding} section of the help for
+    \code{\link{file}}, the \sQuote{R Data Import/Export} manual and
+    \sQuote{Note}.
+  }
 
 \item{sheet}{The name or index of the sheet to read data from.}
 

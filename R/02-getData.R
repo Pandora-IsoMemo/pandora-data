@@ -26,6 +26,7 @@ getData <- function(name,
       nrows = options$nrows,
       sep = options$text$sep,
       dec = options$text$dec,
+      fileEncoding = options$text$fileEncoding,
       colNames = options$colNames,
       sheet = options$xlsx$sheet
     )
@@ -76,11 +77,13 @@ getData <- function(name,
 dataOptions <- function(nrows = NA_integer_,
                         sep = ",",
                         dec = ".",
+                        fileEncoding = "",
                         sheet = 1,
                         colNames = TRUE) {
   list(
     text = list(sep = sep,
-                dec = dec),
+                dec = dec,
+                fileEncoding = fileEncoding),
     xlsx = list(sheet = sheet),
     nrows = nrows,
     colNames = colNames
@@ -161,6 +164,7 @@ loadData <-
            nrows = NA_integer_,
            sep = ",",
            dec = ".",
+           fileEncoding = "",
            colNames = TRUE,
            sheet = 1) {
     type <- match.arg(type)
@@ -179,16 +183,18 @@ loadData <-
     #   x <- x[!sapply(x, function(y) class(y) %in% "try-error")]
     #   maybe_ok <- which(sapply(x, function(y) isTRUE(all.equal(dim(y)[1], c(3)))))
     #   if(length(maybe_ok) > 0){
-    #     encTry <- names(maybe_ok[1])
+    #     fileEncoding <- names(maybe_ok[1])
     #   } else {
-    #     encTry <- ""
+    #     fileEncoding <- ""
     #   }
     # }
     
-    encTry <- as.character(guess_encoding(path)[1, 1])
+    if (fileEncoding == "") {
+      fileEncoding <- as.character(guess_encoding(path)[1, 1])
+    }
     
     if (type %in% c("csv", "txt"))
-      cat(sprintf("Guessed encoding: '%s'.", encTry))
+      cat(sprintf("Encoding: '%s'.", fileEncoding))
     
     if (type == "xlsx") {
       xlsSplit <- strsplit(path, split = "\\.")[[1]]
@@ -207,7 +213,7 @@ loadData <-
           dec = dec,
           stringsAsFactors = FALSE,
           row.names = NULL,
-          fileEncoding = encTry,
+          fileEncoding = fileEncoding,
           nrows = getNrow(type = type, nrows = nrows)
         )
       }),
@@ -219,7 +225,7 @@ loadData <-
           dec = dec,
           stringsAsFactors = FALSE,
           row.names = NULL,
-          fileEncoding = encTry,
+          fileEncoding = fileEncoding,
           nrows = getNrow(type = type, nrows = nrows)
         )
       }),
@@ -246,8 +252,8 @@ loadData <-
     )
     
     if (type %in% c("csv", "txt")) {
-      errorInfo <- sprintf("Guessed encoding: '%s', seperator: '%s', dec character: '%s'.", 
-                           encTry, sep, dec)
+      errorInfo <- sprintf("Encoding: '%s', seperator: '%s', dec character: '%s'.", 
+                           fileEncoding, sep, dec)
     } else {
       errorInfo <- ""
     }

@@ -16,7 +16,8 @@ test_that("Test getData()", {
   
   testLoaded <-
     getData(name = "MAIA Humans CSV",
-            options = dataOptions(sep = ";"))
+            options = dataOptions(sep = ";",
+                                  fileEncoding = "windows-1252"))
   
   expect_true(nrow(testLoaded) > 2000)
   
