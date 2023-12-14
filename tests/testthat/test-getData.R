@@ -15,11 +15,6 @@ test_that("Test getData()", {
   ))
   
   testLoaded <-
-    getData(name = "Isotopic measurements in CSV format")
-  
-  expect_true(nrow(testLoaded) > 2000)
-  
-  testLoaded <-
     getData(name = "MAIA Humans CSV",
             options = dataOptions(sep = ";"))
   
@@ -41,7 +36,11 @@ test_that("Test getData()", {
   
   expect_true(nrow(testLoaded) > 200)
   
-    
+  testLoaded <-
+    getData(name = "Isotopic measurements in CSV format")
+  
+  expect_true(nrow(testLoaded) > 2000)
+  
   # run only for TDD:
   # test random files to check if errors are caught
   # allResources <- getResources()
