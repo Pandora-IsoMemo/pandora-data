@@ -12,6 +12,8 @@ Maintainer: Jan Abel <jan.abel@inwt-statistics.de>
 URL: https://github.com/Pandora-IsoMemo/pandora-data
 BugReports: https://github.com/Pandora-IsoMemo/pandora-data/issues
 License: GPL (>= 3)
+Depends: 
+    R (>= 4.2.0)
 Encoding: UTF-8
 LazyData: true
 Imports:
