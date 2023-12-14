@@ -187,7 +187,8 @@ loadData <-
     
     encTry <- as.character(guess_encoding(path)[1, 1])
     
-    cat(sprintf("Guessed encoding used: '%s'.", encTry))
+    if (type %in% c("csv", "txt"))
+      cat(sprintf("Guessed encoding: '%s'.", encTry))
     
     if (type == "xlsx") {
       xlsSplit <- strsplit(path, split = "\\.")[[1]]
@@ -244,8 +245,12 @@ loadData <-
       )
     )
     
-    errorInfo <- sprintf("Guessed encoding: '%s', seperator: '%s', dec character: '%s'.", 
-                         encTry, sep, dec)
+    if (type %in% c("csv", "txt")) {
+      errorInfo <- sprintf("Guessed encoding: '%s', seperator: '%s', dec character: '%s'.", 
+                           encTry, sep, dec)
+    } else {
+      errorInfo <- ""
+    }
     
     if (is.null(data) && is.null(attr(data, "error")))
       return(NULL)

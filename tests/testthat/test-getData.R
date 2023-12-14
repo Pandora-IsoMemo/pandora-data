@@ -13,6 +13,34 @@ test_that("Test getData()", {
     )
     %in% colnames(testLoaded)
   ))
+  
+  testLoaded <-
+    getData(name = "Isotopic measurements in CSV format")
+  
+  expect_true(nrow(testLoaded) > 2000)
+  
+  testLoaded <-
+    getData(name = "MAIA Humans CSV",
+            options = dataOptions(sep = ";"))
+  
+  expect_true(nrow(testLoaded) > 2000)
+  
+  testLoaded <-
+    getData(name = "CIMA Humans 29.05.2021 CSV",
+            options = dataOptions(sep = ";"))
+  
+  expect_true(nrow(testLoaded) > 2000)
+  
+  testLoaded <-
+    getData(name = "SAAID_V.2.0_2023 Animals (CSV)")
+  
+  expect_true(nrow(testLoaded) > 2000)
+  
+  testLoaded <-
+    getData(name = "Zanadamu CSV format")
+  
+  expect_true(nrow(testLoaded) > 200)
+  
     
   # run only for TDD:
   # test random files to check if errors are caught
