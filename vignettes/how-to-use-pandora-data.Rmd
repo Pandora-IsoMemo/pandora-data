@@ -94,4 +94,28 @@ isotopicData <- getData(
 isotopicData  %>% 
   head(5)  %>% 
   knitr::kable()
+
+isotopicData <- getData(
+  name = "MAIA Humans CSV") 
+isotopicData  %>% 
+  head(5)  %>% 
+  knitr::kable()
+
+isotopicData <- getData(
+  name = "CIMA Humans 29.05.2021 CSV") 
+isotopicData  %>% 
+  head(5)  %>% 
+  knitr::kable()
+
+isotopicData <- getData(
+  name = "SAAID_V.2.0_2023 Animals (CSV)") 
+isotopicData  %>% 
+  head(5)  %>% 
+  knitr::kable()
+
+isotopicData <- getData(
+  name = "Zanadamu CSV format") 
+isotopicData  %>% 
+  head(5)  %>% 
+  knitr::kable()
 ```
