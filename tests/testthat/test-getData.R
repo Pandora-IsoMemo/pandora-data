@@ -19,15 +19,38 @@ test_that("Test getData()", {
             options = dataOptions(sep = ";",
                                   fileEncoding = "windows-1252"))
   
-  expect_true(nrow(testLoaded) > 700)
-  expect_true(nrow(testLoaded) < 900)
-  
+  # following tests show encryption issues with Windows
   if (isOldWindows()) {
+    # error without specific encoding
     expect_error(getData(name = "MAIA Humans CSV",
                          options = dataOptions(sep = ";")))
-  } else {
+    
+    # no error with windows encoding
+    expect_true(nrow(getData(name = "MAIA Humans CSV",
+                             options = dataOptions(sep = ";",
+                                                   fileEncoding = "windows-1252"))) > 2000)
+  } else if (Sys.info()["sysname"] == "Windows") {
+    # no error without specific encoding
     expect_true(nrow(getData(name = "MAIA Humans CSV",
                              options = dataOptions(sep = ";"))) > 2000)
+    
+    # no error with windows encoding
+    expect_true(nrow(getData(name = "MAIA Humans CSV",
+                             options = dataOptions(sep = ";",
+                                                   fileEncoding = "windows-1252"))) > 2000)
+  } else { # linux or mac
+    # no error without specific encoding
+    expect_true(nrow(getData(name = "MAIA Humans CSV",
+                             options = dataOptions(sep = ";"))) > 2000)
+    
+    # less data with windows encoding
+    testLoaded <-
+      getData(name = "MAIA Humans CSV",
+              options = dataOptions(sep = ";",
+                                    fileEncoding = "windows-1252"))
+    
+    expect_true(nrow(testLoaded) > 700)
+    expect_true(nrow(testLoaded) < 800)
   }
   
   expect_true(nrow(getData(name = "CIMA Humans 29.05.2021 CSV",
