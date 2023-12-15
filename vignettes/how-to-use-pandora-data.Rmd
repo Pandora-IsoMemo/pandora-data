@@ -83,22 +83,11 @@ resourcesPlants[c("name", "format")]  %>%
 
 # Get the data of a Specific Resource
 
-To retrieve data from a specific resource, use the `getData()` function. The 
-example below demonstrates fetching data from the 
-`"Isotòpia Animals (19.09.2023)"` resource:
-
+To retrieve data from a specific resource, use the `getData()` function. For text files one can 
+specify e.g. the separator using the helper function `dataOptions()`. The example below demonstrates
+fetching data from the `"CIMA Humans 29.05.2021 CSV"` resource:
 
 ```{r getdata}
-isotopicData <- getData(
-  name = "Isotòpia Animals (19.09.2023)") 
-isotopicData  %>% 
-  head(5)  %>% 
-  dplyr::select(c("ID", "General_Category/Family", "Environment", "Trophic_Category", "Substratus")) %>%
-  knitr::kable()
-```
-For text files one can specify e.g. the separator using the helper function `dataOptions()`:
-
-```{r getdataWithOptions, eval = os_linux}
 isotopicData <- getData(
   name = "CIMA Humans 29.05.2021 CSV",
   options = dataOptions(sep = ";")) 
@@ -107,3 +96,4 @@ isotopicData  %>%
   dplyr::select(c("Entry_ID", "Individual_ID", "Min_Age_yrs", "Max_Age_yrs", "Sampled_Element", "Analysed_Component")) %>%
   knitr::kable()
 ```
+
