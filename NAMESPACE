@@ -2,6 +2,7 @@
 
 export(callAPI)
 export(dataOptions)
+export(formatRepositoryList)
 export(getData)
 export(getFileTypes)
 export(getNetworks)

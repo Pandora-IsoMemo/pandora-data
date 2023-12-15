@@ -6,15 +6,18 @@
 \usage{
 dataOptions(
   nrows = NA_integer_,
+  colNames = TRUE,
   sep = ",",
   dec = ".",
-  sheet = 1,
-  colNames = TRUE
+  fileEncoding = "",
+  sheet = 1
 )
 }
 \arguments{
 \item{nrows}{integer: the maximum number of rows to read in.  Negative
     and other invalid values are ignored.}
+
+\item{colNames}{If \code{TRUE}, the first row of data will be used as column names.}
 
 \item{sep}{the field separator character.  Values on each line of the
     file are separated by this character.  If \code{sep = ""} (the
@@ -23,14 +26,21 @@ dataOptions(
 
 \item{dec}{the character used in the file for decimal points.}
 
-\item{sheet}{The name or index of the sheet to read data from.}
+\item{fileEncoding}{character string: if non-empty declares the
+    encoding used on a file (not a connection) so the character data can
+    be re-encoded.  See the \sQuote{Encoding} section of the help for
+    \code{\link{file}}, the \sQuote{R Data Import/Export} manual and
+    \sQuote{Note}.
+  }
 
-\item{colNames}{If \code{TRUE}, the first row of data will be used as column names.}
+\item{sheet}{The name or index of the sheet to read data from.}
 }
 \value{
 a list of extra options for \code{utils::read.csv()} or \code{openxlsx::read.xlsx()} or
 \code{readxl::read_excel}, respectively
 }
 \description{
-Data Options
+Set options for \code{utils::read.csv()}, \code{openxlsx::read.xlsx()} or
+\code{readxl::read_excel}. Choose delimiter and decimal separator as well
+as sheetnumbner and number of rows to read.
 }

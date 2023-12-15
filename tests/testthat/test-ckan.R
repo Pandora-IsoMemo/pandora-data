@@ -30,7 +30,12 @@ test_that("Test getFileTypes()", {
 test_that("Test getRepositories()", {
   expect_true(nrow(getRepositories(network = "aghfjdhfjgkhj")) == 0)
   
-  testRepos <- getRepositories(order = FALSE)
+  testRepos <- getRepositories(order = FALSE, renameColumns = FALSE)
+  expect_equal(colnames(testRepos),
+               c("title", "name", "notes", "ext_doi", "doi", "version", "author", 
+                 "author_email", "maintainer", "maintainer_email", "temporal_start", 
+                 "temporal_end", "spatial")
+               )
   expect_true(
     all(c("isomedita-a-stable-isotope-database-for-medieval-italy", 
           "northern-hemisphere-modern-leaf-wax-ddn-alkane-dataset", 
@@ -46,13 +51,20 @@ test_that("Test getRepositories()", {
   testRepos <- getRepositories(pattern = "victor", network = "isomemo", order = FALSE)
   expect_equal(
     "austarch-a-database-of-14c-and-luminescence-ages-from-archaeological-sites-in-australia",
-    testRepos$name
+    testRepos$Name
   )
   
   expect_equal(
     "AustArch: A Database of 14C and Luminescence Ages from Archaeological Sites in Australia",
-    testRepos$title
+    testRepos$Repository
   )
+  
+  testRepos <- getRepositories(order = FALSE, renameColumns = TRUE)
+  expect_equal(colnames(testRepos), 
+               c("Repository", "Name", "Description", "Existing DOI", "Assigned DOI", 
+                 "Version", "Author", "Author Email", "Maintainer", "Maintainer Email", 
+                 "Chronological range (min)", "Chronological range (max)", "Spatial Box"
+               ))
 })
 
 test_that("Test getNetworks()", {

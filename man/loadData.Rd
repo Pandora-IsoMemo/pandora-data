@@ -10,6 +10,7 @@ loadData(
   nrows = NA_integer_,
   sep = ",",
   dec = ".",
+  fileEncoding = "",
   colNames = TRUE,
   sheet = 1
 )
@@ -28,6 +29,13 @@ loadData(
     that is one or more spaces, tabs, newlines or carriage returns.}
 
 \item{dec}{the character used in the file for decimal points.}
+
+\item{fileEncoding}{character string: if non-empty declares the
+    encoding used on a file (not a connection) so the character data can
+    be re-encoded.  See the \sQuote{Encoding} section of the help for
+    \code{\link{file}}, the \sQuote{R Data Import/Export} manual and
+    \sQuote{Note}.
+  }
 
 \item{colNames}{If \code{TRUE}, the first row of data will be used as column names.}
 

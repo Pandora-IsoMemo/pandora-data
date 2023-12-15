@@ -4,16 +4,14 @@
 #' by file type or those within a specific network or within a specific repository
 #' optional filtering of meta information for a given string
 #'
-#' Formerly getCKANResourcesChoices()
-#' 
 #' @param fileType (character) list of relevant file types, e.g. c("xls", "xlsx", "csv", "odt")
 #' @param repository (character) name of a Pandora repository, e.g. an entry of the output from
 #'  \code{getRepositories()$name}
 #' @param network (character) name of a Pandora network, e.g. an entry of the output from
 #'  \code{getNetworks()$name}
 #' @param pattern (character) string for meta information search
-#' @param order (logical) if TRUE order dataframe alphabetically by name
-#' @param packageList (data.frame) optional, output of callAPI() from a previous call to the
+#' @param order (logical) if TRUE, order dataframe alphabetically by 'repository' and 'name'
+#' @param packageList (data.frame) optional, output of callAPI() e.g. from a previous call to the
 #'  Pandora API.
 #' 
 #' @return (data.frame) containing available resources within a repository
@@ -154,8 +152,10 @@ getFileTypes <- function(repository = "",
 #' a specific network
 #' optional filtering of meta information for a given string 
 #'
-#' Formerly getCKANRecordChoices()
-#' 
+#' @param order (logical) if TRUE, order dataframe alphabetically by 'repository' and 'name'
+#' @param columns (character) names of columns that should be returned
+#' @param renameColumns (logical) apply names from the 'Additional Info' box from
+#'  'https://pandoradata.earth/dataset/' to the columns of returned data
 #' @inheritParams getResources
 #' 
 #' @return (data.frame) containing available repositories
@@ -163,6 +163,8 @@ getFileTypes <- function(repository = "",
 getRepositories <- function(network = "",
                             pattern = "",
                             order = TRUE,
+                            columns = getDatasetFields(),
+                            renameColumns = TRUE,
                             packageList = data.frame()) {
   
   if (is.null(packageList) || nrow(packageList) == 0) {
@@ -170,21 +172,57 @@ getRepositories <- function(network = "",
   }
   
   packageList %>%
-    validateDatAPI(emptyOut = data.frame(name = character(),
-                                         title = character(),
-                                         notes = character()),
-                   reqCols = c("name", "title", "notes")) %>%
+    validateDatAPI(reqCols = columns) %>%
     filterColumn(pattern = network, column = "groups") %>%
     filterPattern(pattern = pattern) %>%
-    orderDatAPI(column = "title", order = order) %>%
-    selectDatAPI(columns = c("name", "title", "notes"))
+    orderDatAPI(column = columns[1], order = order) %>%
+    formatRepositoryList(columns = columns, renameColumns = renameColumns)
+}
+
+#' Rename Repository Meta Columns
+#' 
+#' Apply names from the 'Additional Info' box from 'https://pandoradata.earth/dataset/' to the
+#'  columns of returned data
+#' 
+#' @inheritParams getResources
+#' @inheritParams getRepositories
+#' 
+#' @return (data.frame) containing available repositories
+#' @export
+formatRepositoryList <- function(packageList, columns = getDatasetFields(), renameColumns = TRUE) {
+  packageList <- packageList %>%
+    selectDatAPI(columns = columns)
+  
+  if (!renameColumns) return(packageList)
+  
+  columns <- colnames(packageList)
+  names(columns) <- columns
+  
+  # match colnames and mapping
+  colNameMapping <- config()$repositoryMetaFields
+  mapMatch <- match(columns, colNameMapping)
+  names(columns)[!is.na(mapMatch)] <- names(colNameMapping)[na.omit(mapMatch)]
+    
+  # rename
+  colnames(packageList) <- names(columns)
+  
+  packageList
+}
+
+#' Get Dataset Meta Fields
+#' 
+#' Names of particular meta fields from the 'Additional Info' box from 'https://pandoradata.earth/dataset/'
+#'
+#' @return (character vector) names of meta fields
+getDatasetFields <- function() {
+  config()$repositoryMetaFields %>% 
+    unlist()
 }
 
 #' Get Networks
 #' 
 #' Get all available networks (groups in CKAN terminology)
 #' optional filtering of names for a given string
-#' Formerly getCKANGroupChoices()
 #' 
 #' @inheritParams getResources
 #' @param groupList (data.frame) optional, output of callAPI() from a previous call to the
@@ -207,13 +245,16 @@ getNetworks <- function(pattern = "", order = TRUE, groupList = data.frame()) {
     selectDatAPI(columns = c("name", "display_name", "description"))
 }
 
-validateDatAPI <- function(datAPI, emptyOut = data.frame(), reqCols = character(0)) {
+validateDatAPI <- function(datAPI, emptyOut = list(), reqCols = character(0)) {
   if (!is.null(attr(datAPI, "error"))) {
     attr(emptyOut, "error") <- attr(datAPI, "error")
     return(emptyOut)
   }
   
   if (!all(reqCols %in% names(datAPI))) {
+    missingColumns <- reqCols[!(reqCols %in% names(datAPI))]
+    attr(emptyOut, "error") <- sprintf("Column '%s' not found!", 
+                                       paste(missingColumns, collapse = ", "))
     return(emptyOut)
   }
   

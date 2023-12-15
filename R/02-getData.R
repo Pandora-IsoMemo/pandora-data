@@ -11,7 +11,6 @@
 getData <- function(name,
                     repository = "",
                     options = dataOptions()) {
-  
   resource <- try({
     getResources(repository = repository) %>%
       validateResource(repository = repository) %>%
@@ -19,7 +18,7 @@ getData <- function(name,
       filterValidFileType(name = name) %>%
       selectSingleFile()
   }, silent = TRUE)
-  
+
   data <- try({
     loadData(
       path = resource[["url"]],
@@ -27,6 +26,7 @@ getData <- function(name,
       nrows = options$nrows,
       sep = options$text$sep,
       dec = options$text$dec,
+      fileEncoding = options$text$fileEncoding,
       colNames = options$colNames,
       sheet = options$xlsx$sheet
     )
@@ -64,6 +64,10 @@ getData <- function(name,
 
 #' Data Options
 #'
+#' Set options for \code{utils::read.csv()}, \code{openxlsx::read.xlsx()} or 
+#' \code{readxl::read_excel}. Choose delimiter and decimal separator as well
+#' as sheetnumbner and number of rows to read.
+#'
 #' @inheritParams utils::read.csv
 #' @inheritParams openxlsx::read.xlsx
 #'
@@ -71,16 +75,18 @@ getData <- function(name,
 #'  \code{readxl::read_excel}, respectively
 #' @export
 dataOptions <- function(nrows = NA_integer_,
+                        colNames = TRUE,
                         sep = ",",
                         dec = ".",
-                        sheet = 1,
-                        colNames = TRUE) {
+                        fileEncoding = "",
+                        sheet = 1) {
   list(
-    text = list(sep = sep,
-                dec = dec),
-    xlsx = list(sheet = sheet),
     nrows = nrows,
-    colNames = colNames
+    colNames = colNames,
+    text = list(sep = sep,
+                dec = dec,
+                fileEncoding = fileEncoding),
+    xlsx = list(sheet = sheet)
   )
 }
 
@@ -143,8 +149,6 @@ selectSingleFile <- function(resource) {
   return(resource)
 }
 
-
-
 #' Load Data
 #'
 #' @param path path to the file
@@ -160,6 +164,7 @@ loadData <-
            nrows = NA_integer_,
            sep = ",",
            dec = ".",
+           fileEncoding = "",
            colNames = TRUE,
            sheet = 1) {
     type <- match.arg(type)
@@ -178,13 +183,21 @@ loadData <-
     #   x <- x[!sapply(x, function(y) class(y) %in% "try-error")]
     #   maybe_ok <- which(sapply(x, function(y) isTRUE(all.equal(dim(y)[1], c(3)))))
     #   if(length(maybe_ok) > 0){
-    #     encTry <- names(maybe_ok[1])
+    #     fileEncoding <- names(maybe_ok[1])
     #   } else {
-    #     encTry <- ""
+    #     fileEncoding <- ""
     #   }
     # }
     
-    encTry <- as.character(guess_encoding(path)[1, 1])
+    if (fileEncoding == "") {
+      fileEncoding <- as.character(guess_encoding(path)[1, 1])
+    }
+    
+    if (type %in% c("csv", "txt")) {
+      cat(sprintf("Encoding: '%s'.\n", fileEncoding))
+      isOldROnWindows()
+    }
+    
     if (type == "xlsx") {
       xlsSplit <- strsplit(path, split = "\\.")[[1]]
       if (xlsSplit[length(xlsSplit)] == "xls") {
@@ -202,7 +215,7 @@ loadData <-
           dec = dec,
           stringsAsFactors = FALSE,
           row.names = NULL,
-          fileEncoding = encTry,
+          fileEncoding = fileEncoding,
           nrows = getNrow(type = type, nrows = nrows)
         )
       }),
@@ -214,7 +227,7 @@ loadData <-
           dec = dec,
           stringsAsFactors = FALSE,
           row.names = NULL,
-          fileEncoding = encTry,
+          fileEncoding = fileEncoding,
           nrows = getNrow(type = type, nrows = nrows)
         )
       }),
@@ -240,19 +253,23 @@ loadData <-
       )
     )
     
-    if (is.null(data) && is.null(attr(data, "error")))
-      return(NULL)
+    if (type %in% c("csv", "txt")) {
+      errorInfo <- sprintf("Encoding: '%s', seperator: '%s', dec character: '%s'.", 
+                           fileEncoding, sep, dec)
+    } else {
+      errorInfo <- ""
+    }
     
     if (is.null(dim(data))) {
-      stop("Could not determine dimensions of data")
+      stop(paste("Could not determine dimensions of data", errorInfo))
     }
     
     if (any(dim(data) == 1)) {
-      stop("Number of rows or columns equal to 1.")
+      stop(paste("Number of rows or columns equal to 1.", errorInfo))
     }
     
     if (any(dim(data) == 0)) {
-      stop("Number of rows or columns equal to 0")
+      stop(paste("Number of rows or columns equal to 0", errorInfo))
     }
     
     return(data)
@@ -280,5 +297,22 @@ getNrow <- function(type, nrows = NA_integer_) {
         return(Inf)
     else
       return(-999)
+  }
+}
+
+#' Is old windows
+#' 
+#' Checks if package is used with an older R version which possibly leads to encryption errors on Windows.
+#' Gives a warning in that case.
+#' 
+#' @return (logical) TRUE if system is Windows and R version is < 4.2.0
+isOldROnWindows <- function() {
+  if (Sys.info()["sysname"] == "Windows" && 
+      ((as.numeric(R.Version()$major) < 4) ||
+       (as.numeric(R.Version()$major) == 4 && as.numeric(R.Version()$minor) < 2))) {
+    warning("Please upgrade to R version >= 4.2.0 in order to prevent possible encryption issues when loading text files.")
+    return(TRUE)
+  } else {
+    return(FALSE)
   }
 }

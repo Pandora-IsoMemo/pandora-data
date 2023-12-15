@@ -13,7 +13,68 @@ test_that("Test getData()", {
     )
     %in% colnames(testLoaded)
   ))
+  
+  # following tests show encryption issues with Windows
+  if (isOldROnWindows()) {
+    # error without specific encoding
+    expect_error(getData(name = "MAIA Humans CSV",
+                         options = dataOptions(sep = ";")))
     
+    # no error with windows encoding
+    expect_true(nrow(getData(name = "MAIA Humans CSV",
+                             options = dataOptions(sep = ";",
+                                                   fileEncoding = "windows-1252"))) > 2000)
+  } else if (Sys.info()["sysname"] == "Windows") {
+    # no error without specific encoding
+    expect_true(nrow(getData(name = "MAIA Humans CSV",
+                             options = dataOptions(sep = ";"))) > 2000)
+    
+    # no error with windows encoding
+    expect_true(nrow(getData(name = "MAIA Humans CSV",
+                             options = dataOptions(sep = ";",
+                                                   fileEncoding = "windows-1252"))) > 2000)
+  } else { # linux or mac
+    # no error without specific encoding
+    expect_true(nrow(getData(name = "MAIA Humans CSV",
+                             options = dataOptions(sep = ";"))) > 2000)
+    
+    # less data with windows encoding
+    testLoaded <-
+      getData(name = "MAIA Humans CSV",
+              options = dataOptions(sep = ";",
+                                    fileEncoding = "windows-1252"))
+    
+    expect_true(nrow(testLoaded) > 700)
+    expect_true(nrow(testLoaded) < 800)
+  }
+  
+  expect_true(nrow(getData(name = "CIMA Animals 29.05.2021 CSV",
+                           options = dataOptions(sep = ";"))) > 4000)
+  
+  expect_true(nrow(getData(name = "CIMA Plants 29.05.2021 CSV",
+                           options = dataOptions(sep = ";"))) > 100)
+  
+  expect_true(nrow(getData(name = "SAAID_V.2.0_2023 Animals (CSV)")) > 2000)
+  
+  expect_true(nrow(getData(name = "Zanadamu CSV format",
+                           options = dataOptions(fileEncoding = "ISO-8859-1"))) > 200)
+  
+  if (isOldROnWindows()) {
+    expect_error(getData(name = "Isotopic measurements in CSV format"))
+  } else {
+    expect_true(nrow(getData(name = "Isotopic measurements in CSV format")) > 2000)
+  }
+  
+  if (isOldROnWindows()) {
+    expect_true(nrow(getData(name = "IsoMedIta Humans 21-12-22 - CSV",
+                             options = dataOptions(sep = ";"))) < 2000)
+    cat(nrow(getData(name = "IsoMedIta Humans 21-12-22 - CSV",
+                     options = dataOptions(sep = ";"))))
+  } else {
+    expect_true(nrow(getData(name = "IsoMedIta Humans 21-12-22 - CSV",
+                             options = dataOptions(sep = ";"))) > 2000)
+  }
+  
   # run only for TDD:
   # test random files to check if errors are caught
   # allResources <- getResources()

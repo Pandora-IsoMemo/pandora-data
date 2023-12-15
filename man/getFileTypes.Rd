@@ -21,9 +21,9 @@ getFileTypes(
 
 \item{pattern}{(character) string for meta information search}
 
-\item{order}{(logical) if TRUE order dataframe alphabetically by name}
+\item{order}{(logical) if TRUE, order dataframe alphabetically by 'repository' and 'name'}
 
-\item{packageList}{(data.frame) optional, output of callAPI() from a previous call to the
+\item{packageList}{(data.frame) optional, output of callAPI() e.g. from a previous call to the
 Pandora API.}
 }
 \value{
