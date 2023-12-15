@@ -14,13 +14,8 @@ test_that("Test getData()", {
     %in% colnames(testLoaded)
   ))
   
-  testLoaded <-
-    getData(name = "MAIA Humans CSV",
-            options = dataOptions(sep = ";",
-                                  fileEncoding = "windows-1252"))
-  
   # following tests show encryption issues with Windows
-  if (isOldWindows()) {
+  if (isOldROnWindows()) {
     # error without specific encoding
     expect_error(getData(name = "MAIA Humans CSV",
                          options = dataOptions(sep = ";")))
@@ -61,13 +56,13 @@ test_that("Test getData()", {
   expect_true(nrow(getData(name = "Zanadamu CSV format",
                            options = dataOptions(fileEncoding = "ISO-8859-1"))) > 200)
   
-  if (isOldWindows()) {
+  if (isOldROnWindows()) {
     expect_error(getData(name = "Isotopic measurements in CSV format"))
   } else {
     expect_true(nrow(getData(name = "Isotopic measurements in CSV format")) > 2000)
   }
   
-  if (isOldWindows()) {
+  if (isOldROnWindows()) {
     expect_true(nrow(getData(name = "IsoMedIta Humans 21-12-22 - CSV",
                              options = dataOptions(sep = ";"))) < 2000)
     cat(nrow(getData(name = "IsoMedIta Humans 21-12-22 - CSV",

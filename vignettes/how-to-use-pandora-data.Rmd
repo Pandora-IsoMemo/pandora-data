@@ -85,23 +85,25 @@ resourcesPlants[c("name", "format")]  %>%
 
 To retrieve data from a specific resource, use the `getData()` function. The 
 example below demonstrates fetching data from the 
-`14CARHU - Radiocarbon Dates of Helsinki University` resource:
+`"SAAID_V.2.0_2023 Animals (CSV)"` resource:
 
 
 ```{r getdata}
 isotopicData <- getData(
-  name = "14CARHU - Radiocarbon Dates of Helsinki University") 
+  name = "SAAID_V.2.0_2023 Animals (CSV)") 
 isotopicData  %>% 
   head(5)  %>% 
+  dplyr::select(1:5) %>%
   knitr::kable()
 ```
-For text files one can specify the separator using the helper function `dataOptions()`:
+For text files one can specify e.g. the separator using the helper function `dataOptions()`:
 
 ```{r getdataWithOptions, eval = os_linux}
 isotopicData <- getData(
-  name = "IsoMedIta Humans 21-12-22 - CSV",
+  name = "CIMA Humans 29.05.2021 CSV",
   options = dataOptions(sep = ";")) 
 isotopicData  %>% 
   head(5)  %>% 
+  dplyr::select(c("Entry_ID", "Individual_ID", "Min_Age_yrs", "Max_Age_yrs", "Sampled_Element", "Analysed_Component")) %>%
   knitr::kable()
 ```

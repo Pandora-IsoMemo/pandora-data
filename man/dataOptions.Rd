@@ -6,16 +6,18 @@
 \usage{
 dataOptions(
   nrows = NA_integer_,
+  colNames = TRUE,
   sep = ",",
   dec = ".",
   fileEncoding = "",
-  sheet = 1,
-  colNames = TRUE
+  sheet = 1
 )
 }
 \arguments{
 \item{nrows}{integer: the maximum number of rows to read in.  Negative
     and other invalid values are ignored.}
+
+\item{colNames}{If \code{TRUE}, the first row of data will be used as column names.}
 
 \item{sep}{the field separator character.  Values on each line of the
     file are separated by this character.  If \code{sep = ""} (the
@@ -32,8 +34,6 @@ dataOptions(
   }
 
 \item{sheet}{The name or index of the sheet to read data from.}
-
-\item{colNames}{If \code{TRUE}, the first row of data will be used as column names.}
 }
 \value{
 a list of extra options for \code{utils::read.csv()} or \code{openxlsx::read.xlsx()} or

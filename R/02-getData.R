@@ -75,18 +75,18 @@ getData <- function(name,
 #'  \code{readxl::read_excel}, respectively
 #' @export
 dataOptions <- function(nrows = NA_integer_,
+                        colNames = TRUE,
                         sep = ",",
                         dec = ".",
                         fileEncoding = "",
-                        sheet = 1,
-                        colNames = TRUE) {
+                        sheet = 1) {
   list(
+    nrows = nrows,
+    colNames = colNames,
     text = list(sep = sep,
                 dec = dec,
                 fileEncoding = fileEncoding),
-    xlsx = list(sheet = sheet),
-    nrows = nrows,
-    colNames = colNames
+    xlsx = list(sheet = sheet)
   )
 }
 
@@ -195,7 +195,7 @@ loadData <-
     
     if (type %in% c("csv", "txt")) {
       cat(sprintf("Encoding: '%s'.", fileEncoding))
-      isOldWindows()
+      isOldROnWindows()
     }
     
     if (type == "xlsx") {
@@ -306,7 +306,7 @@ getNrow <- function(type, nrows = NA_integer_) {
 #' Gives a warning in that case.
 #' 
 #' @return (logical) TRUE if system is Windows and R version is < 4.2.0
-isOldWindows <- function() {
+isOldROnWindows <- function() {
   if (Sys.info()["sysname"] == "Windows" && 
       ((as.numeric(R.Version()$major) < 4) ||
        (as.numeric(R.Version()$major) == 4 && as.numeric(R.Version()$minor) < 2))) {
