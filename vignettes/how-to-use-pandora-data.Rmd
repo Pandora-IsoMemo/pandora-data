@@ -89,11 +89,11 @@ fetching data from the `"CIMA Humans 29.05.2021 CSV"` resource:
 
 ```{r getdata}
 isotopicData <- getData(
-  name = "CIMA Humans 29.05.2021 CSV",
+  name = "CIMA Animals 29.05.2021 CSV",
   options = dataOptions(sep = ";")) 
 isotopicData  %>% 
   head(5)  %>% 
-  dplyr::select(c("Entry_ID", "Individual_ID", "Min_Age_yrs", "Max_Age_yrs", "Sampled_Element", "Analysed_Component")) %>%
+  dplyr::select(c("Entry_ID", "General_Category_Family", "Common_Name", "Sampled_Element", "Analysed_Component")) %>%
   knitr::kable()
 ```
 

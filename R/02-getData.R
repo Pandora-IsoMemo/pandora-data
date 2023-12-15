@@ -194,7 +194,7 @@ loadData <-
     }
     
     if (type %in% c("csv", "txt")) {
-      cat(sprintf("Encoding: '%s'.", fileEncoding))
+      cat(sprintf("Encoding: '%s'.\n", fileEncoding))
       isOldROnWindows()
     }
     

@@ -48,8 +48,11 @@ test_that("Test getData()", {
     expect_true(nrow(testLoaded) < 800)
   }
   
-  expect_true(nrow(getData(name = "CIMA Humans 29.05.2021 CSV",
-                           options = dataOptions(sep = ";"))) > 2000)
+  expect_true(nrow(getData(name = "CIMA Animals 29.05.2021 CSV",
+                           options = dataOptions(sep = ";"))) > 4000)
+  
+  expect_true(nrow(getData(name = "CIMA Plants 29.05.2021 CSV",
+                           options = dataOptions(sep = ";"))) > 100)
   
   expect_true(nrow(getData(name = "SAAID_V.2.0_2023 Animals (CSV)")) > 2000)
   
