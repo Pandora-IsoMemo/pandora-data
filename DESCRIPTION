@@ -5,6 +5,7 @@ Date: 2023-12-06
 Authors@R: c(
           person("Jan", "Abel", , "jan.abel@inwt-statistics.de", "cre"),
           person("Antonia", "Runge", , "antonia.runge@inwt-statistics.de", "aut"),
+          person("Andreas", "Neudecker", , "andreas.neudecker@inwt-statistics.de", "aut"),
           person("Ricardo", "Fernandes", , "fernandes@shh.mpg.de","aut")
           )
 Description: API wrapper that contains functions to retrieve data from the 'Pandora' databases. Web services for API: <https://pandora.earth/>. 
@@ -28,6 +29,7 @@ Imports:
   yaml
 Suggests:
     knitr,
+    qpdf,
     rmarkdown,
     testthat
 Roxygen: list(markdown = TRUE)
