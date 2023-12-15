@@ -310,7 +310,7 @@ isOldROnWindows <- function() {
   if (Sys.info()["sysname"] == "Windows" && 
       ((as.numeric(R.Version()$major) < 4) ||
        (as.numeric(R.Version()$major) == 4 && as.numeric(R.Version()$minor) < 2))) {
-    warning("Please upgrade to R version >= 4.2.0 in order to prevent encryption issues with text files.")
+    warning("Please upgrade to R version >= 4.2.0 in order to prevent possible encryption issues when loading text files.")
     return(TRUE)
   } else {
     return(FALSE)
