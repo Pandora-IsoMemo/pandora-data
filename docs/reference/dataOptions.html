@@ -69,10 +69,11 @@ as sheetnumbner and number of rows to read.</p>
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dataOptions</span><span class="op">(</span></span>
 <span>  nrows <span class="op">=</span> <span class="cn">NA_integer_</span>,</span>
+<span>  colNames <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  sep <span class="op">=</span> <span class="st">","</span>,</span>
 <span>  dec <span class="op">=</span> <span class="st">"."</span>,</span>
-<span>  sheet <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  colNames <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  fileEncoding <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  sheet <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -81,6 +82,10 @@ as sheetnumbner and number of rows to read.</p>
     <dl><dt>nrows</dt>
 <dd><p>integer: the maximum number of rows to read in.  Negative
     and other invalid values are ignored.</p></dd>
+
+
+<dt>colNames</dt>
+<dd><p>If <code>TRUE</code>, the first row of data will be used as column names.</p></dd>
 
 
 <dt>sep</dt>
@@ -94,12 +99,16 @@ as sheetnumbner and number of rows to read.</p>
 <dd><p>the character used in the file for decimal points.</p></dd>
 
 
+<dt>fileEncoding</dt>
+<dd><p>character string: if non-empty declares the
+    encoding used on a file (not a connection) so the character data can
+    be re-encoded.  See the ‘Encoding’ section of the help for
+    <code><a href="https://rdrr.io/r/base/connections.html" class="external-link">file</a></code>, the ‘R Data Import/Export’ manual and
+    ‘Note’.</p></dd>
+
+
 <dt>sheet</dt>
 <dd><p>The name or index of the sheet to read data from.</p></dd>
-
-
-<dt>colNames</dt>
-<dd><p>If <code>TRUE</code>, the first row of data will be used as column names.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -118,7 +127,7 @@ as sheetnumbner and number of rows to read.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Jan Abel, Antonia Runge, Ricardo Fernandes.</p>
+  <p></p><p>Developed by Jan Abel, Antonia Runge, Andreas Neudecker, Ricardo Fernandes.</p>
 </div>
 
 <div class="pkgdown">

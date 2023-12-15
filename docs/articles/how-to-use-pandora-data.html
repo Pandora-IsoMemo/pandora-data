@@ -89,7 +89,8 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Pandora-IsoMemo/pandora-data" class="external-link">Pandora</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Pandora-IsoMemo/pandora-data" class="external-link">Pandora</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
@@ -104,7 +105,7 @@ about networks, repositories, file types, and resources.</p>
 function:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">networks</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getNetworks.html">getNetworks</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">networks</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">networks</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
@@ -138,7 +139,7 @@ network:</p>
 <span>  network <span class="op">=</span> <span class="st">"IsoMemo"</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="va">reposIsomemo</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Repository"</span><span class="op">)</span><span class="op">]</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">reposIsomemo</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Repository"</span><span class="op">)</span><span class="op">]</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
@@ -264,7 +265,7 @@ file types. The following example showcases file types available in the
 ‘IsoMemo’ network:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fileTypesIsomemo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getFileTypes.html">getFileTypes</a></span><span class="op">(</span>network <span class="op">=</span> <span class="st">"isomemo"</span><span class="op">)</span></span>
-<span><span class="va">fileTypesIsomemo</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">fileTypesIsomemo</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
@@ -382,15 +383,15 @@ file types. The following example showcases file types available in the
 <p>To list all available resources, employ the
 <code><a href="../reference/getResources.html">getResources()</a></code> function. Filter the output using the
 <code>network</code>, <code>repository</code>, <code>fileType</code>,
-and <code>pattern</code> arguments. Forinstance, to list all CSV files
-with the string <code>plants</code>:</p>
+and <code>pattern</code> arguments. For instance, to list all CSV files
+whose meta information contains the string <code>plants</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">resourcesPlants</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getResources.html">getResources</a></span><span class="op">(</span></span>
 <span>  fileType <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"csv"</span><span class="op">)</span>,</span>
 <span>  pattern <span class="op">=</span> <span class="st">"plant"</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="va">resourcesPlants</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"format"</span><span class="op">)</span><span class="op">]</span> <span class="op">|&gt;</span></span>
+<span><span class="va">resourcesPlants</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"format"</span><span class="op">)</span><span class="op">]</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -481,458 +482,69 @@ with the string <code>plants</code>:</p>
 <h2 id="get-the-data-of-a-specific-resource">Get the data of a Specific Resource<a class="anchor" aria-label="anchor" href="#get-the-data-of-a-specific-resource"></a>
 </h2>
 <p>To retrieve data from a specific resource, use the
-<code><a href="../reference/getData.html">getData()</a></code> function. The example below demonstrates fetching
-data from the <code>Isotopic measurements in CSV format</code>
-resource:</p>
+<code><a href="../reference/getData.html">getData()</a></code> function. For text files one can specify e.g. the
+separator using the helper function <code><a href="../reference/dataOptions.html">dataOptions()</a></code>. The
+example below demonstrates fetching data from the
+<code>"CIMA Humans 29.05.2021 CSV"</code> resource:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">isotopicData</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getData.html">getData</a></span><span class="op">(</span></span>
-<span>  name <span class="op">=</span> <span class="st">"Isotopic measurements in CSV format"</span><span class="op">)</span> </span>
-<span><span class="va">isotopicData</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  name <span class="op">=</span> <span class="st">"CIMA Animals 29.05.2021 CSV"</span>,</span>
+<span>  options <span class="op">=</span> <span class="fu"><a href="../reference/dataOptions.html">dataOptions</a></span><span class="op">(</span>sep <span class="op">=</span> <span class="st">";"</span><span class="op">)</span><span class="op">)</span> </span>
+<span><span class="co">#&gt; Encoding: 'UTF-8'.</span></span>
+<span><span class="va">isotopicData</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Entry_ID"</span>, <span class="st">"General_Category_Family"</span>, <span class="st">"Common_Name"</span>, <span class="st">"Sampled_Element"</span>, <span class="st">"Analysed_Component"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="0%">
-<col width="0%">
-<col width="1%">
-<col width="1%">
-<col width="0%">
-<col width="1%">
-<col width="0%">
-<col width="1%">
-<col width="0%">
-<col width="0%">
-<col width="1%">
-<col width="1%">
-<col width="2%">
-<col width="1%">
-<col width="2%">
-<col width="0%">
-<col width="1%">
-<col width="1%">
-<col width="2%">
-<col width="1%">
-<col width="0%">
-<col width="0%">
-<col width="1%">
-<col width="2%">
-<col width="1%">
-<col width="1%">
-<col width="2%">
-<col width="2%">
-<col width="1%">
-<col width="0%">
-<col width="0%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="0%">
-<col width="0%">
-<col width="0%">
-<col width="1%">
-<col width="0%">
-<col width="1%">
-<col width="1%">
-<col width="2%">
-<col width="2%">
-<col width="1%">
-<col width="1%">
-<col width="1%">
-<col width="0%">
-<col width="0%">
-<col width="1%">
-<col width="0%">
-<col width="0%">
-<col width="0%">
-<col width="2%">
-<col width="1%">
-<col width="21%">
-<col width="4%">
-<col width="0%">
+<col width="10%">
+<col width="29%">
+<col width="17%">
+<col width="19%">
+<col width="23%">
 </colgroup>
 <thead><tr class="header">
-<th align="right">ID</th>
-<th align="left">Site</th>
-<th align="left">Locality_Notes</th>
-<th align="left">Site_Country</th>
-<th align="right">Latitude</th>
-<th align="right">Longitude</th>
-<th align="right">Radius</th>
-<th align="right">Km_to_Coast</th>
-<th align="left">Kingdom</th>
-<th align="left">Class</th>
-<th align="left">Order</th>
-<th align="left">Family</th>
-<th align="left">Taxon</th>
-<th align="left">Taxon_Common_Name</th>
-<th align="left">Category</th>
-<th align="left">Lab_ID</th>
-<th align="left">RC_age_est</th>
-<th align="left">RC_age_sd</th>
-<th align="left">X14C_dated_material</th>
-<th align="left">Is_Date_AMS</th>
-<th align="right">Date_min</th>
-<th align="right">Date_max</th>
-<th align="left">X</th>
-<th align="left">Date_Type</th>
-<th align="left">Calibration_curve</th>
-<th align="left">Diet_estimate</th>
-<th align="left">Dated_material_general</th>
-<th align="right">Marine_C_Min_or_Mean</th>
-<th align="right">Marine_C_Max_or_SD</th>
-<th align="right">MRE_Mean</th>
-<th align="right">MRE_SEM</th>
-<th align="left">Specimen_ID</th>
-<th align="left">Material_Type</th>
-<th align="right">Averaged_N</th>
-<th align="left">Bone_Element</th>
-<th align="left">Tooth_Element</th>
-<th align="left">Age</th>
-<th align="left">Bio_Sex</th>
-<th align="right">d13C_org</th>
-<th align="right">d13C_inorg</th>
-<th align="right">d15N</th>
-<th align="right">d18O_Carb_VPDB</th>
-<th align="right">d18O_Carb_VSMOW</th>
-<th align="left">d18O_Phosphate_VPDB</th>
-<th align="right">d18O_Phosphate_VSMOW</th>
-<th align="right">N_Samples</th>
-<th align="right">d13C_org_sd</th>
-<th align="right">d13C_inorg_sd</th>
-<th align="right">d15N_sd</th>
-<th align="right">d18O_sd</th>
-<th align="right">C_yield_raw</th>
-<th align="right">pct_C</th>
-<th align="right">pct_N</th>
-<th align="right">CN_ratio</th>
-<th align="left">Reference</th>
-<th align="right">Publication.year</th>
-<th align="left">Full.Reference</th>
-<th align="left">DOI_or_Link</th>
-<th align="left">Comments</th>
+<th align="right">Entry_ID</th>
+<th align="left">General_Category_Family</th>
+<th align="left">Common_Name</th>
+<th align="left">Sampled_Element</th>
+<th align="left">Analysed_Component</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td align="right">1</td>
-<td align="left">514</td>
-<td align="left"></td>
-<td align="left">Kenya</td>
-<td align="right">2.34</td>
-<td align="right">36.28</td>
-<td align="right">10</td>
-<td align="right">724.2341</td>
-<td align="left">Animalia</td>
-<td align="left">Mammalia</td>
-<td align="left">Artiodactyla</td>
-<td align="left">Bovidae</td>
-<td align="left"></td>
-<td align="left">Alcelaphine</td>
-<td align="left">terrestrial herbivore</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="right">-5500</td>
-<td align="right">-5200</td>
-<td align="left">-5500-5200514</td>
-<td align="left">Archaeological context</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left">KC12-4AR</td>
-<td align="left">Enamel</td>
-<td align="right">NA</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">1.98</td>
-<td align="right">NA</td>
-<td align="right">-0.23</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left">Chritz et al. (2019)</td>
-<td align="right">2019</td>
-<td align="left">Chritz, K. L., Cerling, T. E., Freeman, K. H.,
-Hildebrand, E. A., Janzen, A., &amp; Prendergast, M. E. (2019). Climate,
-ecology, and the spread of herding in eastern Africa. Quaternary Science
-Reviews, 204, 119-132.</td>
-<td align="left"><a href="https://doi.org/10.1016/j.quascirev.2018.11.029" class="external-link uri">https://doi.org/10.1016/j.quascirev.2018.11.029</a></td>
-<td align="left"></td>
+<td align="left">Equid</td>
+<td align="left">Horse</td>
+<td align="left">Femur</td>
+<td align="left">Collagen</td>
 </tr>
 <tr class="even">
 <td align="right">2</td>
-<td align="left">514</td>
-<td align="left"></td>
-<td align="left">Kenya</td>
-<td align="right">2.34</td>
-<td align="right">36.28</td>
-<td align="right">10</td>
-<td align="right">724.2341</td>
-<td align="left">Animalia</td>
-<td align="left">Mammalia</td>
-<td align="left">Perissodactyla</td>
-<td align="left">Equidae</td>
-<td align="left">Equus sp.</td>
-<td align="left">Equid</td>
-<td align="left">terrestrial herbivore</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="right">-5500</td>
-<td align="right">-5200</td>
-<td align="left">-5500-5200514</td>
-<td align="left">Archaeological context</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left">KC12-4AN</td>
-<td align="left">Enamel</td>
-<td align="right">NA</td>
-<td align="left"></td>
-<td align="left">M</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">-0.19</td>
-<td align="right">NA</td>
-<td align="right">2.45</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left">Chritz et al. (2019)</td>
-<td align="right">2019</td>
-<td align="left">Chritz, K. L., Cerling, T. E., Freeman, K. H.,
-Hildebrand, E. A., Janzen, A., &amp; Prendergast, M. E. (2019). Climate,
-ecology, and the spread of herding in eastern Africa. Quaternary Science
-Reviews, 204, 119-132.</td>
-<td align="left"><a href="https://doi.org/10.1016/j.quascirev.2018.11.029" class="external-link uri">https://doi.org/10.1016/j.quascirev.2018.11.029</a></td>
-<td align="left"></td>
+<td align="left">Cricetid</td>
+<td align="left">Vole</td>
+<td align="left">Cranium</td>
+<td align="left">Collagen</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
-<td align="left">514</td>
-<td align="left"></td>
-<td align="left">Kenya</td>
-<td align="right">2.34</td>
-<td align="right">36.28</td>
-<td align="right">10</td>
-<td align="right">724.2341</td>
-<td align="left">Animalia</td>
-<td align="left">Mammalia</td>
-<td align="left">Perissodactyla</td>
-<td align="left">Equidae</td>
-<td align="left">Equus sp.</td>
-<td align="left">Equid</td>
-<td align="left">terrestrial herbivore</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="right">-5500</td>
-<td align="right">-5200</td>
-<td align="left">-5500-5200514</td>
-<td align="left">Archaeological context</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left">KC12-4AD</td>
-<td align="left">Enamel</td>
-<td align="right">NA</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">0.22</td>
-<td align="right">NA</td>
-<td align="right">3.76</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left">Chritz et al. (2019)</td>
-<td align="right">2019</td>
-<td align="left">Chritz, K. L., Cerling, T. E., Freeman, K. H.,
-Hildebrand, E. A., Janzen, A., &amp; Prendergast, M. E. (2019). Climate,
-ecology, and the spread of herding in eastern Africa. Quaternary Science
-Reviews, 204, 119-132.</td>
-<td align="left"><a href="https://doi.org/10.1016/j.quascirev.2018.11.029" class="external-link uri">https://doi.org/10.1016/j.quascirev.2018.11.029</a></td>
-<td align="left"></td>
+<td align="left">Cricetid</td>
+<td align="left">Vole</td>
+<td align="left">Mandible</td>
+<td align="left">Collagen</td>
 </tr>
 <tr class="even">
 <td align="right">4</td>
-<td align="left">514</td>
-<td align="left"></td>
-<td align="left">Kenya</td>
-<td align="right">2.34</td>
-<td align="right">36.28</td>
-<td align="right">10</td>
-<td align="right">724.2341</td>
-<td align="left">Animalia</td>
-<td align="left">Mammalia</td>
-<td align="left">Perissodactyla</td>
-<td align="left">Equidae</td>
-<td align="left">Equus sp.</td>
-<td align="left">Equid</td>
-<td align="left">terrestrial herbivore</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="right">-5500</td>
-<td align="right">-5200</td>
-<td align="left">-5500-5200514</td>
-<td align="left">Archaeological context</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left">KC12-2X</td>
-<td align="left">Enamel</td>
-<td align="right">NA</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">1.26</td>
-<td align="right">NA</td>
-<td align="right">3.57</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left">Chritz et al. (2019)</td>
-<td align="right">2019</td>
-<td align="left">Chritz, K. L., Cerling, T. E., Freeman, K. H.,
-Hildebrand, E. A., Janzen, A., &amp; Prendergast, M. E. (2019). Climate,
-ecology, and the spread of herding in eastern Africa. Quaternary Science
-Reviews, 204, 119-132.</td>
-<td align="left"><a href="https://doi.org/10.1016/j.quascirev.2018.11.029" class="external-link uri">https://doi.org/10.1016/j.quascirev.2018.11.029</a></td>
-<td align="left"></td>
+<td align="left">Moronid</td>
+<td align="left">European Bass</td>
+<td align="left">Bone</td>
+<td align="left">Collagen</td>
 </tr>
 <tr class="odd">
 <td align="right">5</td>
-<td align="left">514</td>
-<td align="left"></td>
-<td align="left">Kenya</td>
-<td align="right">2.34</td>
-<td align="right">36.28</td>
-<td align="right">10</td>
-<td align="right">724.2341</td>
-<td align="left">Animalia</td>
-<td align="left">Mammalia</td>
-<td align="left">Artiodactyla</td>
-<td align="left">Hippopotamidae</td>
-<td align="left">Hippopotamus amphibius</td>
-<td align="left">Hippopotamus</td>
-<td align="left">terrestrial herbivore</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="right">-5500</td>
-<td align="right">-5200</td>
-<td align="left">-5500-5200514</td>
-<td align="left">Archaeological context</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left">KC12-4AT</td>
-<td align="left">Enamel</td>
-<td align="right">NA</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="right">NA</td>
-<td align="right">-0.64</td>
-<td align="right">NA</td>
-<td align="right">-2.06</td>
-<td align="right">NA</td>
-<td align="left">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="left">Chritz et al. (2019)</td>
-<td align="right">2019</td>
-<td align="left">Chritz, K. L., Cerling, T. E., Freeman, K. H.,
-Hildebrand, E. A., Janzen, A., &amp; Prendergast, M. E. (2019). Climate,
-ecology, and the spread of herding in eastern Africa. Quaternary Science
-Reviews, 204, 119-132.</td>
-<td align="left"><a href="https://doi.org/10.1016/j.quascirev.2018.11.029" class="external-link uri">https://doi.org/10.1016/j.quascirev.2018.11.029</a></td>
-<td align="left"></td>
+<td align="left">Moronid</td>
+<td align="left">European Bass</td>
+<td align="left">Bone</td>
+<td align="left">Collagen</td>
 </tr>
 </tbody>
 </table>
@@ -951,7 +563,7 @@ Reviews, 204, 119-132.</td>
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Jan Abel, Antonia Runge, Ricardo Fernandes.</p>
+<p>Developed by Jan Abel, Antonia Runge, Andreas Neudecker, Ricardo Fernandes.</p>
 </div>
 
 <div class="pkgdown">

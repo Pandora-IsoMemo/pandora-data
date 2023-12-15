@@ -2,6 +2,7 @@
 
 ## Features
 - new parameters for the function `getRepositories()` to select and rename the columns of the result
+- vignette and documentation were added to the package
 
 # Pandora 23.11.2
 
