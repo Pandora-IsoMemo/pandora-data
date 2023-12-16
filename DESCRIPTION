@@ -29,7 +29,6 @@ Imports:
   yaml
 Suggests:
     knitr,
-    qpdf,
     rmarkdown,
     testthat
 Roxygen: list(markdown = TRUE)
