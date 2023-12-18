@@ -330,6 +330,7 @@ strMatch <- function(dat, pattern) {
 #'  "mapping"
 #' @param ... parameters for the endpoint, e.g. all_fields = "true"
 #' 
+#' @return (data.frame) output from the Pandora API
 #' @export
 callAPI <- function(action = c("current_package_list_with_resources",
                                "group_list",

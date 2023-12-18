@@ -16,6 +16,9 @@ callAPI(
 
 \item{...}{parameters for the endpoint, e.g. all_fields = "true"}
 }
+\value{
+(data.frame) output from the Pandora API
+}
 \description{
 Call API
 }
