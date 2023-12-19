@@ -4,7 +4,7 @@
 \alias{getData}
 \title{Get Data}
 \usage{
-getData(name, repository = "", options = dataOptions())
+getData(name, repository = "", verbose = TRUE, options = dataOptions())
 }
 \arguments{
 \item{name}{(character) name of a resource, e.g. an entry of the output from
@@ -12,6 +12,10 @@ getData(name, repository = "", options = dataOptions())
 
 \item{repository}{(character) name of a Pandora repository, e.g. an entry of the output from
 \code{getRepositories()$name}}
+
+\item{verbose}{Logical, indicating whether to display processing messages.
+If TRUE, messages will be displayed; if FALSE, messages will be suppressed.
+Default is TRUE.}
 
 \item{options}{(list) a list of extra options for \code{read.csv()} or \code{openxlsx::read.xlsx()} and
 \code{readxl::read_excel}}

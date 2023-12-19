@@ -2,6 +2,9 @@
 #'
 #' @param name (character) name of a resource, e.g. an entry of the output from
 #'  \code{getResources()$name}
+#' @param verbose Logical, indicating whether to display processing messages.
+#'   If TRUE, messages will be displayed; if FALSE, messages will be suppressed.
+#'   Default is TRUE.
 #' @param options (list) a list of extra options for \code{read.csv()} or \code{openxlsx::read.xlsx()} and
 #'  \code{readxl::read_excel}
 #' @inheritParams getResources
@@ -10,6 +13,7 @@
 #' @export
 getData <- function(name,
                     repository = "",
+                    verbose = TRUE,
                     options = dataOptions()) {
   resource <- try({
     getResources(repository = repository) %>%
@@ -28,7 +32,8 @@ getData <- function(name,
       dec = options$text$dec,
       fileEncoding = options$text$fileEncoding,
       colNames = options$colNames,
-      sheet = options$xlsx$sheet
+      sheet = options$xlsx$sheet,
+      verbose = verbose
     )
   }, silent = TRUE)
   
@@ -155,6 +160,7 @@ selectSingleFile <- function(resource) {
 #' @param type (character) type of file, one of \code{c("xlsx", "xls", "odt", "csv", "txt")}
 #' @inheritParams utils::read.csv
 #' @inheritParams openxlsx::read.xlsx
+#' @inheritParams getData
 #'
 #' @return (data.frame) data loaded from the file at path
 #' @export
@@ -166,7 +172,8 @@ loadData <-
            dec = ".",
            fileEncoding = "",
            colNames = TRUE,
-           sheet = 1) {
+           sheet = 1,
+           verbose = TRUE) {
     type <- match.arg(type)
     # empty result if an error occurs
     res <- list()
@@ -194,7 +201,7 @@ loadData <-
     }
     
     if (type %in% c("csv", "txt")) {
-      cat(sprintf("Encoding: '%s'.\n", fileEncoding))
+      if (verbose) message(sprintf("Encoding: '%s'.\n", fileEncoding))
       isOldROnWindows()
     }
     
