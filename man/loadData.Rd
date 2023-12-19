@@ -12,7 +12,8 @@ loadData(
   dec = ".",
   fileEncoding = "",
   colNames = TRUE,
-  sheet = 1
+  sheet = 1,
+  verbose = TRUE
 )
 }
 \arguments{
@@ -40,6 +41,10 @@ loadData(
 \item{colNames}{If \code{TRUE}, the first row of data will be used as column names.}
 
 \item{sheet}{The name or index of the sheet to read data from.}
+
+\item{verbose}{Logical, indicating whether to display processing messages.
+If TRUE, messages will be displayed; if FALSE, messages will be suppressed.
+Default is TRUE.}
 }
 \value{
 (data.frame) data loaded from the file at path

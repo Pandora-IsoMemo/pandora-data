@@ -63,7 +63,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">getData</span><span class="op">(</span><span class="va">name</span>, repository <span class="op">=</span> <span class="st">""</span>, options <span class="op">=</span> <span class="fu"><a href="dataOptions.html">dataOptions</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">getData</span><span class="op">(</span><span class="va">name</span>, repository <span class="op">=</span> <span class="st">""</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, options <span class="op">=</span> <span class="fu"><a href="dataOptions.html">dataOptions</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -76,6 +76,12 @@
 <dt>repository</dt>
 <dd><p>(character) name of a Pandora repository, e.g. an entry of the output from
 <code>getRepositories()$name</code></p></dd>
+
+
+<dt>verbose</dt>
+<dd><p>Logical, indicating whether to display processing messages.
+If TRUE, messages will be displayed; if FALSE, messages will be suppressed.
+Default is TRUE.</p></dd>
 
 
 <dt>options</dt>

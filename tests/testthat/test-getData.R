@@ -68,8 +68,6 @@ test_that("Test getData()", {
   if (isOldROnWindows()) {
     expect_true(nrow(getData(name = "IsoMedIta Humans 21-12-22 - CSV",
                              options = dataOptions(sep = ";"))) < 2000)
-    cat(nrow(getData(name = "IsoMedIta Humans 21-12-22 - CSV",
-                     options = dataOptions(sep = ";"))))
   } else {
     expect_true(nrow(getData(name = "IsoMedIta Humans 21-12-22 - CSV",
                              options = dataOptions(sep = ";"))) > 2000)
