@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Pandora</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">23.12.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">23.12.1</span>
       </span>
     </div>
 
@@ -75,7 +75,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="how-to-use-pandora-data_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>How to use the Pandora Data Package</h1>
@@ -94,15 +94,12 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>This vignette provides an overview of the basic functions within the
-Pandora Data package, allowing users to explore and retrieve information
-about networks, repositories, file types, and resources.</p>
+<p>This vignette provides an overview of the basic functions within the Pandora Data package, allowing users to explore and retrieve information about networks, repositories, file types, and resources.</p>
 </div>
 <div class="section level2">
 <h2 id="show-all-networks">Show all Networks<a class="anchor" aria-label="anchor" href="#show-all-networks"></a>
 </h2>
-<p>To show all available networks use the <code><a href="../reference/getNetworks.html">getNetworks()</a></code>
-function:</p>
+<p>To show all available networks use the <code><a href="../reference/getNetworks.html">getNetworks()</a></code> function:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">networks</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getNetworks.html">getNetworks</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">networks</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
@@ -121,19 +118,14 @@ function:</p>
 <tbody><tr class="odd">
 <td align="left">isomemo-group</td>
 <td align="left">IsoMemo Network</td>
-<td align="left">IsoMemo is a network of autonomous isotopic
-databases.</td>
+<td align="left">IsoMemo is a network of autonomous isotopic databases.</td>
 </tr></tbody>
 </table>
 </div>
 <div class="section level2">
 <h2 id="list-repositories">List Repositories<a class="anchor" aria-label="anchor" href="#list-repositories"></a>
 </h2>
-<p>To list all available repositories use the
-<code><a href="../reference/getRepositories.html">getRepositories()</a></code> function. You can filter the output using
-the <code>network</code> and <code>pattern</code> arguments. For
-instance, to list all repositories in the <code>IsoMemo</code>
-network:</p>
+<p>To list all available repositories use the <code><a href="../reference/getRepositories.html">getRepositories()</a></code> function. You can filter the output using the <code>network</code> and <code>pattern</code> arguments. For instance, to list all repositories in the <code>IsoMemo</code> network:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">reposIsomemo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getRepositories.html">getRepositories</a></span><span class="op">(</span></span>
 <span>  network <span class="op">=</span> <span class="st">"IsoMemo"</span></span>
@@ -152,106 +144,99 @@ network:</p>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">36</td>
+<td align="left">38</td>
 <td align="left">14CARHU</td>
 </tr>
 <tr class="even">
-<td align="left">52</td>
-<td align="left">14SEA Project: A 14C database for Southeast Europe and
-Anatolia (10,000–3000 calBC)</td>
+<td align="left">54</td>
+<td align="left">14SEA Project: A 14C database for Southeast Europe and Anatolia (10,000–3000 calBC)</td>
 </tr>
 <tr class="odd">
-<td align="left">34</td>
+<td align="left">36</td>
 <td align="left">AGEAS</td>
 </tr>
 <tr class="even">
-<td align="left">27</td>
-<td align="left">Amalthea: a Database of Isotopic measurements on
-Archaeological and Forensic Tooth Dentine Increments</td>
-</tr>
-<tr class="odd">
-<td align="left">48</td>
-<td align="left">ARCHIPELAGO human stable isotope database</td>
-</tr>
-<tr class="even">
-<td align="left">49</td>
-<td align="left">AustArch: A Database of 14C and Luminescence Ages from
-Archaeological Sites in Australia</td>
-</tr>
-<tr class="odd">
-<td align="left">45</td>
-<td align="left">BASE DE DATOS Iber-Crono</td>
-</tr>
-<tr class="even">
-<td align="left">47</td>
-<td align="left">CARD 2.0</td>
-</tr>
-<tr class="odd">
-<td align="left">11</td>
-<td align="left">CIMA: Compendium Isotoporum Medii Aevi</td>
-</tr>
-<tr class="even">
-<td align="left">31</td>
-<td align="left">Database for European 14C dates for the Bronze and
-Early Iron Age</td>
-</tr>
-<tr class="odd">
-<td align="left">51</td>
-<td align="left">Database our way to Europe</td>
-</tr>
-<tr class="even">
-<td align="left">35</td>
-<td align="left">dIANA</td>
+<td align="left">29</td>
+<td align="left">Amalthea: a Database of Isotopic measurements on Archaeological and Forensic Tooth Dentine Increments</td>
 </tr>
 <tr class="odd">
 <td align="left">50</td>
-<td align="left">Edaphobase Open access Data Warehouse for Soil
-Biodiversity</td>
+<td align="left">ARCHIPELAGO human stable isotope database</td>
 </tr>
 <tr class="even">
-<td align="left">46</td>
-<td align="left">EPRG Jomon</td>
+<td align="left">51</td>
+<td align="left">AustArch: A Database of 14C and Luminescence Ages from Archaeological Sites in Australia</td>
 </tr>
 <tr class="odd">
-<td align="left">41</td>
-<td align="left">INTIMATE: WG1 Database</td>
+<td align="left">47</td>
+<td align="left">BASE DE DATOS Iber-Crono</td>
 </tr>
 <tr class="even">
-<td align="left">39</td>
-<td align="left">Intramolecular 2H profiles</td>
+<td align="left">49</td>
+<td align="left">CARD 2.0</td>
 </tr>
 <tr class="odd">
-<td align="left">38</td>
-<td align="left">LiVES isotopic database</td>
-</tr>
-<tr class="even">
-<td align="left">30</td>
-<td align="left">New Zealand Radicarbon Database</td>
-</tr>
-<tr class="odd">
-<td align="left">37</td>
-<td align="left">Northern Hemisphere Modern leaf wax δDn-alkane
-dataset</td>
+<td align="left">14</td>
+<td align="left">CIMA: Compendium Isotoporum Medii Aevi</td>
 </tr>
 <tr class="even">
 <td align="left">33</td>
-<td align="left">ORAU database</td>
+<td align="left">Database for European 14C dates for the Bronze and Early Iron Age</td>
 </tr>
 <tr class="odd">
-<td align="left">32</td>
-<td align="left">Radiocarbon Palaeolithic Europe Database v28</td>
+<td align="left">53</td>
+<td align="left">Database our way to Europe</td>
 </tr>
 <tr class="even">
-<td align="left">28</td>
-<td align="left">RADON - Radiocarbon dates online</td>
+<td align="left">37</td>
+<td align="left">dIANA</td>
+</tr>
+<tr class="odd">
+<td align="left">52</td>
+<td align="left">Edaphobase Open access Data Warehouse for Soil Biodiversity</td>
+</tr>
+<tr class="even">
+<td align="left">48</td>
+<td align="left">EPRG Jomon</td>
+</tr>
+<tr class="odd">
+<td align="left">43</td>
+<td align="left">INTIMATE: WG1 Database</td>
+</tr>
+<tr class="even">
+<td align="left">41</td>
+<td align="left">Intramolecular 2H profiles</td>
 </tr>
 <tr class="odd">
 <td align="left">40</td>
-<td align="left">Royal Institute for Cultural Heritage Radiocarbon and
-stable isotope measurements</td>
+<td align="left">LiVES isotopic database</td>
 </tr>
 <tr class="even">
-<td align="left">29</td>
+<td align="left">32</td>
+<td align="left">New Zealand Radicarbon Database</td>
+</tr>
+<tr class="odd">
+<td align="left">39</td>
+<td align="left">Northern Hemisphere Modern leaf wax δDn-alkane dataset</td>
+</tr>
+<tr class="even">
+<td align="left">35</td>
+<td align="left">ORAU database</td>
+</tr>
+<tr class="odd">
+<td align="left">34</td>
+<td align="left">Radiocarbon Palaeolithic Europe Database v28</td>
+</tr>
+<tr class="even">
+<td align="left">30</td>
+<td align="left">RADON - Radiocarbon dates online</td>
+</tr>
+<tr class="odd">
+<td align="left">42</td>
+<td align="left">Royal Institute for Cultural Heritage Radiocarbon and stable isotope measurements</td>
+</tr>
+<tr class="even">
+<td align="left">31</td>
 <td align="left">SWVID: Stable Water Vapor Isotope datasets</td>
 </tr>
 </tbody>
@@ -260,9 +245,7 @@ stable isotope measurements</td>
 <div class="section level2">
 <h2 id="list-available-file-types">List Available File Types<a class="anchor" aria-label="anchor" href="#list-available-file-types"></a>
 </h2>
-<p>Use the <code><a href="../reference/getFileTypes.html">getFileTypes()</a></code> function to list all available
-file types. The following example showcases file types available in the
-‘IsoMemo’ network:</p>
+<p>Use the <code><a href="../reference/getFileTypes.html">getFileTypes()</a></code> function to list all available file types. The following example showcases file types available in the ‘IsoMemo’ network:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fileTypesIsomemo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getFileTypes.html">getFileTypes</a></span><span class="op">(</span>network <span class="op">=</span> <span class="st">"isomemo"</span><span class="op">)</span></span>
 <span><span class="va">fileTypesIsomemo</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
@@ -380,11 +363,7 @@ file types. The following example showcases file types available in the
 <div class="section level2">
 <h2 id="filter-resources-by-pattern-or-file-type">Filter Resources by pattern or File Type<a class="anchor" aria-label="anchor" href="#filter-resources-by-pattern-or-file-type"></a>
 </h2>
-<p>To list all available resources, employ the
-<code><a href="../reference/getResources.html">getResources()</a></code> function. Filter the output using the
-<code>network</code>, <code>repository</code>, <code>fileType</code>,
-and <code>pattern</code> arguments. For instance, to list all CSV files
-whose meta information contains the string <code>plants</code>:</p>
+<p>To list all available resources, employ the <code><a href="../reference/getResources.html">getResources()</a></code> function. Filter the output using the <code>network</code>, <code>repository</code>, <code>fileType</code>, and <code>pattern</code> arguments. For instance, to list all CSV files whose meta information contains the string <code>plants</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">resourcesPlants</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getResources.html">getResources</a></span><span class="op">(</span></span>
 <span>  fileType <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"csv"</span><span class="op">)</span>,</span>
@@ -424,54 +403,50 @@ whose meta information contains the string <code>plants</code>:</p>
 <td align="left">csv</td>
 </tr>
 <tr class="odd">
+<td align="left">IsoMad Modern Biological Material v1</td>
+<td align="left">csv</td>
+</tr>
+<tr class="even">
 <td align="left">IsoMedIta Animals 21-12-22 - CSV</td>
 <td align="left">csv</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">IsoMedIta Humans 21-12-22 - CSV</td>
 <td align="left">csv</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">IsoMedIta Plants 21-12-22 - CSV</td>
 <td align="left">csv</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Isotòpia Animals csv (19.09.2023)</td>
 <td align="left">csv</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Isotòpia Humans csv (19.09.2023)</td>
 <td align="left">csv</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Isotòpia Plants csv (19.09.2023)</td>
 <td align="left">csv</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">MAIA Animals CSV</td>
 <td align="left">csv</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">MAIA Humans CSV</td>
 <td align="left">csv</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">MAIA Plants CSV</td>
 <td align="left">csv</td>
 </tr>
-<tr class="even">
-<td align="left">SAAID_V.2.0_2023 Animals (CSV)</td>
-<td align="left">csv</td>
-</tr>
 <tr class="odd">
-<td align="left">SAAID_V.2.0_2023 Humans (CSV)</td>
+<td align="left">SAAID_V.2.0_2023_plants.csv</td>
 <td align="left">csv</td>
 </tr>
 <tr class="even">
-<td align="left">SAAID_V.2.0_2023 Plants (CSV)</td>
-<td align="left">csv</td>
-</tr>
-<tr class="odd">
 <td align="left">Zanadamu CSV format</td>
 <td align="left">csv</td>
 </tr>
@@ -481,11 +456,7 @@ whose meta information contains the string <code>plants</code>:</p>
 <div class="section level2">
 <h2 id="get-the-data-of-a-specific-resource">Get the data of a Specific Resource<a class="anchor" aria-label="anchor" href="#get-the-data-of-a-specific-resource"></a>
 </h2>
-<p>To retrieve data from a specific resource, use the
-<code><a href="../reference/getData.html">getData()</a></code> function. For text files one can specify e.g. the
-separator using the helper function <code><a href="../reference/dataOptions.html">dataOptions()</a></code>. The
-example below demonstrates fetching data from the
-<code>"CIMA Humans 29.05.2021 CSV"</code> resource:</p>
+<p>To retrieve data from a specific resource, use the <code><a href="../reference/getData.html">getData()</a></code> function. For text files one can specify e.g. the separator using the helper function <code><a href="../reference/dataOptions.html">dataOptions()</a></code>. The example below demonstrates fetching data from the <code>"CIMA Humans 29.05.2021 CSV"</code> resource:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">isotopicData</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getData.html">getData</a></span><span class="op">(</span></span>
 <span>  name <span class="op">=</span> <span class="st">"CIMA Animals 29.05.2021 CSV"</span>,</span>

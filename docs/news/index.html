@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Pandora</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">23.12.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">23.12.1</span>
       </span>
     </div>
 
@@ -58,7 +58,13 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="23.12.0" id="pandora-23120">Pandora 23.12.0<a class="anchor" aria-label="anchor" href="#pandora-23120"></a></h2>
+<h2 class="page-header" data-toc-text="23.12.1" id="pandora-23121">Pandora 23.12.1<a class="anchor" aria-label="anchor" href="#pandora-23121"></a></h2>
+<div class="section level3">
+<h3 id="updates-23-12-1">Updates<a class="anchor" aria-label="anchor" href="#updates-23-12-1"></a></h3>
+<ul><li>catch issue if resources are missing in tests</li></ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="23.12.0" id="pandora-23120">Pandora 23.12.0<small>2023-12-19</small><a class="anchor" aria-label="anchor" href="#pandora-23120"></a></h2>
 <div class="section level3">
 <h3 id="features-23-12-0">Features<a class="anchor" aria-label="anchor" href="#features-23-12-0"></a></h3>
 <ul><li>new parameters for the function <code><a href="../reference/getRepositories.html">getRepositories()</a></code> to select and rename the columns of the result</li>
@@ -78,8 +84,7 @@
 <h2 class="page-header" data-toc-text="23.11.1" id="pandora-23111">Pandora 23.11.1<a class="anchor" aria-label="anchor" href="#pandora-23111"></a></h2>
 <div class="section level3">
 <h3 id="updates-23-11-1">Updates<a class="anchor" aria-label="anchor" href="#updates-23-11-1"></a></h3>
-<ul><li>export of <code><a href="../reference/callAPI.html">callAPI()</a></code> function, update of documentation</li>
-</ul></div>
+<ul><li>export of <code><a href="../reference/callAPI.html">callAPI()</a></code> function, update of documentation</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="23.11.0" id="pandora-23110">Pandora 23.11.0<a class="anchor" aria-label="anchor" href="#pandora-23110"></a></h2>
@@ -87,25 +92,19 @@
 <h3 id="features-23-11-0">Features<a class="anchor" aria-label="anchor" href="#features-23-11-0"></a></h3>
 <p>The main function that facilitate the data retrieval and aggregation from the API is:</p>
 <ul><li>
-<code><a href="../reference/getData.html">getData()</a></code> (<em>under development</em>)</li>
-</ul><p>The following are its sub-functions contained in this package:</p>
+<code><a href="../reference/getData.html">getData()</a></code> (<em>under development</em>)</li></ul><p>The following are its sub-functions contained in this package:</p>
 <ul><li>
-<code><a href="../reference/getNetworks.html">getNetworks()</a></code> returns a data.frame containing available networks (groups in CKAN terminology)
-<ul><li>optional filtering of names for a given string</li>
-</ul></li>
+<code><a href="../reference/getNetworks.html">getNetworks()</a></code> returns a data.frame containing available networks (groups in CKAN terminology)<ul><li>optional filtering of names for a given string</li></ul></li>
 <li>
-<code><a href="../reference/getRepositories.html">getRepositories()</a></code> returns a data.frame containing available repositories
-<ul><li>all or those within a specific network</li>
+<code><a href="../reference/getRepositories.html">getRepositories()</a></code> returns a data.frame containing available repositories<ul><li>all or those within a specific network</li>
 <li>optional filtering of meta information for a given string</li>
 </ul></li>
 <li>
-<code><a href="../reference/getFileTypes.html">getFileTypes()</a></code> returns a data.frame containing available file types of a repository
-<ul><li>all or those within a specific network or within a specific repository</li>
+<code><a href="../reference/getFileTypes.html">getFileTypes()</a></code> returns a data.frame containing available file types of a repository<ul><li>all or those within a specific network or within a specific repository</li>
 <li>optional filtering of meta information for a given string</li>
 </ul></li>
 <li>
-<code><a href="../reference/getResources.html">getResources()</a></code> returns a data.frame containing available resources within a repository
-<ul><li>all or filtered by file type or those within a specific network or within a specific repository</li>
+<code><a href="../reference/getResources.html">getResources()</a></code> returns a data.frame containing available resources within a repository<ul><li>all or filtered by file type or those within a specific network or within a specific repository</li>
 <li>optional filtering of meta information for a given string</li>
 </ul></li>
 </ul></div>

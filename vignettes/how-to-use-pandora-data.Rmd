@@ -96,4 +96,3 @@ isotopicData  %>%
   dplyr::select(c("Entry_ID", "General_Category_Family", "Common_Name", "Sampled_Element", "Analysed_Component")) %>%
   knitr::kable()
 ```
-
