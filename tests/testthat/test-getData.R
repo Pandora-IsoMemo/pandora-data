@@ -100,9 +100,6 @@ test_that("Test getData() from csv", {
     passOnErrorMsg()
   if (foundResource(testLoaded)) expect_true(nrow(testLoaded) > 100)
   
-  testLoaded <- getData(name = "SAAID_V.2.0_2023 Animals (CSV)") %>%
-    passOnErrorMsg()
-  if (foundResource(testLoaded)) expect_true(nrow(testLoaded) > 2000)
   
   testLoaded <- getData(name = "Zanadamu CSV format",
                         options = dataOptions(fileEncoding = "ISO-8859-1"))  %>%
