@@ -1,7 +1,0 @@
-pandoc: 2.9.2.1
-pkgdown: 2.0.7
-pkgdown_sha: ~
-articles:
-  how-to-use-pandora-data: how-to-use-pandora-data.html
-last_built: 2024-02-20T19:13Z
-
