@@ -1,7 +1,7 @@
 Package: Pandora
 Title: Retrieve Data using the API of the 'Pandora' Data Platform
 Version: 23.12.1
-Date: 2023-12-06
+Date: 2023-26-02
 Authors@R: c(
           person("Jan", "Abel", , "jan.abel@inwt-statistics.de", "cre"),
           person("Antonia", "Runge", , "antonia.runge@inwt-statistics.de", "aut"),
