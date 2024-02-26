@@ -2,6 +2,7 @@
 
 ## Updates
 - catch issue if resources are missing in tests
+- automate documentation
 
 # Pandora 23.12.0
 
