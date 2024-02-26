@@ -11,3 +11,6 @@
 ^docs/
 ^doc$
 ^CRAN-SUBMISSION$
+^docs$
+^pkgdown$
+^\.github$
