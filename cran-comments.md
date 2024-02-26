@@ -2,9 +2,7 @@
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
-# * This is a initial CRAN release.
-# * changed Title field to be in title case
-#
-# * write 'Pandora' in title in single quotes 
-# * add return value to callAPI.Rd
-# * use message() in loadData() instead of cat()
+# Resubmission due to failing test
+
+catch issue in the tests, if resources of CKAN API are missing
+
