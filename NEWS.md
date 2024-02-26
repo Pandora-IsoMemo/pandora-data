@@ -1,4 +1,4 @@
-# Pandora 23.12.1
+# Pandora 24.02.0
 
 ## Updates
 - catch issue if resources are missing in tests
