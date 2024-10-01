@@ -1,78 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/404.html</loc>
-  </url>
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/articles/how-to-use-pandora-data.html</loc>
-  </url>
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/index.html</loc>
-  </url>
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/reference/callAPI.html</loc>
-  </url>
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/reference/dataOptions.html</loc>
-  </url>
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/reference/filterPattern.html</loc>
-  </url>
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/reference/filterResourceByName.html</loc>
-  </url>
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/reference/filterValidFileType.html</loc>
-  </url>
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/reference/formatRepositoryList.html</loc>
-  </url>
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/reference/getData.html</loc>
-  </url>
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/reference/getDatasetFields.html</loc>
-  </url>
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/reference/getFileTypes.html</loc>
-  </url>
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/reference/getNetworks.html</loc>
-  </url>
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/reference/getNrow.html</loc>
-  </url>
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/reference/getRepositories.html</loc>
-  </url>
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/reference/getResources.html</loc>
-  </url>
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/reference/isOldROnWindows.html</loc>
-  </url>
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/reference/loadData.html</loc>
-  </url>
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/reference/selectSingleFile.html</loc>
-  </url>
-  <url>
-    <loc>https://pandora-isomemo.github.io/pandora-data/reference/validateResource.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/404.html</loc></url>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/LICENSE.html</loc></url>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/articles/how-to-use-pandora-data.html</loc></url>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/articles/index.html</loc></url>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/authors.html</loc></url>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/index.html</loc></url>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/news/index.html</loc></url>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/reference/callAPI.html</loc></url>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/reference/dataOptions.html</loc></url>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/reference/filterPattern.html</loc></url>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/reference/filterResourceByName.html</loc></url>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/reference/filterValidFileType.html</loc></url>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/reference/formatRepositoryList.html</loc></url>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/reference/getData.html</loc></url>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/reference/getDatasetFields.html</loc></url>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/reference/getFileTypes.html</loc></url>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/reference/getNetworks.html</loc></url>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/reference/getNrow.html</loc></url>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/reference/getRepositories.html</loc></url>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/reference/getResources.html</loc></url>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/reference/index.html</loc></url>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/reference/isOldROnWindows.html</loc></url>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/reference/loadData.html</loc></url>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/reference/selectSingleFile.html</loc></url>
+<url><loc>https://pandora-isomemo.github.io/pandora-data/reference/validateResource.html</loc></url>
 </urlset>
+
