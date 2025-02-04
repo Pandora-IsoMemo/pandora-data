@@ -3,7 +3,7 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   how-to-use-pandora-data: how-to-use-pandora-data.html
-last_built: 2024-10-01T15:09Z
+last_built: 2025-02-04T13:24Z
 urls:
   reference: https://pandora-isomemo.github.io/pandora-data/reference
   article: https://pandora-isomemo.github.io/pandora-data/articles
