@@ -1,3 +1,8 @@
+# Pandora 26.08.0
+
+## Bug Fixes
+- fixed API access issues by setting a custom User-Agent header for API requests and resource downloads
+
 # Pandora 24.02.0
 
 ## Updates
