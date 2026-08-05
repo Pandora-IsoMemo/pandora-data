@@ -154,6 +154,45 @@ selectSingleFile <- function(resource) {
   return(resource)
 }
 
+isRemotePath <- function(path) {
+  grepl("^https?://", path, ignore.case = TRUE)
+}
+
+getDownloadExtension <- function(path, type) {
+  sanitizedPath <- sub("[?#].*$", "", path)
+  pathExt <- tolower(tools::file_ext(sanitizedPath))
+
+  if (type == "xlsx" && pathExt == "xls") {
+    return(".xls")
+  }
+
+  if (pathExt != "") {
+    return(paste0(".", pathExt))
+  }
+
+  paste0(".", tolower(type))
+}
+
+downloadRemoteResource <- function(path, type, userAgent = "pandora-isomemo") {
+  tmpDir <- tempfile(pattern = "pandora-")
+  dir.create(tmpDir)
+
+  localPath <- file.path(
+    tmpDir,
+    paste0("resource", getDownloadExtension(path = path, type = type))
+  )
+
+  handle <- curl::new_handle(useragent = userAgent)
+  curl::curl_download(
+    url = path,
+    destfile = localPath,
+    handle = handle,
+    quiet = TRUE
+  )
+
+  list(path = localPath, dir = tmpDir)
+}
+
 #' Load Data
 #'
 #' @param path path to the file
@@ -175,8 +214,12 @@ loadData <-
            sheet = 1,
            verbose = TRUE) {
     type <- match.arg(type)
-    # empty result if an error occurs
-    res <- list()
+
+    if (isRemotePath(path)) {
+      downloadedResource <- downloadRemoteResource(path = path, type = type)
+      on.exit(unlink(downloadedResource$dir, recursive = TRUE, force = TRUE), add = TRUE)
+      path <- downloadedResource$path
+    }
     
     # if(type == "csv" | type == "txt"){
     #   codepages <- setNames(iconvlist(), iconvlist())
