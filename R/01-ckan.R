@@ -349,8 +349,13 @@ callAPI <- function(action = c("current_package_list_with_resources",
     url <- paste0(url, "?", paramString)
   }
   
+  handle <- curl::new_handle(useragent = "pandora-isomemo")
+  curl::handle_setheaders(handle, Accept = "application/json, text/*, */*")
+  con <- curl::curl(url, handle = handle)
+  on.exit(try(close(con), silent = TRUE), add = TRUE)
+
   data <- try({
-    fromJSON(url)
+    jsonlite::fromJSON(con)
   }, silent = TRUE)
   
   if (inherits(data, "try-error")) {
