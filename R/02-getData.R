@@ -176,7 +176,7 @@ getDownloadExtension <- function(path, type) {
 
 downloadRemoteResource <- function(path, type) {
   tmpDir <- tempfile(pattern = "pandora-")
-  dir.create(tmpDir)
+  dir.create(tmpDir, recursive = TRUE, showWarnings = FALSE)
 
   localPath <- file.path(
     tmpDir,
@@ -184,12 +184,20 @@ downloadRemoteResource <- function(path, type) {
   )
 
   handle <- curl::new_handle(useragent = pandoraUser())
-  curl::curl_download(
-    url = path,
-    destfile = localPath,
-    handle = handle,
-    quiet = TRUE
+  curl::handle_setopt(handle, followlocation = TRUE)
+
+  response <- tryCatch(
+    curl::curl_fetch_disk(url = path, path = localPath, handle = handle),
+    error = function(e) {
+      unlink(tmpDir, recursive = TRUE, force = TRUE)
+      stop(e)
+    }
   )
+
+  if (!identical(response$status_code, 200L)) {
+    unlink(tmpDir, recursive = TRUE, force = TRUE)
+    stop(sprintf("Failed to download '%s' (HTTP %s).", path, response$status_code))
+  }
 
   list(path = localPath, dir = tmpDir)
 }
