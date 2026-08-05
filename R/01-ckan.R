@@ -246,8 +246,13 @@ getNetworks <- function(pattern = "", order = TRUE, groupList = data.frame()) {
 }
 
 validateDatAPI <- function(datAPI, emptyOut = list(), reqCols = character(0)) {
-  if (!is.null(attr(datAPI, "error"))) {
-    attr(emptyOut, "error") <- attr(datAPI, "error")
+  errorMsg <- attr(datAPI, "error")
+  if (is.null(errorMsg)) {
+    errorMsg <- attr(datAPI, "errorApi")
+  }
+
+  if (!is.null(errorMsg)) {
+    attr(emptyOut, "error") <- errorMsg
     return(emptyOut)
   }
   
@@ -292,7 +297,7 @@ filterPattern <- function(datAPI, pattern = "") {
     return(datAPI)
   
   errMsg <- NULL
-  filterMeta <- sapply(1:nrow(datAPI), function(n) {
+  filterMeta <- sapply(seq_len(nrow(datAPI)), function(n) {
     res <- try(datAPI[n, ] %>%
                  unlist(use.names = FALSE) %>%
                  strMatch(pattern = pattern),
@@ -348,14 +353,15 @@ callAPI <- function(action = c("current_package_list_with_resources",
   if (paramString != "") {
     url <- paste0(url, "?", paramString)
   }
-  
-  handle <- curl::new_handle(useragent = "pandora-isomemo")
-  curl::handle_setheaders(handle, Accept = "application/json, text/*, */*")
-  con <- curl::curl(url, handle = handle)
-  on.exit(try(close(con), silent = TRUE), add = TRUE)
 
   data <- try({
-    jsonlite::fromJSON(con)
+    handle <- curl::new_handle(useragent = pandoraUserAgent())
+    curl::handle_setheaders(handle, Accept = "application/json, text/*, */*")
+    response <- curl::curl_fetch_memory(
+      url,
+      handle = handle
+    )
+    jsonlite::fromJSON(rawToChar(response$content))
   }, silent = TRUE)
   
   if (inherits(data, "try-error")) {

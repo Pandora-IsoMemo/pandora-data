@@ -173,7 +173,7 @@ getDownloadExtension <- function(path, type) {
   paste0(".", tolower(type))
 }
 
-downloadRemoteResource <- function(path, type, userAgent = "pandora-isomemo") {
+downloadRemoteResource <- function(path, type) {
   tmpDir <- tempfile(pattern = "pandora-")
   dir.create(tmpDir)
 
@@ -182,7 +182,7 @@ downloadRemoteResource <- function(path, type, userAgent = "pandora-isomemo") {
     paste0("resource", getDownloadExtension(path = path, type = type))
   )
 
-  handle <- curl::new_handle(useragent = userAgent)
+  handle <- curl::new_handle(useragent = pandoraUserAgent())
   curl::curl_download(
     url = path,
     destfile = localPath,
