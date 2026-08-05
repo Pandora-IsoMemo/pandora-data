@@ -361,6 +361,9 @@ callAPI <- function(action = c("current_package_list_with_resources",
       url,
       handle = handle
     )
+    if (response$status_code != 200L) {
+      stop(sprintf("API request failed with HTTP status %d", response$status_code))
+    }
     jsonlite::fromJSON(rawToChar(response$content))
   }, silent = TRUE)
   
