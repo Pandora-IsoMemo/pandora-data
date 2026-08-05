@@ -182,7 +182,7 @@ downloadRemoteResource <- function(path, type) {
     paste0("resource", getDownloadExtension(path = path, type = type))
   )
 
-  handle <- curl::new_handle(useragent = pandoraUserAgent())
+  handle <- curl::new_handle(useragent = pandoraUser())
   curl::curl_download(
     url = path,
     destfile = localPath,

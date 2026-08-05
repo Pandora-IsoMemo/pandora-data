@@ -355,7 +355,7 @@ callAPI <- function(action = c("current_package_list_with_resources",
   }
 
   data <- try({
-    handle <- curl::new_handle(useragent = pandoraUserAgent())
+    handle <- curl::new_handle(useragent = pandoraUser())
     curl::handle_setheaders(handle, Accept = "application/json, text/*, */*")
     response <- curl::curl_fetch_memory(
       url,

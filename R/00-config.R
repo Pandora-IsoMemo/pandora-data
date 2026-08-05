@@ -3,6 +3,6 @@ config <- function() {
   yaml.load_file(config_path)
 }
 
-pandoraUserAgent <- function() {
+pandoraUser <- function() {
   "pandora-isomemo"
 }
