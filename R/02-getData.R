@@ -155,6 +155,7 @@ selectSingleFile <- function(resource) {
 }
 
 isRemotePath <- function(path) {
+  if (!is.character(path) || length(path) != 1 || is.na(path)) return(FALSE)
   grepl("^https?://", path, ignore.case = TRUE)
 }
 
