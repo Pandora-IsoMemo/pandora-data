@@ -240,24 +240,6 @@ loadData <-
     path <- resolved$path
     on.exit(if (!is.null(resolved$dir)) unlink(resolved$dir, recursive = TRUE, force = TRUE), add = TRUE)
     
-    # if(type == "csv" | type == "txt"){
-    #   codepages <- setNames(iconvlist(), iconvlist())
-    #   x <- lapply(codepages, function(enc) try(suppressWarnings({read.csv(path,
-    #                                                     fileEncoding=enc,
-    #                                                     sep = sep, dec = dec,
-    #                                                     stringsAsFactors = FALSE,
-    #                                                     row.names = NULL,
-    #                                                     nrows=3, header=TRUE)}),
-    #                                            silent = TRUE)) # you get lots of errors/warning here
-    #   x <- x[!sapply(x, function(y) class(y) %in% "try-error")]
-    #   maybe_ok <- which(sapply(x, function(y) isTRUE(all.equal(dim(y)[1], c(3)))))
-    #   if(length(maybe_ok) > 0){
-    #     fileEncoding <- names(maybe_ok[1])
-    #   } else {
-    #     fileEncoding <- ""
-    #   }
-    # }
-    
     if (fileEncoding == "") {
       fileEncoding <- guessFileEncoding(path)
     }
