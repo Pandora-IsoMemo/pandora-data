@@ -137,3 +137,21 @@ test_that("Test loadData()", {
     %in% colnames(testLoaded)
   ))
 })
+
+test_that("Test loadText()", {
+  textResource <- "https://pandoradata.earth/dataset/46fe7fc7-55a4-493d-91e8-c9abffbabcca/resource/f4b0a2b4-8f65-463d-aff4-2a31490abc78/download/oxcal_basic_code.txt"
+
+  testLoaded <- loadText(path = textResource) %>%
+    passOnErrorMsg()
+
+  expect_true(is.character(testLoaded))
+  expect_true(length(testLoaded) > 0)
+  expect_true(any(nchar(testLoaded) > 0))
+
+  testLoadedCollapsed <- loadText(path = textResource, collapse = TRUE) %>%
+    passOnErrorMsg()
+
+  expect_true(is.character(testLoadedCollapsed))
+  expect_equal(length(testLoadedCollapsed), 1)
+  expect_true(nchar(testLoadedCollapsed) > 0)
+})

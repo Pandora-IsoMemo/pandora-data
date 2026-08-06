@@ -334,6 +334,77 @@ loadData <-
     return(data)
   }
 
+#' Load Text
+#'
+#' @param path path or URL to a text file
+#' @param collapse (logical) if TRUE, collapse all lines to a single string
+#' @param lineSeparator (character) separator used when collapsing lines
+#' @inheritParams getData
+#' @inheritParams utils::read.csv
+#'
+#' @return (character vector) lines from the text file, or a single string if
+#'   collapse is TRUE
+#' @export
+loadText <- function(path,
+                     fileEncoding = "",
+                     collapse = FALSE,
+                     lineSeparator = "\n",
+                     verbose = TRUE) {
+  if (!is.character(path) || length(path) != 1 || is.na(path)) {
+    stop("'path' must be a single non-missing character value.")
+  }
+
+  if (!is.character(fileEncoding) || length(fileEncoding) != 1 || is.na(fileEncoding)) {
+    stop("'fileEncoding' must be a single non-missing character value.")
+  }
+
+  if (!is.logical(collapse) || length(collapse) != 1 || is.na(collapse)) {
+    stop("'collapse' must be a single non-missing logical value.")
+  }
+
+  if (!is.character(lineSeparator) || length(lineSeparator) != 1 || is.na(lineSeparator)) {
+    stop("'lineSeparator' must be a single non-missing character value.")
+  }
+
+  pathToRead <- path
+  tmpDir <- NULL
+
+  if (isRemotePath(path)) {
+    downloadedResource <- downloadRemoteResource(path = path, type = "txt")
+    pathToRead <- downloadedResource$path
+    tmpDir <- downloadedResource$dir
+  }
+
+  on.exit({
+    if (!is.null(tmpDir)) {
+      unlink(tmpDir, recursive = TRUE, force = TRUE)
+    }
+  }, add = TRUE)
+
+  if (fileEncoding == "") {
+    guessedEncoding <- suppressWarnings(guess_encoding(pathToRead))
+    if (nrow(guessedEncoding) > 0) {
+      fileEncoding <- as.character(guessedEncoding[1, 1])
+    }
+  }
+
+  if (verbose && fileEncoding != "") {
+    message(sprintf("Encoding: '%s'.\n", fileEncoding))
+  }
+
+  text <- if (fileEncoding == "") {
+    readLines(pathToRead, warn = FALSE)
+  } else {
+    readLines(pathToRead, warn = FALSE, encoding = fileEncoding)
+  }
+
+  if (collapse) {
+    return(paste(text, collapse = lineSeparator))
+  }
+
+  text
+}
+
 #' get nRow
 #'
 #' @param type (character) file type

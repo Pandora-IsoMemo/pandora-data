@@ -27,9 +27,10 @@ dataOptions(
 \item{dec}{the character used in the file for decimal points.}
 
 \item{fileEncoding}{character string: if non-empty declares the
-    encoding used on a file (not a connection) so the character data can
+    encoding used on a file when given as a character string (not on an
+    existing connection) so the character data can
     be re-encoded.  See the \sQuote{Encoding} section of the help for
-    \code{\link{file}}, the \sQuote{R Data Import/Export} manual and
+    \code{\link{file}}, {\href{https://cloud.R-project.org/doc/manuals/R-data.html#Variations-on-read_002etable}{\dQuote{Variations on read.table}} in \cite{R Data Import/Export}}, and
     \sQuote{Note}.
   }
 
