@@ -1,3 +1,8 @@
+# Pandora 26.08.1
+
+## Updates
+- added a new loadText() helper to the Pandora R package to load plain-text resources (local files or remote URLs), including optional line-collapsing, and refactored remote-download handling to be reusable across data loaders.
+
 # Pandora 26.08.0
 
 ## Bug Fixes

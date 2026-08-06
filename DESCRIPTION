@@ -1,7 +1,7 @@
 Package: Pandora
 Title: Retrieve Data using the API of the 'Pandora' Data Platform
-Version: 26.08.0
-Date: 2026-08-05
+Version: 26.08.1
+Date: 2026-08-06
 Authors@R: c(
           person("Jan", "Abel", , "jan.abel@inwt-statistics.de", "cre"),
           person("Antonia", "Runge", , "antonia.runge@inwt-statistics.de", "aut"),
@@ -33,5 +33,5 @@ Suggests:
     rmarkdown,
     testthat
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.3
 VignetteBuilder: knitr

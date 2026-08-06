@@ -154,6 +154,11 @@ selectSingleFile <- function(resource) {
   return(resource)
 }
 
+guessFileEncoding <- function(path) {
+  guessed <- suppressWarnings(readr::guess_encoding(path))
+  if (nrow(guessed) > 0) as.character(guessed[1, 1]) else ""
+}
+
 isRemotePath <- function(path) {
   if (!is.character(path) || length(path) != 1 || is.na(path)) return(FALSE)
   grepl("^https?://", path, ignore.case = TRUE)
@@ -202,6 +207,13 @@ downloadRemoteResource <- function(path, type) {
   list(path = localPath, dir = tmpDir)
 }
 
+# returns list(path, dir); caller must register on.exit(unlink(result$dir, ...))
+resolveLocalPath <- function(path, type) {
+  if (!isRemotePath(path)) return(list(path = path, dir = NULL))
+  downloaded <- downloadRemoteResource(path = path, type = type)
+  list(path = downloaded$path, dir = downloaded$dir)
+}
+
 #' Load Data
 #'
 #' @param path path to the file
@@ -224,32 +236,12 @@ loadData <-
            verbose = TRUE) {
     type <- match.arg(type)
 
-    if (isRemotePath(path)) {
-      downloadedResource <- downloadRemoteResource(path = path, type = type)
-      on.exit(unlink(downloadedResource$dir, recursive = TRUE, force = TRUE), add = TRUE)
-      path <- downloadedResource$path
-    }
-    
-    # if(type == "csv" | type == "txt"){
-    #   codepages <- setNames(iconvlist(), iconvlist())
-    #   x <- lapply(codepages, function(enc) try(suppressWarnings({read.csv(path,
-    #                                                     fileEncoding=enc,
-    #                                                     sep = sep, dec = dec,
-    #                                                     stringsAsFactors = FALSE,
-    #                                                     row.names = NULL,
-    #                                                     nrows=3, header=TRUE)}),
-    #                                            silent = TRUE)) # you get lots of errors/warning here
-    #   x <- x[!sapply(x, function(y) class(y) %in% "try-error")]
-    #   maybe_ok <- which(sapply(x, function(y) isTRUE(all.equal(dim(y)[1], c(3)))))
-    #   if(length(maybe_ok) > 0){
-    #     fileEncoding <- names(maybe_ok[1])
-    #   } else {
-    #     fileEncoding <- ""
-    #   }
-    # }
+    resolved <- resolveLocalPath(path = path, type = type)
+    path <- resolved$path
+    on.exit(if (!is.null(resolved$dir)) unlink(resolved$dir, recursive = TRUE, force = TRUE), add = TRUE)
     
     if (fileEncoding == "") {
-      fileEncoding <- as.character(guess_encoding(path)[1, 1])
+      fileEncoding <- guessFileEncoding(path)
     }
     
     if (type %in% c("csv", "txt")) {
@@ -333,6 +325,63 @@ loadData <-
     
     return(data)
   }
+
+#' Load Text
+#'
+#' @param path path or URL to a text file
+#' @param collapse (logical) if TRUE, collapse all lines to a single string
+#' @param lineSeparator (character) separator used when collapsing lines
+#' @inheritParams getData
+#' @inheritParams utils::read.csv
+#'
+#' @return (character vector) lines from the text file, or a single string if
+#'   collapse is TRUE
+#' @export
+loadText <- function(path,
+                     fileEncoding = "",
+                     collapse = FALSE,
+                     lineSeparator = "\n",
+                     verbose = TRUE) {
+  if (!is.character(path) || length(path) != 1 || is.na(path)) {
+    stop("'path' must be a single non-missing character value.")
+  }
+
+  if (!is.character(fileEncoding) || length(fileEncoding) != 1 || is.na(fileEncoding)) {
+    stop("'fileEncoding' must be a single non-missing character value.")
+  }
+
+  if (!is.logical(collapse) || length(collapse) != 1 || is.na(collapse)) {
+    stop("'collapse' must be a single non-missing logical value.")
+  }
+
+  if (!is.character(lineSeparator) || length(lineSeparator) != 1 || is.na(lineSeparator)) {
+    stop("'lineSeparator' must be a single non-missing character value.")
+  }
+
+  resolved <- resolveLocalPath(path = path, type = "txt")
+  pathToRead <- resolved$path
+  on.exit(if (!is.null(resolved$dir)) unlink(resolved$dir, recursive = TRUE, force = TRUE), add = TRUE)
+
+  if (fileEncoding == "") {
+    fileEncoding <- guessFileEncoding(pathToRead)
+  }
+
+  if (verbose && fileEncoding != "") {
+    message(sprintf("Encoding: '%s'.", fileEncoding))
+  }
+
+  text <- if (fileEncoding == "") {
+    readLines(pathToRead, warn = FALSE)
+  } else {
+    readLines(pathToRead, warn = FALSE, encoding = fileEncoding)
+  }
+
+  if (collapse) {
+    return(paste(text, collapse = lineSeparator))
+  }
+
+  text
+}
 
 #' get nRow
 #'
