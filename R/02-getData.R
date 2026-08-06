@@ -207,6 +207,13 @@ downloadRemoteResource <- function(path, type) {
   list(path = localPath, dir = tmpDir)
 }
 
+# returns list(path, dir); caller must register on.exit(unlink(result$dir, ...))
+resolveLocalPath <- function(path, type) {
+  if (!isRemotePath(path)) return(list(path = path, dir = NULL))
+  downloaded <- downloadRemoteResource(path = path, type = type)
+  list(path = downloaded$path, dir = downloaded$dir)
+}
+
 #' Load Data
 #'
 #' @param path path to the file
@@ -229,11 +236,9 @@ loadData <-
            verbose = TRUE) {
     type <- match.arg(type)
 
-    if (isRemotePath(path)) {
-      downloadedResource <- downloadRemoteResource(path = path, type = type)
-      on.exit(unlink(downloadedResource$dir, recursive = TRUE, force = TRUE), add = TRUE)
-      path <- downloadedResource$path
-    }
+    resolved <- resolveLocalPath(path = path, type = type)
+    path <- resolved$path
+    on.exit(if (!is.null(resolved$dir)) unlink(resolved$dir, recursive = TRUE, force = TRUE), add = TRUE)
     
     # if(type == "csv" | type == "txt"){
     #   codepages <- setNames(iconvlist(), iconvlist())
@@ -371,20 +376,9 @@ loadText <- function(path,
     stop("'lineSeparator' must be a single non-missing character value.")
   }
 
-  pathToRead <- path
-  tmpDir <- NULL
-
-  if (isRemotePath(path)) {
-    downloadedResource <- downloadRemoteResource(path = path, type = "txt")
-    pathToRead <- downloadedResource$path
-    tmpDir <- downloadedResource$dir
-  }
-
-  on.exit({
-    if (!is.null(tmpDir)) {
-      unlink(tmpDir, recursive = TRUE, force = TRUE)
-    }
-  }, add = TRUE)
+  resolved <- resolveLocalPath(path = path, type = "txt")
+  pathToRead <- resolved$path
+  on.exit(if (!is.null(resolved$dir)) unlink(resolved$dir, recursive = TRUE, force = TRUE), add = TRUE)
 
   if (fileEncoding == "") {
     fileEncoding <- guessFileEncoding(pathToRead)
