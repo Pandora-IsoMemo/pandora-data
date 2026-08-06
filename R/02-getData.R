@@ -154,6 +154,11 @@ selectSingleFile <- function(resource) {
   return(resource)
 }
 
+guessFileEncoding <- function(path) {
+  guessed <- suppressWarnings(readr::guess_encoding(path))
+  if (nrow(guessed) > 0) as.character(guessed[1, 1]) else ""
+}
+
 isRemotePath <- function(path) {
   if (!is.character(path) || length(path) != 1 || is.na(path)) return(FALSE)
   grepl("^https?://", path, ignore.case = TRUE)
@@ -249,7 +254,7 @@ loadData <-
     # }
     
     if (fileEncoding == "") {
-      fileEncoding <- as.character(guess_encoding(path)[1, 1])
+      fileEncoding <- guessFileEncoding(path)
     }
     
     if (type %in% c("csv", "txt")) {
@@ -382,10 +387,7 @@ loadText <- function(path,
   }, add = TRUE)
 
   if (fileEncoding == "") {
-    guessedEncoding <- suppressWarnings(guess_encoding(pathToRead))
-    if (nrow(guessedEncoding) > 0) {
-      fileEncoding <- as.character(guessedEncoding[1, 1])
-    }
+    fileEncoding <- guessFileEncoding(pathToRead)
   }
 
   if (verbose && fileEncoding != "") {
