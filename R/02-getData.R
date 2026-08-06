@@ -367,7 +367,7 @@ loadText <- function(path,
   }
 
   if (verbose && fileEncoding != "") {
-    message(sprintf("Encoding: '%s'.\n", fileEncoding))
+    message(sprintf("Encoding: '%s'.", fileEncoding))
   }
 
   text <- if (fileEncoding == "") {
