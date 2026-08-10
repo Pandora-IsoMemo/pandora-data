@@ -6,6 +6,7 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/Pandora-IsoMemo/pandora-data/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Pandora-IsoMemo/pandora-data/actions/workflows/R-CMD-check.yaml)
+[![pkgdown](https://github.com/Pandora-IsoMemo/llmModule/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/Pandora-IsoMemo/pandora-data/actions/workflows/pkgdown.yaml)
 <!-- badges: end -->
 
 This R-Package is a wrapper for the [CKAN
