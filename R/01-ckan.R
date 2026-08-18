@@ -357,16 +357,27 @@ callAPI <- function(action = c("current_package_list_with_resources",
   data <- try({
     handle <- curl::new_handle(useragent = pandoraUser())
     curl::handle_setheaders(handle, Accept = "application/json, text/*, */*")
-    response <- curl::curl_fetch_memory(
-      url,
-      handle = handle
-    )
+    response <- curl::curl_fetch_memory(url, handle = handle)
+
     if (response$status_code != 200L) {
-      stop(sprintf("API request failed with HTTP status %d", response$status_code))
+      stop(sprintf(
+      "Cannot access Pandora API (HTTP %d). The service may be temporarily unavailable.",
+      response$status_code
+      ))
     }
-    jsonlite::fromJSON(rawToChar(response$content))
+
+    body <- rawToChar(response$content)
+    content_type <- tolower(paste(response$headers["content-type"], collapse = ""))
+
+    # Common outage/proxy symptom: HTML page returned instead of JSON
+    if (!grepl("application/json", content_type, fixed = TRUE) &&
+        grepl("^\\s*<(?:!doctype\\s+html|html)\\b", tolower(substr(body, 1, 200)), perl = TRUE)) {
+      stop("Cannot access Pandora API: received HTML instead of JSON. The service may be down or unreachable.")
+    }
+
+    jsonlite::fromJSON(body)
   }, silent = TRUE)
-  
+
   if (inherits(data, "try-error")) {
     warning(data[[1]])
     res <- list()

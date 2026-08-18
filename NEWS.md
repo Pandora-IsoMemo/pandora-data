@@ -1,3 +1,8 @@
+# Pandora 26.08.2
+
+## Updates
+- Improved error handling and messages when the Pandora API is not accessible.
+
 # Pandora 26.08.1
 
 ## Updates
