@@ -119,12 +119,27 @@ test_that("Test getData() from csv", {
 })
 
 test_that("Test loadData()", {
+  testthat::skip_if_offline()
+
   testResource <-
     getResources(fileType = "xlsx",
                  network = "IsoMemo",
                  pattern = "14carhu")
+  if (nrow(testResource) == 0) {
+    testthat::skip("Skipping loadData() test because no matching remote resource was found.")
+  }
+
   testLoaded <-
-    loadData(path = testResource[1, "url"], type = testResource[1, "format"])
+    try(loadData(path = testResource[1, "url"], type = testResource[1, "format"]), silent = TRUE)
+
+  if (inherits(testLoaded, "try-error")) {
+    err <- as.character(testLoaded[[1]])
+    if (grepl("HTTP 429|timed out|timeout|could not resolve host|failed to connect|connection|SSL", err, ignore.case = TRUE)) {
+      testthat::skip(paste("Skipping loadData() test because remote source is temporarily unavailable:", err))
+    }
+    testthat::fail(paste("loadData() failed unexpectedly:", err))
+  }
+
   expect_true(nrow(testLoaded) > 2000)
   expect_true(all(
     c(

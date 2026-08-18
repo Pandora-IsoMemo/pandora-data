@@ -1,3 +1,8 @@
+# Pandora 26.08.3
+
+## Updates
+- Improved robustness of API-dependent tests by skipping on transient network failures (for example HTTP 429 rate limits and temporary connectivity issues)
+
 # Pandora 26.08.2
 
 ## Updates

@@ -1,8 +1,38 @@
+skipIfTransientApiFailure <- function(obj, context) {
+  if (inherits(obj, "try-error")) {
+    err <- as.character(obj[[1]])
+    if (grepl("HTTP 429|HTTP 5[0-9]{2}|timed out|timeout|could not resolve host|failed to connect|connection|SSL|temporarily unavailable|received HTML", err, ignore.case = TRUE)) {
+      testthat::skip(paste("Skipping", context, "because API/source is temporarily unavailable:", err))
+    }
+    testthat::fail(paste(context, "failed unexpectedly:", err))
+  }
+
+  errAttr <- attr(obj, "error")
+  if (is.null(errAttr)) errAttr <- attr(obj, "errorApi")
+
+  if (!is.null(errAttr)) {
+    err <- as.character(errAttr)
+    if (grepl("HTTP 429|HTTP 5[0-9]{2}|timed out|timeout|could not resolve host|failed to connect|connection|SSL|temporarily unavailable|received HTML", err, ignore.case = TRUE)) {
+      testthat::skip(paste("Skipping", context, "because API/source is temporarily unavailable:", err))
+    }
+    testthat::fail(paste(context, "failed unexpectedly:", err))
+  }
+
+  invisible(obj)
+}
+
 test_that("Test getResources()", {
-  expect_true(nrow(getResources(repository = "aghfjdhfjgkhj")) == 0)
+  testthat::skip_if_offline()
+
+  testResNone <- try(getResources(repository = "aghfjdhfjgkhj"), silent = TRUE)
+  skipIfTransientApiFailure(testResNone, "getResources()")
+  expect_true(nrow(testResNone) == 0)
+
+  testRes <- try(getResources(fileType = c("csv"), pattern = "victoria"), silent = TRUE)
+  skipIfTransientApiFailure(testRes, "getResources()")
   
   expect_equal(
-    getResources(fileType = c("csv"), pattern = "victoria"),
+    testRes,
     structure(list(repository = c(
       "austarch-a-database-of-14c-and-luminescence-ages-from-archaeological-sites-in-australia", 
       "austarch-a-database-of-14c-and-luminescence-ages-from-archaeological-sites-in-australia"),
@@ -16,10 +46,17 @@ test_that("Test getResources()", {
 })
 
 test_that("Test getFileTypes()", {
-  expect_true(nrow(getFileTypes(repository = "aghfjdhfjgkhj")) == 0)
+  testthat::skip_if_offline()
+
+  testTypesNone <- try(getFileTypes(repository = "aghfjdhfjgkhj"), silent = TRUE)
+  skipIfTransientApiFailure(testTypesNone, "getFileTypes()")
+  expect_true(nrow(testTypesNone) == 0)
+
+  testTypes <- try(getFileTypes(pattern = "victoria"), silent = TRUE)
+  skipIfTransientApiFailure(testTypes, "getFileTypes()")
   
   expect_equal(
-    getFileTypes(pattern = "victoria"),
+    testTypes,
     structure(list(
       name = "austarch-a-database-of-14c-and-luminescence-ages-from-archaeological-sites-in-australia", 
       format = "csv"), 
@@ -28,9 +65,14 @@ test_that("Test getFileTypes()", {
 })
 
 test_that("Test getRepositories()", {
-  expect_true(nrow(getRepositories(network = "aghfjdhfjgkhj")) == 0)
+  testthat::skip_if_offline()
+
+  testReposNone <- try(getRepositories(network = "aghfjdhfjgkhj"), silent = TRUE)
+  skipIfTransientApiFailure(testReposNone, "getRepositories()")
+  expect_true(nrow(testReposNone) == 0)
   
-  testRepos <- getRepositories(order = FALSE, renameColumns = FALSE)
+  testRepos <- try(getRepositories(order = FALSE, renameColumns = FALSE), silent = TRUE)
+  skipIfTransientApiFailure(testRepos, "getRepositories()")
   expect_equal(colnames(testRepos),
                c("title", "name", "notes", "ext_doi", "doi", "version", "author", 
                  "author_email", "maintainer", "maintainer_email", "temporal_start", 
@@ -48,7 +90,8 @@ test_that("Test getRepositories()", {
     ) %in% testRepos$title)
   )
   
-  testRepos <- getRepositories(pattern = "victor", network = "isomemo", order = FALSE)
+  testRepos <- try(getRepositories(pattern = "victor", network = "isomemo", order = FALSE), silent = TRUE)
+  skipIfTransientApiFailure(testRepos, "getRepositories()")
   expect_equal(
     "austarch-a-database-of-14c-and-luminescence-ages-from-archaeological-sites-in-australia",
     testRepos$Name
@@ -59,7 +102,8 @@ test_that("Test getRepositories()", {
     testRepos$Repository
   )
   
-  testRepos <- getRepositories(order = FALSE, renameColumns = TRUE)
+  testRepos <- try(getRepositories(order = FALSE, renameColumns = TRUE), silent = TRUE)
+  skipIfTransientApiFailure(testRepos, "getRepositories()")
   expect_equal(colnames(testRepos), 
                c("Repository", "Name", "Description", "Existing DOI", "Assigned DOI", 
                  "Version", "Author", "Author Email", "Maintainer", "Maintainer Email", 
@@ -68,10 +112,17 @@ test_that("Test getRepositories()", {
 })
 
 test_that("Test getNetworks()", {
-  expect_true(nrow(getNetworks(pattern = "aghfjdhfjgkhj")) == 0)
+  testthat::skip_if_offline()
+
+  testNetsNone <- try(getNetworks(pattern = "aghfjdhfjgkhj"), silent = TRUE)
+  skipIfTransientApiFailure(testNetsNone, "getNetworks()")
+  expect_true(nrow(testNetsNone) == 0)
+
+  testNets <- try(getNetworks(), silent = TRUE)
+  skipIfTransientApiFailure(testNets, "getNetworks()")
   
   expect_equal(
-    getNetworks(),
+    testNets,
     structure(list(name = "isomemo-group", 
                    display_name = "IsoMemo Network", 
                    description = "IsoMemo is a network of autonomous isotopic databases."), 
@@ -80,7 +131,10 @@ test_that("Test getNetworks()", {
 })
 
 test_that("Test filterPattern()", {
-  testRes <- callAPI(action = "current_package_list_with_resources", limit = 1000)
+  testthat::skip_if_offline()
+
+  testRes <- try(callAPI(action = "current_package_list_with_resources", limit = 1000), silent = TRUE)
+  skipIfTransientApiFailure(testRes, "callAPI()")
   
   expect_true(nrow(filterPattern(testRes, pattern = "Roman")) < nrow(testRes))
   expect_equal(filterPattern(testRes, pattern = "Roman"),
