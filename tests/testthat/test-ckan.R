@@ -1,26 +1,3 @@
-skipIfTransientApiFailure <- function(obj, context) {
-  if (inherits(obj, "try-error")) {
-    err <- as.character(obj[[1]])
-    if (grepl("HTTP 429|HTTP 5[0-9]{2}|timed out|timeout|could not resolve host|failed to connect|connection|SSL|temporarily unavailable|received HTML", err, ignore.case = TRUE)) {
-      testthat::skip(paste("Skipping", context, "because API/source is temporarily unavailable:", err))
-    }
-    testthat::fail(paste(context, "failed unexpectedly:", err))
-  }
-
-  errAttr <- attr(obj, "error")
-  if (is.null(errAttr)) errAttr <- attr(obj, "errorApi")
-
-  if (!is.null(errAttr)) {
-    err <- as.character(errAttr)
-    if (grepl("HTTP 429|HTTP 5[0-9]{2}|timed out|timeout|could not resolve host|failed to connect|connection|SSL|temporarily unavailable|received HTML", err, ignore.case = TRUE)) {
-      testthat::skip(paste("Skipping", context, "because API/source is temporarily unavailable:", err))
-    }
-    testthat::fail(paste(context, "failed unexpectedly:", err))
-  }
-
-  invisible(obj)
-}
-
 test_that("Test getResources()", {
   testthat::skip_if_offline()
 

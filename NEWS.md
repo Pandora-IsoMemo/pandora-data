@@ -1,3 +1,8 @@
+# Pandora 26.08.4
+
+## Updates
+-  Skipped `getData()`, `loadData()`, and `loadText()` tests on transient network failures, such as HTTP 429 rate limits and temporary connectivity issues.
+
 # Pandora 26.08.3
 
 ## Updates
