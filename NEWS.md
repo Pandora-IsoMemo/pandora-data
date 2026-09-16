@@ -1,3 +1,9 @@
+# Pandora 26.09.0
+
+## Updates
+- Updated base image to r-shiny:4.4.1.
+- Expanded and organized .Rbuildignore, .gitignore, and .dockerignore entries to reduce accidental inclusion of local/CI/build artifacts.
+
 # Pandora 26.08.4
 
 ## Updates

@@ -40,3 +40,14 @@ devtools::install_github("Pandora-IsoMemo/pandora-data")
 Refer to the vignette
 [how-to-use-pandora-data](https://pandora-isomemo.github.io/pandora-data/articles/how-to-use-pandora-data.html)
 for a description of the basics function of the pandora data package.
+
+## Notes for developers
+
+When adding information to the _help_ sites, _docstrings_ or the _vignette_ of this 
+package, please update documentation locally as follows. The documentation of
+the main branch is build automatically via github action.
+
+```R
+devtools::document() # or CTRL + SHIFT + D in RStudio
+devtools::build_site()
+```

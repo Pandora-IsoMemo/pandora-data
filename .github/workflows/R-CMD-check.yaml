@@ -20,10 +20,7 @@ jobs:
         config:
           - {os: macos-latest,   r: 'release'}
           - {os: windows-latest, r: 'release'}
-          # Use 3.6 to trigger usage of RTools35
-          # - {os: windows-latest, r: '3.6'}
-          # use 4.1 to check with rtools40's older compiler
-          - {os: windows-latest, r: '4.1'}
+          - {os: windows-latest, r: 'release'}
           - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest,   r: 'release'}
           - {os: ubuntu-latest,   r: 'oldrel-1'}
@@ -45,6 +42,12 @@ jobs:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
+
+      - name: Show R version
+        run: |
+          echo "Matrix R selector: ${{ matrix.config.r }}"
+          Rscript -e 'cat("Resolved R version:", R.version.string, "\n")'
+          Rscript -e 'cat("Repositories:\n"); print(getOption("repos"))'
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
