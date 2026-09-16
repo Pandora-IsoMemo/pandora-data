@@ -1,10 +1,9 @@
 pandoc: 3.8.3
-pkgdown: 2.0.7
+pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
   how-to-use-pandora-data: how-to-use-pandora-data.html
-last_built: 2026-08-18T12:33Z
+last_built: 2026-09-16T07:00Z
 urls:
   reference: https://pandora-isomemo.github.io/pandora-data/reference
   article: https://pandora-isomemo.github.io/pandora-data/articles
-

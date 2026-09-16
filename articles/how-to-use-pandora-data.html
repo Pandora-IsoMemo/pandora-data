@@ -5,64 +5,48 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Pandora">
 <title>How to use the Pandora Data Package • Pandora</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="How to use the Pandora Data Package">
-<meta property="og:description" content="Pandora">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="How to use the Pandora Data Package">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">Pandora</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">26.08.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">26.09.0</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/how-to-use-pandora-data.html">How to use the Pandora Data Package</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/how-to-use-pandora-data.html">How to use the Pandora Data Package</a></li>
+  </ul>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="../news/index.html">Changelog</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/Pandora-IsoMemo/pandora-data/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/Pandora-IsoMemo/pandora-data/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-article">
 
@@ -71,10 +55,11 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="" class="logo" alt=""><h1>How to use the Pandora Data Package</h1>
+
+      <h1>How to use the Pandora Data Package</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/Pandora-IsoMemo/pandora-data/blob/HEAD/vignettes/how-to-use-pandora-data.Rmd" class="external-link"><code>vignettes/how-to-use-pandora-data.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Pandora-IsoMemo/pandora-data/blob/main/vignettes/how-to-use-pandora-data.Rmd" class="external-link"><code>vignettes/how-to-use-pandora-data.Rmd</code></a></small>
       <div class="d-none name"><code>how-to-use-pandora-data.Rmd</code></div>
     </div>
 
@@ -97,7 +82,7 @@ about networks, repositories, file types, and resources.</p>
 function:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">networks</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getNetworks.html">getNetworks</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">networks</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span><span class="va">networks</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
@@ -105,12 +90,12 @@ function:</p>
 <col width="18%">
 <col width="64%">
 </colgroup>
-<thead><tr>
+<thead><tr class="header">
 <th align="left">name</th>
 <th align="left">display_name</th>
 <th align="left">description</th>
 </tr></thead>
-<tbody><tr>
+<tbody><tr class="odd">
 <td align="left">isomemo-group</td>
 <td align="left">IsoMemo Network</td>
 <td align="left">IsoMemo is a network of autonomous isotopic
@@ -131,123 +116,123 @@ network:</p>
 <span>  network <span class="op">=</span> <span class="st">"IsoMemo"</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="va">reposIsomemo</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Repository"</span><span class="op">)</span><span class="op">]</span>  <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span><span class="va">reposIsomemo</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Repository"</span><span class="op">)</span><span class="op">]</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
 <col width="2%">
 <col width="97%">
 </colgroup>
-<thead><tr>
+<thead><tr class="header">
 <th align="left"></th>
 <th align="left">Repository</th>
 </tr></thead>
 <tbody>
-<tr>
-<td align="left">71</td>
+<tr class="odd">
+<td align="left">70</td>
 <td align="left">14CARHU</td>
 </tr>
-<tr>
-<td align="left">86</td>
+<tr class="even">
+<td align="left">85</td>
 <td align="left">14SEA Project: A 14C database for Southeast Europe and
 Anatolia (10,000–3000 calBC)</td>
 </tr>
-<tr>
-<td align="left">69</td>
+<tr class="odd">
+<td align="left">68</td>
 <td align="left">AGEAS</td>
 </tr>
-<tr>
-<td align="left">62</td>
+<tr class="even">
+<td align="left">61</td>
 <td align="left">Amalthea: a Database of Isotopic measurements on
 Archaeological and Forensic Tooth Dentine Increments</td>
 </tr>
-<tr>
-<td align="left">82</td>
+<tr class="odd">
+<td align="left">81</td>
 <td align="left">ARCHIPELAGO human stable isotope database</td>
 </tr>
-<tr>
-<td align="left">83</td>
+<tr class="even">
+<td align="left">82</td>
 <td align="left">AustArch: A Database of 14C and Luminescence Ages from
 Archaeological Sites in Australia</td>
 </tr>
-<tr>
-<td align="left">79</td>
+<tr class="odd">
+<td align="left">78</td>
 <td align="left">BASE DE DATOS Iber-Crono</td>
 </tr>
-<tr>
-<td align="left">81</td>
+<tr class="even">
+<td align="left">80</td>
 <td align="left">CARD 2.0</td>
 </tr>
-<tr>
-<td align="left">22</td>
+<tr class="odd">
+<td align="left">21</td>
 <td align="left">CIMA: Compendium Isotoporum Medii Aevi</td>
 </tr>
-<tr>
-<td align="left">66</td>
+<tr class="even">
+<td align="left">65</td>
 <td align="left">Database for European 14C dates for the Bronze and
 Early Iron Age</td>
 </tr>
-<tr>
-<td align="left">85</td>
+<tr class="odd">
+<td align="left">84</td>
 <td align="left">Database our way to Europe</td>
 </tr>
-<tr>
-<td align="left">70</td>
+<tr class="even">
+<td align="left">69</td>
 <td align="left">dIANA</td>
 </tr>
-<tr>
-<td align="left">84</td>
+<tr class="odd">
+<td align="left">83</td>
 <td align="left">Edaphobase Open access Data Warehouse for Soil
 Biodiversity</td>
 </tr>
-<tr>
-<td align="left">80</td>
+<tr class="even">
+<td align="left">79</td>
 <td align="left">EPRG Jomon</td>
 </tr>
-<tr>
-<td align="left">75</td>
+<tr class="odd">
+<td align="left">74</td>
 <td align="left">INTIMATE: WG1 Database</td>
 </tr>
-<tr>
-<td align="left">73</td>
+<tr class="even">
+<td align="left">72</td>
 <td align="left">Intramolecular 2H profiles</td>
 </tr>
-<tr>
-<td align="left">14</td>
+<tr class="odd">
+<td align="left">13</td>
 <td align="left">LiVES isotopic database</td>
 </tr>
-<tr>
-<td align="left">17</td>
+<tr class="even">
+<td align="left">16</td>
 <td align="left">NEENA Stable Isotopes v.1</td>
 </tr>
-<tr>
-<td align="left">65</td>
+<tr class="odd">
+<td align="left">64</td>
 <td align="left">New Zealand Radicarbon Database</td>
 </tr>
-<tr>
-<td align="left">72</td>
+<tr class="even">
+<td align="left">71</td>
 <td align="left">Northern Hemisphere Modern leaf wax δDn-alkane
 dataset</td>
 </tr>
-<tr>
-<td align="left">68</td>
+<tr class="odd">
+<td align="left">67</td>
 <td align="left">ORAU database</td>
 </tr>
-<tr>
-<td align="left">67</td>
+<tr class="even">
+<td align="left">66</td>
 <td align="left">Radiocarbon Palaeolithic Europe Database v28</td>
 </tr>
-<tr>
-<td align="left">63</td>
+<tr class="odd">
+<td align="left">62</td>
 <td align="left">RADON - Radiocarbon dates online</td>
 </tr>
-<tr>
-<td align="left">74</td>
+<tr class="even">
+<td align="left">73</td>
 <td align="left">Royal Institute for Cultural Heritage Radiocarbon and
 stable isotope measurements</td>
 </tr>
-<tr>
-<td align="left">64</td>
+<tr class="odd">
+<td align="left">63</td>
 <td align="left">SWVID: Stable Water Vapor Isotope datasets</td>
 </tr>
 </tbody>
@@ -261,7 +246,7 @@ file types. The following example showcases file types available in the
 ‘IsoMemo’ network:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fileTypesIsomemo</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getFileTypes.html">getFileTypes</a></span><span class="op">(</span>network <span class="op">=</span> <span class="st">"isomemo"</span><span class="op">)</span></span>
-<span><span class="va">fileTypesIsomemo</span>  <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span><span class="va">fileTypesIsomemo</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
@@ -269,118 +254,118 @@ file types. The following example showcases file types available in the
 <col width="90%">
 <col width="6%">
 </colgroup>
-<thead><tr>
+<thead><tr class="header">
 <th align="left"></th>
 <th align="left">name</th>
 <th align="left">format</th>
 </tr></thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td align="left">15</td>
 <td align="left">14carhu</td>
 <td align="left">xlsx</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">22</td>
 <td align="left">14sea-project-a-14c-database-for-southeast-europe-and-anatolia-10-000-3000-calbc</td>
 <td align="left">xlsx</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">14</td>
 <td align="left">ageas</td>
 <td align="left">html</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">8</td>
 <td align="left">amalthea-a-database-of-isotopic-measurements-on-archaeological-and-forensic-tooth-dentine-increments</td>
 <td align="left">xlsx</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">9</td>
 <td align="left">amalthea-a-database-of-isotopic-measurements-on-archaeological-and-forensic-tooth-dentine-increments</td>
 <td align="left">docx</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">10</td>
 <td align="left">amalthea-a-database-of-isotopic-measurements-on-archaeological-and-forensic-tooth-dentine-increments</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">18</td>
 <td align="left">archipelago-human-stable-isotope-database</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">19</td>
 <td align="left">archipelago-human-stable-isotope-database</td>
 <td align="left">xlsx</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">20</td>
 <td align="left">archipelago-human-stable-isotope-database</td>
 <td align="left">rdata</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">21</td>
 <td align="left">austarch-a-database-of-14c-and-luminescence-ages-from-archaeological-sites-in-australia</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">4</td>
 <td align="left">cima-compendium-isotoporum-medii-aevi</td>
 <td align="left">xlsx</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">5</td>
 <td align="left">cima-compendium-isotoporum-medii-aevi</td>
 <td align="left">docx</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">6</td>
 <td align="left">cima-compendium-isotoporum-medii-aevi</td>
 <td align="left">rdata</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">7</td>
 <td align="left">cima-compendium-isotoporum-medii-aevi</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">17</td>
 <td align="left">eprg-jomon</td>
 <td align="left">xlsx</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">1</td>
 <td align="left">lives-isotopic-database</td>
 <td align="left">xlsx</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">2</td>
 <td align="left">neena-stable-isotopes</td>
 <td align="left">xlsx</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">3</td>
 <td align="left">neena-stable-isotopes</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">12</td>
 <td align="left">new-zealand-radicarbon-database</td>
 <td align="left">perl</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">16</td>
 <td align="left">northern-hemisphere-modern-leaf-wax-ddn-alkane-dataset</td>
 <td align="left">xlsx</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">13</td>
 <td align="left">radiocarbon-palaeolithic-europe-database-v28</td>
 <td align="left">xlsx</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">11</td>
 <td align="left">radon-radiocarbon-dates-online</td>
 <td align="left">csv</td>
@@ -402,139 +387,139 @@ whose meta information contains the string <code>plants</code>:</p>
 <span>  pattern <span class="op">=</span> <span class="st">"plant"</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="va">resourcesPlants</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"format"</span><span class="op">)</span><span class="op">]</span>  <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span><span class="va">resourcesPlants</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"format"</span><span class="op">)</span><span class="op">]</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
-<thead><tr>
+<thead><tr class="header">
 <th align="left">name</th>
 <th align="left">format</th>
 </tr></thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td align="left">Isotopic measurements in CSV format</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">Metadata description CSV</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">ADS_database_metadata_template_LV.csv</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">CIMA Animals 29.05.2021 CSV</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">CIMA Humans 29.05.2021 CSV</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">CIMA Plants 29.05.2021 CSV</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">Combined CIMA CSV 29.05.2021</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">IsoChina human dataset in CSV format</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">IsoMad Modern Biological Material v1</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">IsoMedIta Animals 21-12-22 - CSV</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">IsoMedIta Humans 21-12-22 - CSV</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">IsoMedIta Plants 21-12-22 - CSV</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">Isotòpia Animals (2024) csv</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">Isotòpia Humans (2024) csv</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">Isotòpia Plants (2024) csv</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">MAIA Animals CSV</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">MAIA Humans CSV</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">MAIA Plants CSV</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">Animal isotopic data CSV</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">Human isotopic data CSV</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">Plant isotopic data CSV</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">NEENA_Animals-v1.csv</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">NEENA_Humans-v1.csv</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">NEENA_Plants-v1.csv</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">PleIStO_ArchAID_Fauna_V.1.csv</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">PleIStO_ArchAID_Hominin_V.1.csv</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">saaid_V.2.0_2023_Animals.csv</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">saaid_V.2.0_2023_Humans.csv</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">saaid_V.2.0_2023_Plants.csv</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">OAPID 25.5.25</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="left">Wanyika chronological database in CSV format</td>
 <td align="left">csv</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="left">Zanadamu CSV format</td>
 <td align="left">csv</td>
 </tr>
@@ -554,9 +539,9 @@ example below demonstrates fetching data from the
 <span>  name <span class="op">=</span> <span class="st">"CIMA Animals 29.05.2021 CSV"</span>,</span>
 <span>  options <span class="op">=</span> <span class="fu"><a href="../reference/dataOptions.html">dataOptions</a></span><span class="op">(</span>sep <span class="op">=</span> <span class="st">";"</span><span class="op">)</span><span class="op">)</span> </span>
 <span><span class="co">#&gt; Encoding: 'UTF-8'.</span></span>
-<span><span class="va">isotopicData</span>  <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>  <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Entry_ID"</span>, <span class="st">"General_Category_Family"</span>, <span class="st">"Common_Name"</span>, <span class="st">"Sampled_Element"</span>, <span class="st">"Analysed_Component"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">isotopicData</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Entry_ID"</span>, <span class="st">"General_Category_Family"</span>, <span class="st">"Common_Name"</span>, <span class="st">"Sampled_Element"</span>, <span class="st">"Analysed_Component"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
@@ -566,7 +551,7 @@ example below demonstrates fetching data from the
 <col width="19%">
 <col width="23%">
 </colgroup>
-<thead><tr>
+<thead><tr class="header">
 <th align="right">Entry_ID</th>
 <th align="left">General_Category_Family</th>
 <th align="left">Common_Name</th>
@@ -574,35 +559,35 @@ example below demonstrates fetching data from the
 <th align="left">Analysed_Component</th>
 </tr></thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td align="right">1</td>
 <td align="left">Equid</td>
 <td align="left">Horse</td>
 <td align="left">Femur</td>
 <td align="left">Collagen</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="right">2</td>
 <td align="left">Cricetid</td>
 <td align="left">Vole</td>
 <td align="left">Cranium</td>
 <td align="left">Collagen</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="right">3</td>
 <td align="left">Cricetid</td>
 <td align="left">Vole</td>
 <td align="left">Mandible</td>
 <td align="left">Collagen</td>
 </tr>
-<tr>
+<tr class="even">
 <td align="right">4</td>
 <td align="left">Moronid</td>
 <td align="left">European Bass</td>
 <td align="left">Bone</td>
 <td align="left">Collagen</td>
 </tr>
-<tr>
+<tr class="odd">
 <td align="right">5</td>
 <td align="left">Moronid</td>
 <td align="left">European Bass</td>
@@ -612,28 +597,26 @@ example below demonstrates fetching data from the
 </tbody>
 </table>
 </div>
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
 
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p>
-<p>Developed by Jan Abel, Antonia Runge, Andreas Neudecker, Ricardo Fernandes.</p>
+  <p>Developed by Jan Abel, Antonia Runge, Andreas Neudecker, Ricardo Fernandes.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>
