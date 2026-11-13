@@ -4,7 +4,7 @@
 #' by file type or those within a specific network or within a specific repository
 #' optional filtering of meta information for a given string
 #'
-#' @param fileType (character) list of relevant file types, e.g. c("xls", "xlsx", "csv", "odt")
+#' @param fileType (character) list of relevant file types, e.g. c("xls", "xlsx", "csv", "ods")
 #' @param repository (character) name of a Pandora repository, e.g. an entry of the output from
 #'  \code{getRepositories()$name}
 #' @param network (character) name of a Pandora network, e.g. an entry of the output from

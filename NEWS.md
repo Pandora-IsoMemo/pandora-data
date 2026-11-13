@@ -1,3 +1,9 @@
+# Pandora 26.11.0
+
+## Bug Fixes
+- Fixed spreadsheet imports to accept ODS instead of ODT, including resource filtering.
+- Fixed ODS row limits to count data rows without truncating columns.
+
 # Pandora 26.09.0
 
 ## Updates
