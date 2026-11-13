@@ -3,6 +3,7 @@
 ## Bug Fixes
 - Fixed spreadsheet imports to accept ODS instead of ODT, including resource filtering (#23).
 - Fixed ODS row limits to count data rows without truncating columns.
+- Detect Excel formats from file contents so XLS and XLSX workbooks load correctly even with misleading filename extensions.
 
 # Pandora 26.09.0
 

@@ -5,7 +5,7 @@
 #' @importFrom openxlsx read.xlsx
 #' @importFrom readODS read_ods
 #' @importFrom readr guess_encoding 
-#' @importFrom readxl read_excel
+#' @importFrom readxl format_from_signature read_xls
 #' @importFrom rlang .data
 #' @importFrom stats na.omit
 #' @importFrom utils read.csv

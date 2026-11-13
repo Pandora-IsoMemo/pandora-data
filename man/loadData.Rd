@@ -19,7 +19,9 @@ loadData(
 \arguments{
 \item{path}{path to the file}
 
-\item{type}{(character) type of file, one of \code{c("xlsx", "xls", "ods", "csv", "txt")}}
+\item{type}{(character) type of file, one of \code{c("xlsx", "xls", "ods", "csv", "txt")}
+For either Excel type, the actual format is detected from file contents,
+regardless of the filename extension.}
 
 \item{nrows}{integer: the maximum number of rows to read in.  Negative
     and other invalid values are ignored.}

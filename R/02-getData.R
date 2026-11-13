@@ -218,6 +218,8 @@ resolveLocalPath <- function(path, type) {
 #'
 #' @param path path to the file
 #' @param type (character) type of file, one of \code{c("xlsx", "xls", "ods", "csv", "txt")}
+#'   For either Excel type, the actual format is detected from file contents,
+#'   regardless of the filename extension.
 #' @inheritParams utils::read.csv
 #' @inheritParams openxlsx::read.xlsx
 #' @inheritParams getData
@@ -249,10 +251,19 @@ loadData <-
       isOldROnWindows()
     }
     
-    if (type == "xlsx") {
-      xlsSplit <- strsplit(path, split = "\\.")[[1]]
-      if (xlsSplit[length(xlsSplit)] == "xls") {
-        type <- "xls"
+    if (type %in% c("xls", "xlsx")) {
+      type <- readxl::format_from_signature(path)
+      if (is.na(type)) {
+        stop(sprintf("Could not determine Excel format from file contents: '%s'.", path))
+      }
+      if (type == "xlsx" && !tolower(tools::file_ext(path)) %in% c("xlsx", "xlsm")) {
+        # openxlsx requires an XLSX extension even when the contents are XLSX.
+        xlsxPath <- tempfile(fileext = ".xlsx")
+        on.exit(unlink(xlsxPath), add = TRUE)
+        if (!file.copy(path, xlsxPath)) {
+          stop(sprintf("Failed to create temporary XLSX copy of '%s'.", path))
+        }
+        path <- xlsxPath
       }
     }
     
@@ -289,7 +300,7 @@ loadData <-
         rows = getNrow(type = type, nrows = nrows)
       ),
       xls = suppressWarnings({
-        readxl::read_excel(
+        readxl::read_xls(
           path,
           sheet = sheet,
           col_names = colNames,
