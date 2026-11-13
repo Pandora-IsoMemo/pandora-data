@@ -37,11 +37,11 @@ dataOptions(
 \item{sheet}{The name or index of the sheet to read data from.}
 }
 \value{
-a list of extra options for \code{utils::read.csv()} or \code{openxlsx::read.xlsx()} or
-\code{readxl::read_excel}, respectively
+a list of extra options for \code{utils::read.csv()}, \code{openxlsx::read.xlsx()},
+\code{readxl::read_excel} or \code{readODS::read_ods}, respectively
 }
 \description{
-Set options for \code{utils::read.csv()}, \code{openxlsx::read.xlsx()} or
-\code{readxl::read_excel}. Choose delimiter and decimal separator as well
-as sheetnumbner and number of rows to read.
+Set options for \code{utils::read.csv()}, \code{openxlsx::read.xlsx()},
+\code{readxl::read_excel} or \code{readODS::read_ods}. Choose delimiter and decimal
+separator as well as sheet and number of rows to read.
 }

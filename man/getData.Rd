@@ -17,8 +17,8 @@ getData(name, repository = "", verbose = TRUE, options = dataOptions())
 If TRUE, messages will be displayed; if FALSE, messages will be suppressed.
 Default is TRUE.}
 
-\item{options}{(list) a list of extra options for \code{read.csv()} or \code{openxlsx::read.xlsx()} and
-\code{readxl::read_excel}}
+\item{options}{(list) a list of extra options for \code{read.csv()}, \code{openxlsx::read.xlsx()},
+\code{readxl::read_excel} or \code{readODS::read_ods}}
 }
 \value{
 (data.frame) return data from the Pandora API

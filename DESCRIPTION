@@ -1,7 +1,7 @@
 Package: Pandora
 Title: Retrieve Data using the API of the 'Pandora' Data Platform
-Version: 26.09.0
-Date: 2026-09-16
+Version: 26.11.0
+Date: 2026-11-13
 Authors@R: c(
           person("Jan", "Abel", , "jan.abel@inwt-statistics.de", "cre"),
           person("Antonia", "Runge", , "antonia.runge@inwt-statistics.de", "aut"),
@@ -21,7 +21,7 @@ Imports:
   jsonlite,
   magrittr,
   openxlsx,
-  readODS,
+  readODS (>= 2.2.0),
   readr,
   readxl,
   rlang,

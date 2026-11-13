@@ -5,8 +5,8 @@
 #' @param verbose Logical, indicating whether to display processing messages.
 #'   If TRUE, messages will be displayed; if FALSE, messages will be suppressed.
 #'   Default is TRUE.
-#' @param options (list) a list of extra options for \code{read.csv()} or \code{openxlsx::read.xlsx()} and
-#'  \code{readxl::read_excel}
+#' @param options (list) a list of extra options for \code{read.csv()}, \code{openxlsx::read.xlsx()},
+#'  \code{readxl::read_excel} or \code{readODS::read_ods}
 #' @inheritParams getResources
 #'
 #' @return (data.frame) return data from the Pandora API
@@ -69,15 +69,15 @@ getData <- function(name,
 
 #' Data Options
 #'
-#' Set options for \code{utils::read.csv()}, \code{openxlsx::read.xlsx()} or 
-#' \code{readxl::read_excel}. Choose delimiter and decimal separator as well
-#' as sheetnumbner and number of rows to read.
+#' Set options for \code{utils::read.csv()}, \code{openxlsx::read.xlsx()},
+#' \code{readxl::read_excel} or \code{readODS::read_ods}. Choose delimiter and decimal
+#' separator as well as sheet and number of rows to read.
 #'
 #' @inheritParams utils::read.csv
 #' @inheritParams openxlsx::read.xlsx
 #'
-#' @return a list of extra options for \code{utils::read.csv()} or \code{openxlsx::read.xlsx()} or
-#'  \code{readxl::read_excel}, respectively
+#' @return a list of extra options for \code{utils::read.csv()}, \code{openxlsx::read.xlsx()},
+#'  \code{readxl::read_excel} or \code{readODS::read_ods}, respectively
 #' @export
 dataOptions <- function(nrows = NA_integer_,
                         colNames = TRUE,
@@ -217,7 +217,9 @@ resolveLocalPath <- function(path, type) {
 #' Load Data
 #'
 #' @param path path to the file
-#' @param type (character) type of file, one of \code{c("xlsx", "xls", "odt", "csv", "txt")}
+#' @param type (character) type of file, one of \code{c("xlsx", "xls", "ods", "csv", "txt")}
+#'   For either Excel type, the actual format is detected from file contents,
+#'   regardless of the filename extension.
 #' @inheritParams utils::read.csv
 #' @inheritParams openxlsx::read.xlsx
 #' @inheritParams getData
@@ -226,7 +228,7 @@ resolveLocalPath <- function(path, type) {
 #' @export
 loadData <-
   function(path,
-           type = c("xlsx", "xls", "odt", "csv", "txt"),
+           type = c("xlsx", "xls", "ods", "csv", "txt"),
            nrows = NA_integer_,
            sep = ",",
            dec = ".",
@@ -249,10 +251,19 @@ loadData <-
       isOldROnWindows()
     }
     
-    if (type == "xlsx") {
-      xlsSplit <- strsplit(path, split = "\\.")[[1]]
-      if (xlsSplit[length(xlsSplit)] == "xls") {
-        type <- "xls"
+    if (type %in% c("xls", "xlsx")) {
+      type <- readxl::format_from_signature(path)
+      if (is.na(type)) {
+        stop(sprintf("Could not determine Excel format from file contents: '%s'.", path))
+      }
+      if (type == "xlsx" && !tolower(tools::file_ext(path)) %in% c("xlsx", "xlsm")) {
+        # openxlsx requires an XLSX extension even when the contents are XLSX.
+        xlsxPath <- tempfile(fileext = ".xlsx")
+        on.exit(unlink(xlsxPath), add = TRUE)
+        if (!file.copy(path, xlsxPath)) {
+          stop(sprintf("Failed to create temporary XLSX copy of '%s'.", path))
+        }
+        path <- xlsxPath
       }
     }
     
@@ -289,19 +300,25 @@ loadData <-
         rows = getNrow(type = type, nrows = nrows)
       ),
       xls = suppressWarnings({
-        readxl::read_excel(
+        readxl::read_xls(
           path,
           sheet = sheet,
           col_names = colNames,
           n_max = getNrow(type = type, nrows = nrows)
         )
       }),
-      ods = readODS::read_ods(
-        path,
-        sheet = sheet,
-        col_names = colNames,
-        range = getNrow(type = type, nrows = nrows)
-      )
+      ods = {
+        rowLimit <- getNrow(type = type, nrows = nrows)
+        data <- readODS::read_ods(
+          path,
+          sheet = sheet,
+          col_names = colNames,
+          n_max = rowLimit
+        )
+        # readODS can include an extra row when col_names is FALSE.
+        if (is.finite(rowLimit)) data <- utils::head(data, rowLimit)
+        data
+      }
     )
     
     if (type %in% c("csv", "txt")) {
@@ -393,15 +410,12 @@ getNrow <- function(type, nrows = NA_integer_) {
     if (type == "xlsx")
       return(1:nrows)
     else
-      if (type == "ods")
-        return(paste0("A1:C", nrows))
-    else
       return(nrows)
   } else {
-    if (type %in% c("xlsx", "ods"))
+    if (type == "xlsx")
       return(NULL)
     else
-      if (type == "xls")
+      if (type %in% c("xls", "ods"))
         return(Inf)
     else
       return(-999)
