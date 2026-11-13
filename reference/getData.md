@@ -29,10 +29,11 @@ getData(name, repository = "", verbose = TRUE, options = dataOptions())
 - options:
 
   (list) a list of extra options for
-  [`read.csv()`](https://rdrr.io/r/utils/read.table.html) or
-  [`openxlsx::read.xlsx()`](https://rdrr.io/pkg/openxlsx/man/read.xlsx.html)
-  and
+  [`read.csv()`](https://rdrr.io/r/utils/read.table.html),
+  [`openxlsx::read.xlsx()`](https://rdrr.io/pkg/openxlsx/man/read.xlsx.html),
   [`readxl::read_excel`](https://readxl.tidyverse.org/reference/read_excel.html)
+  or
+  [`readODS::read_ods`](https://docs.ropensci.org/readODS/reference/read_ods.html)
 
 ## Value
 

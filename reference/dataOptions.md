@@ -2,11 +2,12 @@
 
 Set options for
 [`utils::read.csv()`](https://rdrr.io/r/utils/read.table.html),
-[`openxlsx::read.xlsx()`](https://rdrr.io/pkg/openxlsx/man/read.xlsx.html)
+[`openxlsx::read.xlsx()`](https://rdrr.io/pkg/openxlsx/man/read.xlsx.html),
+[`readxl::read_excel`](https://readxl.tidyverse.org/reference/read_excel.html)
 or
-[`readxl::read_excel`](https://readxl.tidyverse.org/reference/read_excel.html).
-Choose delimiter and decimal separator as well as sheetnumbner and
-number of rows to read.
+[`readODS::read_ods`](https://docs.ropensci.org/readODS/reference/read_ods.html).
+Choose delimiter and decimal separator as well as sheet and number of
+rows to read.
 
 ## Usage
 
@@ -60,8 +61,9 @@ dataOptions(
 ## Value
 
 a list of extra options for
-[`utils::read.csv()`](https://rdrr.io/r/utils/read.table.html) or
-[`openxlsx::read.xlsx()`](https://rdrr.io/pkg/openxlsx/man/read.xlsx.html)
+[`utils::read.csv()`](https://rdrr.io/r/utils/read.table.html),
+[`openxlsx::read.xlsx()`](https://rdrr.io/pkg/openxlsx/man/read.xlsx.html),
+[`readxl::read_excel`](https://readxl.tidyverse.org/reference/read_excel.html)
 or
-[`readxl::read_excel`](https://readxl.tidyverse.org/reference/read_excel.html),
+[`readODS::read_ods`](https://docs.ropensci.org/readODS/reference/read_ods.html),
 respectively

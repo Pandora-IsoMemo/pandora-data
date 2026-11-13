@@ -49,31 +49,31 @@ reposIsomemo[c("Repository")]  %>%
 
 |  | Repository |
 |:---|:---|
-| 70 | 14CARHU |
-| 85 | 14SEA Project: A 14C database for Southeast Europe and Anatolia (10,000–3000 calBC) |
-| 68 | AGEAS |
-| 61 | Amalthea: a Database of Isotopic measurements on Archaeological and Forensic Tooth Dentine Increments |
-| 81 | ARCHIPELAGO human stable isotope database |
-| 82 | AustArch: A Database of 14C and Luminescence Ages from Archaeological Sites in Australia |
-| 78 | BASE DE DATOS Iber-Crono |
-| 80 | CARD 2.0 |
-| 21 | CIMA: Compendium Isotoporum Medii Aevi |
-| 65 | Database for European 14C dates for the Bronze and Early Iron Age |
-| 84 | Database our way to Europe |
-| 69 | dIANA |
-| 83 | Edaphobase Open access Data Warehouse for Soil Biodiversity |
-| 79 | EPRG Jomon |
-| 74 | INTIMATE: WG1 Database |
-| 72 | Intramolecular 2H profiles |
-| 13 | LiVES isotopic database |
-| 16 | NEENA Stable Isotopes v.1 |
-| 64 | New Zealand Radicarbon Database |
-| 71 | Northern Hemisphere Modern leaf wax δDn-alkane dataset |
-| 67 | ORAU database |
-| 66 | Radiocarbon Palaeolithic Europe Database v28 |
-| 62 | RADON - Radiocarbon dates online |
-| 73 | Royal Institute for Cultural Heritage Radiocarbon and stable isotope measurements |
-| 63 | SWVID: Stable Water Vapor Isotope datasets |
+| 72 | 14CARHU |
+| 87 | 14SEA Project: A 14C database for Southeast Europe and Anatolia (10,000–3000 calBC) |
+| 70 | AGEAS |
+| 63 | Amalthea: a Database of Isotopic measurements on Archaeological and Forensic Tooth Dentine Increments |
+| 83 | ARCHIPELAGO human stable isotope database |
+| 84 | AustArch: A Database of 14C and Luminescence Ages from Archaeological Sites in Australia |
+| 80 | BASE DE DATOS Iber-Crono |
+| 82 | CARD 2.0 |
+| 23 | CIMA: Compendium Isotoporum Medii Aevi |
+| 67 | Database for European 14C dates for the Bronze and Early Iron Age |
+| 86 | Database our way to Europe |
+| 71 | dIANA |
+| 85 | Edaphobase Open access Data Warehouse for Soil Biodiversity |
+| 81 | EPRG Jomon |
+| 76 | INTIMATE: WG1 Database |
+| 74 | Intramolecular 2H profiles |
+| 2 | LiVES Public Isotope Collection Nitrogen Carbon (PICNiC) |
+| 18 | NEENA Stable Isotopes v.1 |
+| 66 | New Zealand Radicarbon Database |
+| 73 | Northern Hemisphere Modern leaf wax δDn-alkane dataset |
+| 69 | ORAU database |
+| 68 | Radiocarbon Palaeolithic Europe Database v28 |
+| 64 | RADON - Radiocarbon dates online |
+| 75 | Royal Institute for Cultural Heritage Radiocarbon and stable isotope measurements |
+| 65 | SWVID: Stable Water Vapor Isotope datasets |
 
 ## List Available File Types
 

@@ -7,7 +7,7 @@ Load Data
 ``` r
 loadData(
   path,
-  type = c("xlsx", "xls", "odt", "csv", "txt"),
+  type = c("xlsx", "xls", "ods", "csv", "txt"),
   nrows = NA_integer_,
   sep = ",",
   dec = ".",
@@ -27,7 +27,9 @@ loadData(
 - type:
 
   (character) type of file, one of
-  `c("xlsx", "xls", "odt", "csv", "txt")`
+  `c("xlsx", "xls", "ods", "csv", "txt")` For either Excel type, the
+  actual format is detected from file contents, regardless of the
+  filename extension.
 
 - nrows:
 
